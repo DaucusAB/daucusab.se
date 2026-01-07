@@ -2,10 +2,133 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Daucus AB</title>
+  <meta name="description" content="Daucus AB – ett modernt företag med fokus på kvalitet och enkelhet.">
+
+  <!-- Open Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #EEEBD3;
+      --text-color: #1E5553;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Open Sans", Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-size: 11px; /* brödtext 10–11 */
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 100px 20px 80px;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      font-size: 26px;
+      margin: 0 0 24px;
+    }
+
+    header p {
+      max-width: 600px;
+      margin: 0 auto 40px;
+      font-size: 11px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 14px 30px;
+      border: 2px solid var(--text-color);
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    .button:hover {
+      background: var(--text-color);
+      color: var(--bg-color);
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+    }
+
+    .card {
+      padding: 32px;
+      border: 1px solid rgba(30, 85, 83, 0.25);
+      border-radius: 12px;
+      background: rgba(255,255,255,0.35);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 10px;
+      opacity: 0.8;
+    }
+  </style>
 </head>
 <body>
-  <h1>Välkommen till Daucus AB!</h1>
-  <p>Detta är vår nya hemsida.</p>
+
+  <header>
+    <h1>Daucus AB</h1>
+    <p>
+      Ett modernt företag med fokus på kvalitet, struktur och långsiktiga lösningar.
+    </p>
+    <a class="button" href="mailto:info@daucus.se">Kontakta oss</a>
+  </header>
+
+  <section>
+    <h2>Vad vi gör</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Tjänst 1</h3>
+        <p>Beskriv kort vad ni erbjuder och vilket värde det skapar för kunden.</p>
+      </div>
+
+      <div class="card">
+        <h3>Tjänst 2</h3>
+        <p>En tydlig, enkel formulering som bygger förtroende.</p>
+      </div>
+
+      <div class="card">
+        <h3>Tjänst 3</h3>
+        <p>Fokusera på nytta, kvalitet och långsiktighet.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Daucus AB · Sverige
+  </footer>
+
 </body>
 </html>
