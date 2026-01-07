@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Tjänst 1 – Daucus AB>
+  <title>Gårdsbutik – Daucus AB</title>
 
   <!-- Open Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,17 +11,53 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --bg-color: #EEEBD3;
+      --text-color: #1E5553;
+    }
+
     body {
       margin: 0;
       font-family: "Open Sans", Arial, sans-serif;
-      background: #EEEBD3;
-      color: #1E5553;
+      background-color: var(--bg-color);
+      color: var(--text-color);
       font-size: 11px;
       line-height: 1.6;
     }
 
+    /* MENY */
+    nav {
+      width: 100%;
+      background-color: #1E5553;
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 18px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    nav li {
+      margin: 0;
+    }
+
+    nav a {
+      color: #EEEBD3;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
     main {
-      max-width: 700px;
+      max-width: 800px;
       margin: auto;
       padding: 60px 20px;
     }
@@ -30,35 +66,93 @@
       font-size: 26px;
       font-weight: 700;
       margin-bottom: 24px;
+      text-align: center;
     }
 
-    a {
-      color: #1E5553;
-      text-decoration: none;
+    h2 {
+      font-size: 20px;
       font-weight: 700;
+      margin-top: 40px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      margin-bottom: 16px;
+    }
+
+    /* LOGGA LÄNGST NER */
+    .logo-container {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .logo-container img {
+      width: 7cm;
+      height: 4cm;
+      object-fit: contain;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 10px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
 
-<main>
-  <h1>Tjänst 1</h1>
+  <!-- MENY -->
+  <nav>
+    <ul>
+      <li><a href="index.html">Hem</a></li>
+      <li><a href="tjanst1.html">Cafe och bakning</a></li>
+      <li><a href="gardsbutik.html">Gårdsbutik</a></li>
+      <li><a href="tjanst3.html">Kostrådgivning och föreläsningar</a></li>
+      <li><a href="ommig.html">Om mig</a></li>
+      <li><a href="kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
 
-  <p>
-    Här kan ni skriva mer detaljerat om tjänsten.
-    Beskriv hur den fungerar, vem den passar för
-    och vad som gör er unika.
-  </p>
+  <main>
+    <h1>Gårdsbutik</h1>
 
-  <p>
-    Exempelvis: allergivänligt fika, säsongsbaserat utbud,
-    personligt bemötande eller hållbar odling.
-  </p>
+    <p>
+      Välkommen till vår gårdsbutik! Här hittar du produkter i säsong som är odlade eller tillverkade med omtanke och hållbarhet.
+    </p>
 
-  <p>
-    <a href="index.html">← Tillbaka till startsidan</a>
-  </p>
-</main>
+    <h2>Vad vi erbjuder</h2>
+    <p>
+      I butiken finns härodlade grönsaker, färska plantor, blommor, handgjorda hantverksprodukter, presenter och andra säsongsbaserade varor.
+      Vi strävar efter hög kvalitet och miljövänliga alternativ.
+    </p>
+
+    <h2>Besök oss</h2>
+    <p>
+      Butiken är öppen under säsong och vi uppdaterar öppettiderna löpande på vår hemsida och sociala medier.  
+      Kom gärna förbi och upptäck nya produkter varje vecka!
+    </p>
+
+    <h2>Vår filosofi</h2>
+    <p>
+      Vi vill skapa en plats där människor kan handla med glädje och trygghet, veta att allt är noga utvalt och att hållbarhet står i centrum.
+    </p>
+
+    <p>
+      <a href="index.html">← Tillbaka till startsidan</a>
+    </p>
+  </main>
+
+  <!-- LOGGA LÄNGST NER -->
+  <div class="logo-container">
+    <img src="Namnlös design_20251112_121116_0000.png" alt="Daucus AB">
+  </div>
+
+  <footer>
+    © 2026 Daucus AB · Sverige
+  </footer>
 
 </body>
-</html>
+  </html>
