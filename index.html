@@ -27,12 +27,25 @@
       font-family: "Open Sans", Arial, sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
-      font-size: 11px; /* brödtext 10–11 */
+      font-size: 11px; /* brödtext */
       line-height: 1.6;
     }
 
+    /* LOGO OVERLAY */
+    .logo-container {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+    }
+
+    .logo-container img {
+      height: 50px; /* justera storlek på loggan */
+      width: auto;
+    }
+
     header {
-      padding: 100px 20px 80px;
+      padding: 140px 20px 80px; /* extra topp för logga */
       text-align: center;
     }
 
@@ -97,12 +110,17 @@
 </head>
 <body>
 
+  <!-- LOGO ÖVERLIGGARE -->
+  <div class="logo-container">
+    <img src="Namnlös design_20251112_121116_0000.png" alt="Daucus AB">
+  </div>
+
   <header>
     <h1>Daucus AB</h1>
     <p>
       Ett modernt företag med fokus på kvalitet, struktur och långsiktiga lösningar.
     </p>
-    <a class="button" href="mailto:info@daucus.se">Kontakta oss</a>
+    <a class="button" href="mailto:daucusab@gmail.com">Kontakta oss</a>
   </header>
 
   <section>
