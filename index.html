@@ -142,6 +142,53 @@ nav a:hover {
       font-size: 10px;
       opacity: 0.8;
     }
+
+    .contact-footer {
+  background-color: #1E5553; /* samma som menyn */
+  color: #EEEBD3;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.contact-footer a {
+  color: #EEEBD3;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.contact-footer a:hover {
+  text-decoration: underline;
+}
+
+.contact-footer .contact-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.contact-footer .contact-email {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* Sociala ikoner */
+.social-icons a {
+  margin: 0 10px;
+  display: inline-block;
+}
+
+.social-icons img {
+  width: 24px;  /* ändra storlek efter behov */
+  height: 24px;
+  vertical-align: middle;
+}
+
+/* Mobilanpassning */
+@media (max-width: 600px) {
+  .social-icons img {
+    width: 32px;
+    height: 32px;
+  }
   </style>
 </head>
 <body>
@@ -207,13 +254,29 @@ nav a:hover {
     <img src="Namnlös design_20251112_121116_0000.png" alt="Daucus AB">
       </div>
 
-  <footer>
-    © 2026 Daucus AB · Sverige
-  </footer>
+  <!-- KONTAKTRUTA -->
+<div class="contact-footer">
+  <p class="contact-title">Kontakt mig</p>
+  <p class="contact-email"><a href="mailto:daucusab@gmail.com">daucusab@gmail.com</a></p>
+
+  <div class="social-icons">
+    <a href="https://www.instagram.com/daucusab?igsh=dHdsbmxmZjN0M2tx" target="_blank">
+      <img src="instagram-icon.png" alt="Instagram">
+    </a>
+    <a href="https://www.facebook.com/share/1DEEpK6NmA/" target="_blank">
+      <img src="facebook-icon.png" alt="Facebook">
+    </a>
+  </div>
+</div>
+
+<footer>
+  © 2026 Daucus AB · Sverige
+</footer>
 
 </body>
 
 </html>
+
 
 
 
