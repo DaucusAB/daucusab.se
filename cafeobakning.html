@@ -23,7 +23,7 @@
       color: var(--text-color);
       font-size: 11px;
       line-height: 1.6;
-    } 
+    }
 
     /* MENY */
     nav {
@@ -36,13 +36,9 @@
       margin: 0;
       padding: 18px 20px;
       display: flex;
-      flex-wrap: wrap;
       gap: 20px;
       justify-content: center;
-    }
-
-    nav li {
-      margin: 0;
+      flex-wrap: wrap;
     }
 
     nav a {
@@ -56,30 +52,20 @@
       text-decoration: underline;
     }
 
-    <div class="cafe-images">
-  <img src="PSX_20251112_113726.jpg" alt="Café och bakning">
-  <img src="PSX_20250910_171726.jpg" alt="Café och bakning">
-  <img src="PSX_20251026_150420.jpg" alt="Café och bakning">
-</div>
-
     main {
       max-width: 700px;
       margin: auto;
       padding: 60px 20px;
       text-align: center;
     }
-    }
 
     h1 {
       font-size: 26px;
-      font-weight: 700;
       margin-bottom: 24px;
-      text-align: center;
     }
 
     h2 {
       font-size: 20px;
-      font-weight: 700;
       margin-top: 40px;
       margin-bottom: 16px;
     }
@@ -88,9 +74,57 @@
       margin-bottom: 16px;
     }
 
-    /* LOGGA LÄNGST NER */
+    /* BESTÄLLNINGSKNAPP */
+    .order-button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 40px 0;
+    }
+
+    .order-text {
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .order-button a {
+      background-color: #1E5553;
+      color: #EEEBD3;
+      padding: 14px 28px;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 4px;
+    }
+
+    /* BILDER */
+    .cafe-images {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .cafe-images img {
+      width: 5cm;
+      height: 5cm;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    @media (max-width: 600px) {
+      .cafe-images {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .order-button a {
+        font-size: 13px;
+        padding: 18px 34px;
+      }
+    }
+
+    /* LOGGA */
     .logo-container {
-      width: 100%;
       display: flex;
       justify-content: center;
       padding: 20px 0;
@@ -104,139 +138,59 @@
 
     footer {
       text-align: center;
-      padding: 40px 20px;
       font-size: 10px;
-      opacity: 0.8;
+      padding: 40px 20px;
     }
-
-    /* BILDER CAFÉ */
-.cafe-images {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 40px;
-}
-
-.cafe-images img {
-  width: 5cm;
-  height: 5cm;
-  object-fit: cover;
-  border-radius: 4px;
-    }
-
-    /* MOBIL */
-@media (max-width: 600px) {
-  .cafe-images {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
-/* BESTÄLLNINGSKNAPP */
-.order-button {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px 0;
-}
-
-.order-text {
-  font-weight: 700;
-  margin-bottom: 12px;
-  font-size: 11px;
-}
-
-.order-button a {
-  background-color: #1E5553;
-  color: #EEEBD3;
-  padding: 14px 28px;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 11px;
-  border-radius: 4px;
-  letter-spacing: 0.5px;
-}
-
-.order-button a:hover {
-  opacity: 0.9;
-}
-
-/* MOBIL – större knapp */
-@media (max-width: 600px) {
-  .order-button a {
-    font-size: 13px;
-    padding: 18px 34px;
-  }
-
-  .order-text {
-    font-size: 12px;
-  }
-}
-
   </style>
 </head>
+
 <body>
 
-  <!-- MENY -->
-  <nav>
-    <ul>
-      <li><a href="index.html">Hem</a></li>
-      <li><a href="cafeobakning.html">Cafe och bakning</a></li>
-      <li><a href="gardsbutik.html">Gårdsbutik</a></li>
-      <li><a href="tjanst3.html">Kostrådgivning och föreläsningar</a></li>
-      <li><a href="ommig.html">Om mig</a></li>
-      <li><a href="kontakt.html">Kontakt</a></li>
-    </ul>
-  </nav>
+<nav>
+  <ul>
+    <li><a href="index.html">Hem</a></li>
+    <li><a href="cafeobakning.html">Cafe och bakning</a></li>
+    <li><a href="gardsbutik.html">Gårdsbutik</a></li>
+    <li><a href="tjanst3.html">Kostrådgivning och föreläsningar</a></li>
+    <li><a href="ommig.html">Om mig</a></li>
+    <li><a href="kontakt.html">Kontakt</a></li>
+  </ul>
+</nav>
 
-  <main>
-    <h1>Café och bakning</h1>
+<main>
+  <h1>Café och bakning</h1>
 
-    <p>
-      Välkommen till vårt café! Här bakar vi allt från grunden med kärlek och omtanke.
-      Allt är alltid vegetariskt och fritt från mjölkprotein och ägg – perfekt för allergivänliga alternativ.
-    </p>
+  <p>
+    Välkommen till vårt café! Här bakar vi allt från grunden.
+    Allt är alltid vegetariskt och fritt från mjölkprotein och ägg.
+  </p>
 
-    <h2>Våra produkter</h2>
-    <p>
-      Vi erbjuder ett varierat utbud av bröd, kakor, bullar och bakverk som ändras efter säsong.
-      Allt bakas färskt på plats och är handgjort med hög kvalitet.
-    </p>
-
-    <h2>Hållbarhet och omtanke</h2>
-    <p>
-      Vi använder så långt som möjligt lokala och ekologiska råvaror.
-      Målet är att skapa smakrika bakverk som är både goda och hållbara.
-    </p>
-
-    <h2>Besök oss</h2>
-    <p>
-      Kom förbi och njut av ett gott fika, ta med hem eller kombinera med ett besök i vår gårdsbutik.
-      Vi uppdaterar öppettider på hemsidan och sociala medier.
-    </p>
-
-    <div class="order-button">
-      <p class="order-text">Förbeställ fika här</p>
-  <a
-  href="https://docs.google.com/forms/d/e/1FAIpQLScUOfrHR9v51ZD2tvEpbMpNd1jb8i43j_uvSx2Wkk0YKoy7Rw/viewform?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcAPMRMhleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafx8Cym6LM7A4z9x_VoO9AE3opWC8Nkq5zlkX2gdVTUu8vs3pem46SQasxobA_aem_HkihOki2q-bp7ZXwbuBmbQ"
-     target="_blank">
-    Klicka här för att beställa 🎂🍪☕
-  </a>
-    </div>
-
-    <p>
-      <a href="index.html">← Tillbaka till startsidan</a>
-    </p>
-  </main>
-
-  <!-- LOGGA LÄNGST NER -->
-  <div class="logo-container">
-    <img src="Namnlös design_20251112_121116_0000.png" alt="Daucus AB">
+  <div class="order-button">
+    <p class="order-text">Förbeställ fika här</p>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLScUOfrHR9v51ZD2tvEpbMpNd1jb8i43j_uvSx2Wkk0YKoy7Rw/viewform" target="_blank">
+      Klicka här för att beställa 🎂🍪☕
+    </a>
   </div>
 
-  <footer>
-    © 2026 Daucus AB · Sverige
-  </footer>
+  <!-- BILDER -->
+  <div class="cafe-images">
+    <img src="PSX_20251112_113726.jpg" alt="Café">
+    <img src="PSX_20250910_171726.jpg" alt="Bakverk">
+    <img src="PSX_20251026_150420.jpg" alt="Fika">
+  </div>
+
+  <p>
+    <a href="index.html">← Tillbaka till startsidan</a>
+  </p>
+</main>
+
+<div class="logo-container">
+  <img src="Namnlös design_20251112_121116_0000.png" alt="Daucus AB">
+</div>
+
+<footer>
+  © 2026 Daucus AB · Sverige
+</footer>
 
 </body>
 </html>
