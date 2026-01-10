@@ -241,19 +241,6 @@ nav a:hover {
 </head>
 
   <script>
-  const testimonials = document.querySelectorAll(".testimonial");
-  let current = 0;
-
-  setInterval(() => {
-    testimonials[current].classList.remove("active");
-    testimonials[current].classList.add("exit");
-
-    current = (current + 1) % testimonials.length;
-
-    testimonials[current].classList.remove("exit");
-    testimonials[current].classList.add("active");
-  }, 5000);
-  </script>
 <body>
 
   <nav>
@@ -374,40 +361,20 @@ nav a:hover {
   © 2026 Daucus AB • Kolbäck • Sverige
 </footer>
 
+const testimonials = document.querySelectorAll(".testimonial");
+  let current = 0;
+
+  setInterval(() => {
+    testimonials[current].classList.remove("active");
+    testimonials[current].classList.add("exit");
+
+    current = (current + 1) % testimonials.length;
+
+    testimonials[current].classList.remove("exit");
+    testimonials[current].classList.add("active");
+  }, 5000);
+  </script>
+    
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
