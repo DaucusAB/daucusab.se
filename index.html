@@ -189,35 +189,41 @@ nav a:hover {
     height: 32px;
   }
 
-  /* TESTIMONIAL SLIDER */
+  /* TESTIMONIALS */
+.testimonial-section {
+  margin: 40px auto 20px; /* minskar avstånd uppåt */
+  text-align: center;
+}
+
 .testimonial-slider {
   position: relative;
-  max-width: 500px;
-  margin: 40px auto;
-  height: 150px;
+  max-width: 520px;
+  height: 170px;
+  margin: 0 auto;
   overflow: hidden;
+  border-radius: 14px;
 }
 
 .testimonial {
   position: absolute;
-  top: 0;
-  left: 100%;
-  width: 100%;
-  padding: 20px;
+  inset: 0;
+  padding: 24px;
   background-color: #1E5553;
   color: #EEEBD3;
-  border-radius: 12px;
+  border-radius: 14px;
+  box-sizing: border-box;
   opacity: 0;
-  transition: all 0.6s ease;
+  transform: translateX(100%);
+  transition: transform 0.7s ease, opacity 0.7s ease;
 }
 
 .testimonial.active {
-  left: 0;
   opacity: 1;
+  transform: translateX(0);
 }
 
 .testimonial.exit {
-  left: -100%;
+  transform: translateX(-100%);
   opacity: 0;
 }
 
@@ -227,16 +233,27 @@ nav a:hover {
 }
 
 .testimonial .quote {
-  font-size: 11px;
+  font-size: 12px;
   font-style: italic;
   margin-bottom: 14px;
 }
 
 .testimonial .author {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   text-align: right;
+}
+
+/* MOBIL */
+@media (max-width: 600px) {
+  .testimonial-slider {
+    height: 200px;
   }
+
+  .testimonial .quote {
+    font-size: 13px;
+  }
+      }
   </style>
 </head>
 
@@ -266,32 +283,33 @@ nav a:hover {
   </header>
 <section>
 
-<section class="testimonial-slider">
-  <div class="testimonial active">
-    <p class="stars">⭐⭐⭐⭐⭐</p>
-    <p class="quote">
-      “Otroligt gott fika och så skönt att allt är allergivänligt.
-      Alla kunde äta av samma fika – det uppskattades verkligen!”
-    </p>
-    <p class="author">– Maria, Kolbäck</p>
-  </div>
+<section class="testimonial-section">
+  <h2>Vad säger kunderna?</h2>
 
-  <div class="testimonial">
-    <p class="stars">⭐⭐⭐⭐⭐</p>
-    <p class="quote">
-      “Smidigt att beställa, fantastiskt bemötande och allt var jättegott.
-      Kommer definitivt beställa igen.”
-    </p>
-    <p class="author">– Johan</p>
-  </div>
+  <div class="testimonial-slider">
+    <div class="testimonial active">
+      <div class="stars">★★★★★</div>
+      <div class="quote">
+        Fantastiskt gott fika och otroligt fint bemötande. Kommer absolut beställa igen!
+      </div>
+      <div class="author">– Anna</div>
+    </div>
 
-  <div class="testimonial">
-    <p class="stars">⭐⭐⭐⭐⭐</p>
-    <p class="quote">
-      “Professionell, inkännande och väldigt kunnig.
-      Jag fick konkreta råd som faktiskt fungerade i vardagen.”
-    </p>
-    <p class="author">– Anna</p>
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="quote">
+        Allergivänligt fika som verkligen smakar! Så uppskattat på vårt kalas.
+      </div>
+      <div class="author">– Johan</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="quote">
+        Proffsigt, personligt och supergott. Rekommenderas varmt.
+      </div>
+      <div class="author">– Maria</div>
+    </div>
   </div>
 </section>
   
@@ -359,8 +377,8 @@ nav a:hover {
   © 2026 Daucus AB • Kolbäck • Sverige
 </footer>
 
-  <script>
-const testimonials = document.querySelectorAll(".testimonial");
+<script>
+  const testimonials = document.querySelectorAll(".testimonial");
   let current = 0;
 
   setInterval(() => {
@@ -372,11 +390,12 @@ const testimonials = document.querySelectorAll(".testimonial");
     testimonials[current].classList.remove("exit");
     testimonials[current].classList.add("active");
   }, 5000);
-  </script>
+</script>
     
 </body>
 
 </html>
+
 
 
 
