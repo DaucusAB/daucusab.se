@@ -1,1 +1,336 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <meta name="description" content="Daucus AB – Allergivänligt fika, gårdsbutik och kostrådgivning.">
+
+  <!-- Open Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #EEEBD3;
+      --green: #1E5553;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Open Sans", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--green);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* MENY */
+    nav {
+      background-color: var(--green);
+    }
+
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 18px 20px;
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: var(--bg);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 11px;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* LOGGA */
+    .logo-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .logo-container img {
+      width: 7cm;
+      height: 4cm;
+      object-fit: contain;
+    }
+
+    /* HEADER */
+    header {
+      text-align: center;
+      padding: 40px 20px 20px;
+    }
+
+    header p {
+      max-width: 600px;
+      margin: 0 auto 20px;
+      font-size: 11px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 28px;
+      border: 2px solid var(--green);
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .button:hover {
+      background: var(--green);
+      color: var(--bg);
+    }
+
+    /* TESTIMONIALS */
+    .testimonial-section {
+      margin: 10px auto 40px;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .testimonial-slider {
+      position: relative;
+      max-width: 520px;
+      height: 170px;
+      margin: 10px auto 0;
+      overflow: hidden;
+      border-radius: 14px;
+    }
+
+    .testimonial {
+      position: absolute;
+      inset: 0;
+      padding: 24px;
+      background-color: var(--green);
+      color: var(--bg);
+      border-radius: 14px;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: transform 0.7s ease, opacity 0.7s ease;
+    }
+
+    .testimonial.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .testimonial.exit {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .stars {
+      margin-bottom: 8px;
+    }
+
+    .quote {
+      font-size: 12px;
+      font-style: italic;
+    }
+
+    .author {
+      font-size: 11px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    /* SECTIONS */
+    section {
+      max-width: 900px;
+      margin: auto;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      margin-bottom: 24px;
+    }
+
+    /* KORT – KLICKBARA */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .card {
+      padding: 32px;
+      background: rgba(255, 255, 255, 0.35);
+      border-radius: 12px;
+      height: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+    }
+
+    .card h3 {
+      margin-bottom: 12px;
+    }
+
+    /* KONTAKTRUTA */
+    .contact-footer {
+      background-color: var(--green);
+      color: var(--bg);
+      text-align: center;
+      padding: 20px;
+    }
+
+    .contact-footer a {
+      color: var(--bg);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .social-icons img {
+      width: 24px;
+      margin: 0 8px;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 10px;
+      padding: 40px 20px;
+    }
+
+    @media (max-width: 600px) {
+      .testimonial-slider {
+        height: 200px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <ul>
+    <li><a href="index.html">Hem</a></li>
+    <li><a href="cafeobakning.html">Cafe och bakning</a></li>
+    <li><a href="gardsbutik.html">Gårdsbutik</a></li>
+    <li><a href="kostradgivning.html">Kostrådgivning</a></li>
+    <li><a href="ommig.html">Om mig</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="logo-container">
+    <img src="logga.jpg" alt="Daucus AB">
+  </div>
+
+  <p>
+    En cafevagn med allergivänligt fika, gårdsbutik och kostrådgivning.
+  </p>
+
+  <a class="button" href="mailto:daucusab@gmail.com">Kontakta mig</a>
+</header>
+
+<section class="testimonial-section">
+  <h2>Vad säger kunderna?</h2>
+
+  <div class="testimonial-slider">
+    <div class="testimonial active">
+      <div class="stars">★★★★★</div>
+      <div class="quote">Fantastiskt gott fika och fint bemötande.</div>
+      <div class="author">– Anna</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="quote">Allergivänligt fika som verkligen smakar.</div>
+      <div class="author">– Johan</div>
+    </div>
+
+    <div class="testimonial">
+      <div class="stars">★★★★★</div>
+      <div class="quote">Proffsigt, personligt och supergott.</div>
+      <div class="author">– Maria</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Vad erbjuder Daucus</h2>
+
+  <div class="cards">
+    <a href="cafeobakning.html" class="card-link">
+      <div class="card">
+        <h3>Cafe och bakning</h3>
+        <p>
+          Allergivänligt fika bakat från grunden. Upphämtning i Kolbäck.
+        </p>
+      </div>
+    </a>
+
+    <a href="gardsbutik.html" class="card-link">
+      <div class="card">
+        <h3>Gårdsbutik</h3>
+        <p>
+          Produkter i säsong – grönsaker, plantor och blommor.
+        </p>
+      </div>
+    </a>
+
+    <a href="kostradgivning.html" class="card-link">
+      <div class="card">
+        <h3>Kostrådgivning & föreläsningar</h3>
+        <p>
+          Friskvård, kurser och föreläsningar inom kost och odling.
+        </p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<div class="contact-footer">
+  <p><strong>Kontakta mig</strong></p>
+  <p><a href="mailto:daucusab@gmail.com">daucusab@gmail.com</a></p>
+
+  <div class="social-icons">
+    <img src="instagram-icon.png" alt="Instagram">
+    <img src="facebook-icon.png" alt="Facebook">
+  </div>
+</div>
+
+<footer>
+  © 2026 Daucus AB • Kolbäck • Sverige
+</footer>
+
+<script>
+  const testimonials = document.querySelectorAll(".testimonial");
+  let current = 0;
+
+  setInterval(() => {
+    testimonials[current].classList.remove("active");
+    testimonials[current].classList.add("exit");
+
+    current = (current + 1) % testimonials.length;
+
+    testimonials[current].classList.remove("exit");
+    testimonials[current].classList.add("active");
+  }, 5000);
+</script>
+
+</body>
+  </html>
