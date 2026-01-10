@@ -188,8 +188,72 @@ nav a:hover {
     width: 32px;
     height: 32px;
   }
+
+  /* TESTIMONIAL SLIDER */
+.testimonial-slider {
+  position: relative;
+  max-width: 500px;
+  margin: 80px auto;
+  height: 220px;
+  overflow: hidden;
+}
+
+.testimonial {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 100%;
+  padding: 30px;
+  background-color: #1E5553;
+  color: #EEEBD3;
+  border-radius: 12px;
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.testimonial.active {
+  left: 0;
+  opacity: 1;
+}
+
+.testimonial.exit {
+  left: -100%;
+  opacity: 0;
+}
+
+.testimonial .stars {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.testimonial .quote {
+  font-size: 11px;
+  font-style: italic;
+  margin-bottom: 14px;
+}
+
+.testimonial .author {
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+  }
   </style>
 </head>
+
+  <script>
+  const testimonials = document.querySelectorAll(".testimonial");
+  let current = 0;
+
+  setInterval(() => {
+    testimonials[current].classList.remove("active");
+    testimonials[current].classList.add("exit");
+
+    current = (current + 1) % testimonials.length;
+
+    testimonials[current].classList.remove("exit");
+    testimonials[current].classList.add("active");
+  }, 5000);
+  </script>
 <body>
 
   <nav>
@@ -215,6 +279,36 @@ nav a:hover {
     <a class="button" href="mailto:daucusab@gmail.com">Kontakta mig</a>
   </header>
 <section>
+
+<section class="testimonial-slider">
+  <div class="testimonial active">
+    <p class="stars">⭐⭐⭐⭐⭐</p>
+    <p class="quote">
+      “Otroligt gott fika och så skönt att allt är allergivänligt.
+      Alla kunde äta av samma fika – det uppskattades verkligen!”
+    </p>
+    <p class="author">– Maria, Kolbäck</p>
+  </div>
+
+  <div class="testimonial">
+    <p class="stars">⭐⭐⭐⭐⭐</p>
+    <p class="quote">
+      “Smidigt att beställa, fantastiskt bemötande och allt var jättegott.
+      Kommer definitivt beställa igen.”
+    </p>
+    <p class="author">– Johan</p>
+  </div>
+
+  <div class="testimonial">
+    <p class="stars">⭐⭐⭐⭐⭐</p>
+    <p class="quote">
+      “Professionell, inkännande och väldigt kunnig.
+      Jag fick konkreta råd som faktiskt fungerade i vardagen.”
+    </p>
+    <p class="author">– Anna</p>
+  </div>
+</section>
+  
   <h2>Vad erbjuder Daucus</h2>
 
   <div class="cards">
@@ -283,6 +377,7 @@ nav a:hover {
 </body>
 
 </html>
+
 
 
 
