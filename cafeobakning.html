@@ -63,7 +63,7 @@
 
     nav a:hover {
       text-decoration: underline;
-    }
+    } 
 
     main {
       max-width: 700px;
@@ -181,6 +181,60 @@
     height: 2200px;
   }
     }
+
+    /* FADE CAROUSEL */
+.fade-carousel {
+  position: relative;
+  width: 100%;
+  max-widht: 500px;
+  height: 300px;
+  margin: 60px auto;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+fade-carousel img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+.fade-carousel img.active {
+  opacity: 1;
+}
+    
+/* Mobil */
+@media (max-width: 600px) {
+  .fade-carousel img {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+    /* PRICKAR */
+.carousel-dots {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-dots .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(238, 235, 211, 0.5); /* beige */
+}
+
+.carousel-dots .dot.active {
+  background-color: #EEEBD3;
+    }
   </style>
 </head>
 
@@ -246,6 +300,32 @@ Allt är bakat utan mjölk (mjölkprotein och laktos) och utan ägg. Sortimentet
   <p>
     <a href="index.html">← Tillbaka till startsidan</a>
   </p>
+  
+    <section class="fade-carousel">
+  <img src="cafe1.jpg" alt="Café" class="carousel-image active">
+  <img src="cafe2.jpg" alt="Bakning" class="carousel-image">
+  <img src="cafe3.jpg" alt="Fika" class="carousel-image">
+  <img src="cafe4.jpg" alt="Bakverk" class="carousel-image">
+  <img src="cafe5.jpg" alt="Kaka" class="carousel-image">
+  <img src="cafe6.jpg" alt="Bröd" class="carousel-image">
+  <img src="cafe7.jpg" alt="Allergivänligt">
+  <img src="cafe8.jpg" alt="Veganskt fika">
+  <img src="cafe9.jpg" alt="Café Daucus">
+
+      <!-- PRICKAR -->
+  <div class="carousel-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+  </section>
+
 </main>
 
 <div class="logo-container">
@@ -256,5 +336,37 @@ Allt är bakat utan mjölk (mjölkprotein och laktos) och utan ägg. Sortimentet
   © 2026 Daucus AB • Kolbäck • Sverige
 </footer>
 
+  <script>
+  const images = document.querySelectorAll(".fade-carousel img.carousel-image");
+  const dots = document.querySelectorAll(".carousel-dots .dot");
+  let currentIndex = 0;
+  let interval;
+
+  function showImage(index) {
+    images.forEach(img => img.classList.remove("active"));
+    dots.forEach(dot => dot.classList.remove("active"));
+
+    images[index].classList.add("active");
+    dots[index].classList.add("active");
+  }
+
+  function startCarousel() {
+    interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }, 2000);
+  }
+
+  function stopCarousel() {
+    clearInterval(interval);
+  }
+
+  startCarousel();
+
+  const carousel = document.querySelector(".fade-carousel");
+  carousel.addEventListener("mouseenter", stopCarousel);
+  carousel.addEventListener("mouseleave", startCarousel);
+</script>
+  
 </body>
 </html>
