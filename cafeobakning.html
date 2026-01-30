@@ -182,18 +182,18 @@
   }
     }
 
-    /* FADE CAROUSEL */
-.fade-carousel {
+    /* KARUSELL */
+    .fade-carousel {
   position: relative;
   width: 100%;
-  max-widht: 500px;
+  max-width: 520px;
   height: 300px;
-  margin: 60px auto;
+  margin: 40px auto;
   overflow: hidden;
   border-radius: 14px;
 }
 
-fade-carousel img {
+.fade-carousel img {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -206,16 +206,8 @@ fade-carousel img {
 .fade-carousel img.active {
   opacity: 1;
 }
-    
-/* Mobil */
-@media (max-width: 600px) {
-  .fade-carousel img {
-    width: 160px;
-    height: 160px;
-  }
-}
 
-    /* PRICKAR */
+/* PRICKAR */
 .carousel-dots {
   position: absolute;
   bottom: 12px;
@@ -229,12 +221,13 @@ fade-carousel img {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: rgba(238, 235, 211, 0.5); /* beige */
+  background-color: rgba(238, 235, 211, 0.5);
 }
 
 .carousel-dots .dot.active {
   background-color: #EEEBD3;
-    }
+}
+
   </style>
 </head>
 
@@ -302,16 +295,16 @@ Allt är bakat utan mjölk (mjölkprotein och laktos) och utan ägg. Sortimentet
   </p>
   
     <section class="fade-carousel">
-  <img src="cafe1.png" alt="Café" class="carousel-image active">
-  <img src="cafe2.png" alt="Bakning" class="carousel-image">
-  <img src="cafe3.png" alt="Fika" class="carousel-image">
-  <img src="cafe4.png" alt="Bakverk" class="carousel-image">
-  <img src="cafe5.png" alt="Kaka" class="carousel-image">
-  <img src="cafe6.png" alt="Bröd" class="carousel-image">
-  <img src="cafe7.png" alt="Allergivänligt">
-  <img src="cafe8.png" alt="Veganskt fika">
-  <img src="cafe9.png" alt="Café Daucus">
-
+  <img src="cafe1.png" class="carousel-image active" alt="Café">
+  <img src="cafe2.png" class="carousel-image" alt="Bakning">
+  <img src="cafe3.png" class="carousel-image" alt="Fika">
+  <img src="cafe4.png" class="carousel-image" alt="Bakverk">
+  <img src="cafe5.png" class="carousel-image" alt="Kaka">
+  <img src="cafe6.png" class="carousel-image" alt="Bröd">
+  <img src="cafe7.png" class="carousel-image" alt="Allergivänligt">
+  <img src="cafe8.png" class="carousel-image" alt="Veganskt fika">
+  <img src="cafe9.png" class="carousel-image" alt="Café Daucus">
+    
       <!-- PRICKAR -->
   <div class="carousel-dots">
     <span class="dot active"></span>
@@ -337,8 +330,8 @@ Allt är bakat utan mjölk (mjölkprotein och laktos) och utan ägg. Sortimentet
 </footer>
 
   <script>
-  const images = document.querySelectorAll(".fade-carousel img.carousel-image");
-  const dots = document.querySelectorAll(".carousel-dots .dot");
+  const images = document.querySelectorAll(".carousel-image");
+  const dots = document.querySelectorAll(".dot");
   let currentIndex = 0;
   let interval;
 
@@ -366,7 +359,7 @@ Allt är bakat utan mjölk (mjölkprotein och laktos) och utan ägg. Sortimentet
   const carousel = document.querySelector(".fade-carousel");
   carousel.addEventListener("mouseenter", stopCarousel);
   carousel.addEventListener("mouseleave", startCarousel);
-</script>
+  </script>
   
 </body>
 </html>
