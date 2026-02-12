@@ -113,6 +113,57 @@
       font-size: 10px;
       opacity: 0.8;
     }
+
+    .image-carousel {
+  max-width: 700px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  overflow: hidden;
+}
+
+.carousel-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.carousel-image.active {
+  opacity: 1;
+}
+
+.carousel-dots {
+  margin-top: 12px;
+}
+
+.dot {
+  height: 8px;
+  width: 8px;
+  margin: 0 4px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.active {
+  background-color: #1E5553;
+}
+
+/* Mobil */
+@media (max-width: 600px) {
+  .carousel {
+    height: 220px;
+  }
+}
   </style>
 </head>
 <body>
@@ -158,6 +209,32 @@
       <p>Butiken finns i Kolbäck, en lugn ort ca två mil utanför Västerås.
         <p>
 
+          <section class="image-carousel">
+  <div class="carousel">
+    <img src="gard1.jpg" class="carousel-image active" alt="Gårdsbutik bild 1">
+    <img src="gard2.jpg" class="carousel-image" alt="Gårdsbutik bild 2">
+    <img src="gard3.jpg" class="carousel-image" alt="Gårdsbutik bild 3">
+    <img src="gard4.jpg" class="carousel-image" alt="Gårdsbutik bild 4">
+    <img src="gard5.jpg" class="carousel-image" alt="Gårdsbutik bild 5">
+    <img src="gard6.jpg" class="carousel-image" alt="Gårdsbutik bild 6">
+    <img src="gard7.jpg" class="carousel-image" alt="Gårdsbutik bild 7">
+    <img src="gard8.jpg" class="carousel-image" alt="Gårdsbutik bild 8">
+    <img src="gard9.jpg" class="carousel-image" alt="Gårdsbutik bild 9">
+  </div>
+
+  <div class="carousel-dots">
+    <span class="dot active"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+          </section>
+
     <h2>Betalningsalternativ</h2>
     <p>
       Privatperson - Swish
@@ -179,5 +256,36 @@
     © 2026 Daucus AB • Kolbäck • Sverige
   </footer>
 
+<script>
+let currentImage = 0;
+const images = document.querySelectorAll(".carousel-image");
+const dots = document.querySelectorAll(".dot");
+const carousel = document.querySelector(".carousel");
+
+function showImage(index) {
+  images.forEach(img => img.classList.remove("active"));
+  dots.forEach(dot => dot.classList.remove("active"));
+
+  images[index].classList.add("active");
+  dots[index].classList.add("active");
+}
+
+let interval = setInterval(nextImage, 2000);
+
+function nextImage() {
+  currentImage = (currentImage + 1) % images.length;
+  showImage(currentImage);
+}
+
+// Pausa vid hover
+carousel.addEventListener("mouseenter", () => {
+  clearInterval(interval);
+});
+
+carousel.addEventListener("mouseleave", () => {
+  interval = setInterval(nextImage, 2000);
+});
+</script>
+  
 </body>
   </html>
