@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Vallisarnas Mysterium</title>
+
+<style>
+
+body{
+
+margin:0;
+padding:0;
+
+background:
+linear-gradient(rgba(20,45,20,.78),rgba(20,45,20,.78)),
+url("https://images.unsplash.com/photo-1468327768560-75b778cbb551?auto=format&fit=crop&w=1600&q=80");
+
+background-size:cover;
+background-attachment:fixed;
+
+font-family:Trebuchet MS,Arial,sans-serif;
+
+}
+
+.card{
+
+max-width:900px;
+margin:30px auto;
+
+background:#fffdf4;
+
+border-radius:25px;
+
+padding:30px;
+
+box-shadow:0 0 40px rgba(0,0,0,.45);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.card:before{
+
+content:"🌺";
+
+position:absolute;
+
+left:20px;
+
+top:15px;
+
+font-size:40px;
+
+}
+
+.card:after{
+
+content:"🌺";
+
+position:absolute;
+
+right:20px;
+
+bottom:15px;
+
+font-size:40px;
+
+}
+
+h1{
+
+text-align:center;
+
+color:#2f6d3d;
+
+margin-top:0;
+
+font-size:40px;
+
+}
+
+.intro{
+
+text-align:center;
+
+font-size:22px;
+
+margin-bottom:20px;
+
+}
+
+.loading{
+
+text-align:center;
+
+padding:40px;
+
+font-size:28px;
+
+color:#2f6d3d;
+
+}
+
+.spinner{
+
+width:70px;
+
+height:70px;
+
+border:8px solid #dfead6;
+
+border-top:8px solid #3f8b47;
+
+border-radius:50%;
+
+margin:25px auto;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
+
+.video{
+
+display:none;
+
+position:relative;
+
+padding-bottom:56.25%;
+
+height:0;
+
+overflow:hidden;
+
+border-radius:20px;
+
+}
+
+.video iframe{
+
+position:absolute;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+border:none;
+
+}
+
+.task{
+
+margin-top:35px;
+
+background:#edf8e7;
+
+border-left:8px solid #4f9357;
+
+padding:25px;
+
+border-radius:15px;
+
+font-size:20px;
+
+line-height:1.6;
+
+}
+
+.task h2{
+
+margin-top:0;
+
+color:#2f6d3d;
+
+}
+
+.footer{
+
+margin-top:35px;
+
+text-align:center;
+
+font-size:26px;
+
+color:#2f6d3d;
+
+font-weight:bold;
+
+}
+
+.bee{
+
+position:fixed;
+
+font-size:34px;
+
+animation:fly 18s linear infinite;
+
+pointer-events:none;
+
+}
+
+.bee:nth-child(2){
+
+animation-delay:5s;
+
+font-size:28px;
+
+}
+
+.bee:nth-child(3){
+
+animation-delay:10s;
+
+font-size:36px;
+
+}
+
+@keyframes fly{
+
+0%{
+
+left:-10%;
+
+top:15%;
+
+}
+
+25%{
+
+top:30%;
+
+}
+
+50%{
+
+top:20%;
+
+}
+
+75%{
+
+top:40%;
+
+}
+
+100%{
+
+left:110%;
+
+top:18%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="bee">🐝</div>
+<div class="bee">🐝</div>
+<div class="bee">🐝</div>
+
+<div class="card">
+
+<h1>🌿 Vallisarnas Mysterium 🌿</h1>
+
+<div id="loading" class="loading">
+
+<div style="font-size:55px;">✨</div>
+
+<b>Vallisarna öppnar sitt hemliga meddelande...</b>
+
+<div class="spinner"></div>
+
+</div>
+
+<div id="video" class="video">
+
+<iframe
+
+allowfullscreen>
+
+</iframe>
+
+</div>
+
+<div class="task">
+
+<h2>🗺️ Oj, nu blev det toligt!</h2>
+
+Det här blev inte riktigt rätt!
+
+</div>
+
+<div class="footer">
+
+🌺 Lycka till! Vallisarna tror på er! 🌺
+
+</div>
+
+</div>
+
+<script>
+
+setTimeout(function(){
+
+document.getElementById("loading").style.display="none";
+
+document.getElementById("video").style.display="block";
+
+},2500);
+
+</script>
+
+</body>
+
+</html>
