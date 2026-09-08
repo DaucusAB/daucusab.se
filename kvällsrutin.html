@@ -1,0 +1,2996 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Min kväll</title>
+
+<style>
+:root {
+    --bg: #eef1f8;
+    --card: #ffffff;
+    --text: #283044;
+    --muted: #788197;
+    --primary: #6b72d8;
+    --primary-dark: #535bc4;
+    --success: #55b88a;
+    --warning: #e6ad55;
+    --danger: #e46d7b;
+    --night: #343b6e;
+    --shadow: 0 10px 30px rgba(40,50,90,.10);
+    --radius: 28px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    padding: 20px 16px 80px;
+}
+
+/* =========================================================
+   STARTSKÄRM
+========================================================= */
+
+.start-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-card {
+    width: 100%;
+    background: var(--card);
+    border-radius: 36px;
+    padding: 40px 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.moon {
+    font-size: 85px;
+    margin-bottom: 10px;
+}
+
+.start-card h1 {
+    font-size: clamp(40px, 8vw, 64px);
+    margin: 0 0 10px;
+}
+
+.start-card p {
+    font-size: 22px;
+    color: var(--muted);
+}
+
+.name-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px;
+    font-size: 22px;
+    border-radius: 18px;
+    border: 2px solid #dbe0ed;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.start-button {
+    width: 100%;
+    max-width: 400px;
+    border: 0;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 25px;
+    font-weight: 800;
+    background: var(--night);
+    color: white;
+    cursor: pointer;
+}
+
+.start-button:active {
+    transform: scale(.98);
+}
+
+/* =========================================================
+   TOPP
+========================================================= */
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(238,241,248,.94);
+    backdrop-filter: blur(10px);
+    padding: 8px 0 14px;
+}
+
+.greeting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.greeting h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    margin: 5px 0;
+}
+
+.clock {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.overall-time {
+    background: white;
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    box-shadow: 0 5px 18px rgba(40,50,90,.06);
+}
+
+.overall-time-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.overall-progress {
+    height: 12px;
+    background: #e8ebf3;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.overall-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--success);
+    border-radius: 20px;
+    transition: width .5s ease;
+}
+
+.overall-progress-text {
+    text-align: center;
+    margin-top: 6px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   STEGÖVERSIKT
+========================================================= */
+
+.step-overview {
+    background: white;
+    border-radius: 20px;
+    padding: 12px;
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    box-shadow: 0 5px 18px rgba(40,50,90,.06);
+}
+
+.step-dot {
+    min-width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e9ecf4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.step-dot.current {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.15);
+}
+
+.step-dot.done {
+    background: var(--success);
+    color: white;
+}
+
+/* =========================================================
+   ZONER
+========================================================= */
+
+.zone-title {
+    margin: 55px 0 18px;
+    text-align: center;
+}
+
+.zone-title .zone-icon {
+    font-size: 55px;
+}
+
+.zone-title h2 {
+    font-size: clamp(28px, 6vw, 40px);
+    margin: 5px 0;
+}
+
+.zone-title p {
+    color: var(--muted);
+    font-size: 18px;
+}
+
+/* =========================================================
+   MOMENTKORT
+========================================================= */
+
+.step-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 25px 18px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 190px;
+    transition: .3s ease;
+}
+
+.step-card.current {
+    box-shadow:
+        0 0 0 4px rgba(107,114,216,.16),
+        var(--shadow);
+}
+
+.step-card.done {
+    opacity: .65;
+}
+
+.step-card.done .main-action {
+    background: var(--success);
+}
+
+.step-number {
+    text-align: center;
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.step-title {
+    text-align: center;
+    font-size: clamp(30px, 7vw, 48px);
+    line-height: 1.05;
+    margin: 8px 0 18px;
+}
+
+.step-description {
+    text-align: center;
+    color: var(--muted);
+    font-size: 19px;
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   BILD
+========================================================= */
+
+.visual {
+    width: min(100%, 400px);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 20px;
+    border-radius: 30px;
+    background: #f0f2f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(100px, 25vw, 180px);
+    user-select: none;
+}
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+.timer {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+.timer-number {
+    font-size: clamp(42px, 10vw, 68px);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.timer-label {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.timer-progress {
+    height: 18px;
+    background: #e7eaf2;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.timer-bar {
+    height: 100%;
+    width: 100%;
+    background: var(--primary);
+    transition: width 1s linear;
+}
+
+.timer.warning .timer-number {
+    color: var(--warning);
+}
+
+.timer.finished .timer-number {
+    color: var(--danger);
+}
+
+/* =========================================================
+   KNAPPAR
+========================================================= */
+
+.main-action {
+    width: 100%;
+    border: none;
+    border-radius: 22px;
+    padding: 21px;
+    font-size: 25px;
+    font-weight: 900;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+}
+
+.main-action:active {
+    transform: scale(.98);
+}
+
+.secondary-action {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    padding: 15px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.stuck-button {
+    margin-top: 5px;
+    border: 0;
+    background: #f2f4f8;
+    border-radius: 18px;
+    padding: 14px 20px;
+    color: #667085;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* =========================================================
+   KLÄDLOTTO
+========================================================= */
+
+.lottery {
+    text-align: center;
+}
+
+.wheel {
+    position: relative;
+    width: min(80vw, 340px);
+    height: min(80vw, 340px);
+    margin: 10px auto 25px;
+    border-radius: 50%;
+    border: 10px solid white;
+    box-shadow: 0 12px 30px rgba(30,40,80,.15);
+    overflow: hidden;
+
+    background:
+        conic-gradient(
+            #d9c9ff 0deg 90deg,
+            #a9d8ff 90deg 180deg,
+            #ffd6a5 180deg 270deg,
+            #bdebd1 270deg 360deg
+        );
+
+    transition:
+        transform 3s cubic-bezier(.12,.65,.16,1);
+}
+
+.wheel.spinning {
+    transform: rotate(1440deg);
+}
+
+.wheel-pointer {
+    position: absolute;
+    z-index: 5;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+}
+
+.wheel-label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.wheel-label span {
+    position: absolute;
+    width: 110px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 900;
+}
+
+.wheel-label .shirt {
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wheel-label .pants {
+    right: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.wheel-label .socks {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.wheel-label .underwear {
+    left: 25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.spin-button {
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 20px;
+    padding: 18px 30px;
+    font-size: 22px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.spin-button:disabled {
+    opacity: .6;
+}
+
+.spin-result {
+    min-height: 100px;
+    margin: 20px 0;
+}
+
+.spin-result-icon {
+    font-size: 70px;
+}
+
+.spin-result-text {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+.dress-done-list {
+    margin-top: 15px;
+}
+
+/* =========================================================
+   VAL
+========================================================= */
+
+.choice-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.choice-button {
+    border: none;
+    border-radius: 22px;
+    padding: 25px 15px;
+    background: #edf0f6;
+    font-size: 23px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.choice-button.yes {
+    background: #def3e8;
+}
+
+.choice-button.no {
+    background: #e9edf5;
+}
+
+/* =========================================================
+   LÄSNING
+========================================================= */
+
+.reading-card {
+    text-align: center;
+}
+
+.reading-icon {
+    font-size: 120px;
+    margin: 10px;
+}
+
+.reading-message {
+    background: #f4f0ff;
+    border-radius: 20px;
+    padding: 18px;
+    margin: 20px 0;
+    font-size: 20px;
+}
+
+/* =========================================================
+   SLUT
+========================================================= */
+
+.completion {
+    background: white;
+    border-radius: 35px;
+    padding: 45px 25px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-top: 60px;
+}
+
+.completion-icon {
+    font-size: 100px;
+}
+
+.completion h2 {
+    font-size: clamp(38px, 8vw, 60px);
+    margin: 10px 0;
+}
+
+.completion p {
+    font-size: 22px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   OVERLAYS
+========================================================= */
+
+.stuck-overlay,
+.parent-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(25,30,55,.58);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.overlay-card {
+    background: white;
+    width: min(600px, 100%);
+    border-radius: 35px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.2);
+}
+
+.overlay-card h2 {
+    font-size: 38px;
+}
+
+.overlay-card p {
+    font-size: 21px;
+    color: var(--muted);
+}
+
+.overlay-close {
+    width: 100%;
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 18px;
+    border-radius: 20px;
+    font-size: 21px;
+    font-weight: 900;
+}
+
+/* =========================================================
+   FÖRÄLDRALÄGE
+========================================================= */
+
+.parent-overlay .overlay-card {
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.parent-overlay h2 {
+    text-align: center;
+}
+
+.settings-group {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f5f6fa;
+    border-radius: 20px;
+}
+
+.settings-group h3 {
+    margin-top: 0;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.settings-row input[type="number"],
+.settings-row input[type="text"] {
+    width: 100px;
+    padding: 10px;
+    border: 2px solid #dbe0ed;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+.parent-buttons {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.parent-save {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 17px;
+    border-radius: 18px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   PLAGG I FÖRÄLDRALÄGE
+========================================================= */
+
+.clothing-settings {
+    display: grid;
+    gap: 10px;
+}
+
+.clothing-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px;
+    background: white;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.clothing-option input {
+    width: 22px;
+    height: 22px;
+}
+
+/* =========================================================
+   DOLD
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 700px) {
+
+    .app {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .step-card {
+        padding: 35px;
+    }
+
+    .choice-container {
+        max-width: 600px;
+        margin: auto;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     START
+===================================================== -->
+
+<div id="startScreen" class="start-screen">
+
+    <div class="app">
+
+        <div class="start-card">
+
+            <div class="moon">
+                🌙
+            </div>
+
+            <h1>
+                God kväll!
+            </h1>
+
+            <p>
+                Nu gör vi kvällen lugnt och tillsammans.
+            </p>
+
+            <input
+                id="nameInput"
+                class="name-input"
+                type="text"
+                placeholder="Vad heter du?"
+                maxlength="20"
+            >
+
+            <button
+                class="start-button"
+                onclick="startEvening()"
+            >
+                🌙 Börja kvällen
+            </button>
+
+            <br><br>
+
+            <button
+                class="secondary-action"
+                onclick="openParentMode()"
+            >
+                ⚙️ Förälder
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HUVUDAPP
+===================================================== -->
+
+<div id="mainApp" class="hidden">
+
+    <div class="app">
+
+        <div class="top-bar">
+
+            <div class="greeting">
+
+                <h1>
+                    🌙 Hej <span id="childName"></span>
+                </h1>
+
+                <div
+                    id="currentClock"
+                    class="clock"
+                >
+                    19:00
+                </div>
+
+            </div>
+
+
+            <div class="overall-time">
+
+                <div class="overall-time-row">
+
+                    <span>
+                        😴 Sova
+                    </span>
+
+                    <span id="bedTime">
+                        20:00
+                    </span>
+
+                </div>
+
+                <div class="overall-progress">
+
+                    <div
+                        id="overallProgressBar"
+                        class="overall-progress-bar"
+                    ></div>
+
+                </div>
+
+                <div
+                    id="overallProgressText"
+                    class="overall-progress-text"
+                >
+                    0 av 8 klara
+                </div>
+
+            </div>
+
+
+            <div
+                id="stepOverview"
+                class="step-overview"
+            ></div>
+
+        </div>
+
+
+        <main id="stepsContainer"></main>
+
+
+        <!-- =================================================
+             SLUT
+        ================================================= -->
+
+        <section
+            id="completion"
+            class="completion hidden"
+        >
+
+            <div class="completion-icon">
+                🌙✨
+            </div>
+
+            <h2>
+                Kvällen klar!
+            </h2>
+
+            <p>
+                Du gjorde kvällsrutinen!
+            </p>
+
+            <p>
+                🦷 Tänderna är borstade.<br>
+                📖 Boken är läst.<br>
+                😴 Nu är det dags att sova.
+            </p>
+
+            <button
+                class="main-action"
+                onclick="restartEvening()"
+            >
+                🌙 God natt!
+            </button>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FASTNADE
+===================================================== -->
+
+<div
+    id="stuckOverlay"
+    class="stuck-overlay"
+>
+
+    <div class="overlay-card">
+
+        <div style="font-size:80px;">
+            🧭
+        </div>
+
+        <h2>
+            Vi tappade bort oss!
+        </h2>
+
+        <p>
+            Det är ingen fara.
+        </p>
+
+        <p>
+            👀 Titta på bilden.<br>
+            👉 Gör det som bilden visar.<br>
+            🌙 Sedan fortsätter vi.
+        </p>
+
+        <button
+            class="overlay-close"
+            onclick="closeStuck()"
+        >
+            👍 Jag fortsätter!
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FÖRÄLDRALÄGE
+===================================================== -->
+
+<div
+    id="parentOverlay"
+    class="parent-overlay"
+>
+
+    <div class="overlay-card">
+
+        <h2>
+            ⚙️ Föräldraläge
+        </h2>
+
+
+        <!-- NAMN -->
+
+        <div class="settings-group">
+
+            <h3>
+                👤 Barnets namn
+            </h3>
+
+            <div class="settings-row">
+
+                <label>
+                    Namn
+                </label>
+
+                <input
+                    id="parentName"
+                    type="text"
+                    maxlength="20"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- SOVTID -->
+
+        <div class="settings-group">
+
+            <h3>
+                😴 Sovtid
+            </h3>
+
+            <div class="settings-row">
+
+                <label>
+                    Dags att sova
+                </label>
+
+                <input
+                    id="bedHour"
+                    type="number"
+                    min="0"
+                    max="23"
+                >
+
+                <span>:</span>
+
+                <input
+                    id="bedMinute"
+                    type="number"
+                    min="0"
+                    max="59"
+                >
+
+            </div>
+
+        </div>
+
+
+        <!-- KLÄDER -->
+
+        <div class="settings-group">
+
+            <h3>
+                👕 Vilka kläder ska av?
+            </h3>
+
+            <p>
+                Välj vilka plagg som ska finnas i klädlotteriet.
+            </p>
+
+            <div
+                id="clothingSettings"
+                class="clothing-settings"
+            ></div>
+
+        </div>
+
+
+        <!-- TIMER -->
+
+        <div class="settings-group">
+
+            <h3>
+                ⏱️ Tider för momenten
+            </h3>
+
+            <div id="timerSettings"></div>
+
+        </div>
+
+
+        <!-- LJUD -->
+
+        <div class="settings-group">
+
+            <h3>
+                🔊 Ljud
+            </h3>
+
+            <div class="settings-row">
+
+                <label>
+                    Använd ljud
+                </label>
+
+                <input
+                    id="soundSetting"
+                    type="checkbox"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="parent-buttons">
+
+            <button
+                class="parent-save"
+                onclick="saveSettings()"
+            >
+                💾 Spara
+            </button>
+
+            <button
+                class="secondary-action"
+                onclick="closeParentMode()"
+            >
+                Stäng
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   STANDARDINSTÄLLNINGAR
+========================================================= */
+
+const defaultSettings = {
+
+    name: "",
+
+    bedHour: 20,
+    bedMinute: 0,
+
+    sound: true,
+
+    clothing: [
+        "shirt",
+        "pants",
+        "socks",
+        "underwear"
+    ],
+
+    timers: {
+
+        clothes: 180,
+        toilet: 120,
+        diaper: 60,
+        pajamas: 120,
+        teeth: 120,
+        reading: 600,
+        potty: 120,
+        sleep: 60
+
+    }
+
+};
+
+
+/* =========================================================
+   LÄS INSTÄLLNINGAR
+========================================================= */
+
+let settings = loadSettings();
+
+
+function loadSettings() {
+
+    const saved =
+        localStorage.getItem(
+            "eveningSettings"
+        );
+
+    if (!saved) {
+
+        return structuredClone(
+            defaultSettings
+        );
+
+    }
+
+    try {
+
+        const parsed =
+            JSON.parse(saved);
+
+        return {
+
+            ...structuredClone(
+                defaultSettings
+            ),
+
+            ...parsed,
+
+            timers: {
+
+                ...defaultSettings.timers,
+
+                ...(parsed.timers || {})
+
+            }
+
+        };
+
+    } catch {
+
+        return structuredClone(
+            defaultSettings
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   KLÄDER
+========================================================= */
+
+const clothing = {
+
+    shirt: {
+        name: "Tröja",
+        icon: "👕"
+    },
+
+    pants: {
+        name: "Byxor",
+        icon: "👖"
+    },
+
+    socks: {
+        name: "Strumpor",
+        icon: "🧦"
+    },
+
+    underwear: {
+        name: "Kalsonger",
+        icon: "🩲"
+    }
+
+};
+
+
+/* =========================================================
+   STEG
+========================================================= */
+
+const steps = [
+
+    {
+        id: "clothes",
+        zone: "Byta om",
+        zoneIcon: "👕",
+        title: "Ta av kläderna",
+        description: "Lotteriet bestämmer ordningen!",
+        icon: "🎰",
+        type: "clothingLottery",
+        timerKey: "clothes"
+    },
+
+    {
+        id: "toilet",
+        zone: "Badrum",
+        zoneIcon: "🚽",
+        title: "Kissa",
+        description: "Gå på toaletten.",
+        icon: "🚽",
+        timerKey: "toilet"
+    },
+
+    {
+        id: "diaper",
+        zone: "Natt",
+        zoneIcon: "🌙",
+        title: "Ta på nattblöjan",
+        description: "Nattblöjan på.",
+        icon: "🩲",
+        timerKey: "diaper"
+    },
+
+    {
+        id: "pajamas",
+        zone: "Natt",
+        zoneIcon: "🌙",
+        title: "Ta på pyjamasen",
+        description: "Nu blir det mysigt.",
+        icon: "🌙",
+        timerKey: "pajamas"
+    },
+
+    {
+        id: "teeth",
+        zone: "Badrum",
+        zoneIcon: "🪥",
+        title: "Borsta tänderna",
+        description: "Nu gör vi tänderna rena.",
+        icon: "🪥",
+        timerKey: "teeth"
+    },
+
+    {
+        id: "reading",
+        zone: "Mys",
+        zoneIcon: "📖",
+        title: "Läsa",
+        description: "Nu är det lässtund.",
+        icon: "📖",
+        type: "reading",
+        timerKey: "reading"
+    },
+
+    {
+        id: "potty",
+        zone: "Sista toaletten",
+        zoneIcon: "🚽",
+        title: "Kissa på pottan",
+        description: "En sista kiss innan sängen.",
+        icon: "🧸",
+        timerKey: "potty"
+    },
+
+    {
+        id: "sleep",
+        zone: "Sova",
+        zoneIcon: "🌙",
+        title: "Sova",
+        description: "Nu är kvällen slut.",
+        icon: "😴",
+        timerKey: "sleep"
+    }
+
+];
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+let currentStepIndex = 0;
+
+let completedSteps = new Set();
+
+let activeTimer = null;
+
+let eveningClothes = [];
+
+let removedClothes = [];
+
+
+/* =========================================================
+   START
+========================================================= */
+
+function startEvening() {
+
+    const inputName =
+        document.getElementById(
+            "nameInput"
+        ).value.trim();
+
+    if (inputName) {
+
+        settings.name =
+            inputName;
+
+    }
+
+    saveSettingsToStorage();
+
+    document
+        .getElementById(
+            "startScreen"
+        )
+        .classList.add("hidden");
+
+    document
+        .getElementById(
+            "mainApp"
+        )
+        .classList.remove("hidden");
+
+    initializeEvening();
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+function initializeEvening() {
+
+    currentStepIndex = 0;
+
+    completedSteps =
+        new Set();
+
+    eveningClothes =
+        settings.clothing.map(
+            id => ({
+                id,
+                ...clothing[id]
+            })
+        );
+
+    removedClothes = [];
+
+    document.getElementById(
+        "childName"
+    ).textContent =
+        settings.name || "";
+
+    updateBedTime();
+
+    renderSteps();
+
+    renderOverview();
+
+    updateProgress();
+
+    updateClock();
+
+    setInterval(
+        updateClock,
+        1000
+    );
+
+    activateStep(0);
+
+}
+
+
+/* =========================================================
+   RENDERA STEG
+========================================================= */
+
+function renderSteps() {
+
+    const container =
+        document.getElementById(
+            "stepsContainer"
+        );
+
+    container.innerHTML = "";
+
+    let lastZone = "";
+
+    steps.forEach(
+        (step, index) => {
+
+            if (step.zone !== lastZone) {
+
+                const zone =
+                    document.createElement(
+                        "section"
+                    );
+
+                zone.className =
+                    "zone-title";
+
+                zone.innerHTML = `
+
+                    <div class="zone-icon">
+                        ${step.zoneIcon}
+                    </div>
+
+                    <h2>
+                        ${step.zone}
+                    </h2>
+
+                    <p>
+                        En sak i taget.
+                    </p>
+
+                `;
+
+                container.appendChild(
+                    zone
+                );
+
+                lastZone =
+                    step.zone;
+            }
+
+            container.appendChild(
+                createStepCard(
+                    step,
+                    index
+                )
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   STEGKORT
+========================================================= */
+
+function createStepCard(
+    step,
+    index
+) {
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+    card.className =
+        "step-card";
+
+    card.id =
+        "step-" + step.id;
+
+    let content = "";
+
+    if (
+        step.type ===
+        "clothingLottery"
+    ) {
+
+        content =
+            createClothingLottery();
+
+    } else if (
+        step.type === "reading"
+    ) {
+
+        content =
+            createReadingStep(
+                step,
+                index
+            );
+
+    } else {
+
+        content =
+            createNormalStep(
+                step,
+                index
+            );
+
+    }
+
+    card.innerHTML =
+        content;
+
+    return card;
+
+}
+
+
+/* =========================================================
+   NORMALT STEG
+========================================================= */
+
+function createNormalStep(
+    step,
+    index
+) {
+
+    const seconds =
+        settings.timers[
+            step.timerKey
+        ] || 60;
+
+    return `
+
+        <div class="step-number">
+            ${index + 1} av ${steps.length}
+        </div>
+
+        <div class="visual">
+            ${step.icon}
+        </div>
+
+        <h2 class="step-title">
+            ${step.title}
+        </h2>
+
+        <div class="step-description">
+            ${step.description}
+        </div>
+
+        ${createTimerHTML(
+            step.id,
+            seconds
+        )}
+
+        <button
+            class="main-action"
+            onclick="completeStep('${step.id}')"
+        >
+            ✅ KLAR!
+        </button>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+
+}
+
+
+/* =========================================================
+   LÄSNING
+========================================================= */
+
+function createReadingStep(
+    step,
+    index
+) {
+
+    const seconds =
+        settings.timers[
+            step.timerKey
+        ] || 600;
+
+    return `
+
+        <div class="step-number">
+            ${index + 1} av ${steps.length}
+        </div>
+
+        <div class="reading-card">
+
+            <div class="reading-icon">
+                📖
+            </div>
+
+            <h2 class="step-title">
+                Läsa
+            </h2>
+
+            <div class="reading-message">
+                📚 Nu är det mysstund.<br>
+                Läs tillsammans.
+            </div>
+
+        </div>
+
+        ${createTimerHTML(
+            step.id,
+            seconds
+        )}
+
+        <button
+            class="main-action"
+            onclick="completeStep('reading')"
+        >
+            📖 KLAR MED LÄSNING!
+        </button>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+
+}
+
+
+/* =========================================================
+   TIMER HTML
+========================================================= */
+
+function createTimerHTML(
+    id,
+    seconds
+) {
+
+    return `
+
+        <div
+            class="timer"
+            id="timer-${id}"
+        >
+
+            <div
+                class="timer-number"
+                id="timer-number-${id}"
+            >
+                ${formatTime(seconds)}
+            </div>
+
+            <div class="timer-label">
+                kvar
+            </div>
+
+            <div class="timer-progress">
+
+                <div
+                    class="timer-bar"
+                    id="timer-bar-${id}"
+                ></div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   KLÄDLOTTO
+========================================================= */
+
+function createClothingLottery() {
+
+    return `
+
+        <div class="step-number">
+            1 av ${steps.length}
+        </div>
+
+        <div class="visual">
+            👕
+        </div>
+
+        <h2 class="step-title">
+            Ta av kläderna!
+        </h2>
+
+        <div class="step-description">
+            Lotteriet bestämmer vilket plagg som åker av först.
+        </div>
+
+        <div class="lottery">
+
+            <div class="wheel-pointer">
+                🔻
+            </div>
+
+            <div
+                id="clothingWheel"
+                class="wheel"
+            >
+
+                <div class="wheel-label">
+
+                    <span class="shirt">
+                        👕<br>Tröja
+                    </span>
+
+                    <span class="pants">
+                        👖<br>Byxor
+                    </span>
+
+                    <span class="socks">
+                        🧦<br>Strumpor
+                    </span>
+
+                    <span class="underwear">
+                        🩲<br>Kalsonger
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button
+                id="clothingSpinButton"
+                class="spin-button"
+                onclick="spinClothingWheel()"
+            >
+                🎰 SNURRA!
+            </button>
+
+            <div
+                id="clothingResult"
+                class="spin-result"
+            ></div>
+
+            <div
+                class="dress-done-list"
+            >
+
+                <strong>
+                    AVTAGNA KLÄDER
+                </strong>
+
+                <div
+                    id="clothingDoneItems"
+                >
+                    Inga ännu
+                </div>
+
+            </div>
+
+        </div>
+
+        ${createTimerHTML(
+            "clothes",
+            settings.timers.clothes
+        )}
+
+        <button
+            id="clothingCompleteButton"
+            class="main-action"
+            onclick="completeClothingStep()"
+        >
+            👕 ALLA KLÄDER AV!
+        </button>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+
+}
+
+
+/* =========================================================
+   SPINNA KLÄDLOTTOT
+========================================================= */
+
+function spinClothingWheel() {
+
+    if (
+        eveningClothes.length === 0
+    ) {
+
+        document.getElementById(
+            "clothingResult"
+        ).innerHTML = `
+
+            <div class="spin-result-text">
+                🎉 Alla kläder är av!
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+    const wheel =
+        document.getElementById(
+            "clothingWheel"
+        );
+
+    const button =
+        document.getElementById(
+            "clothingSpinButton"
+        );
+
+    button.disabled = true;
+
+    wheel.classList.remove(
+        "spinning"
+    );
+
+    void wheel.offsetWidth;
+
+    wheel.classList.add(
+        "spinning"
+    );
+
+    setTimeout(
+        () => {
+
+            const randomIndex =
+                Math.floor(
+                    Math.random() *
+                    eveningClothes.length
+                );
+
+            const item =
+                eveningClothes[
+                    randomIndex
+                ];
+
+            eveningClothes.splice(
+                randomIndex,
+                1
+            );
+
+            removedClothes.push(
+                item
+            );
+
+            document.getElementById(
+                "clothingResult"
+            ).innerHTML = `
+
+                <div class="spin-result-icon">
+                    ${item.icon}
+                </div>
+
+                <div class="spin-result-text">
+                    ${item.name}!
+                </div>
+
+                <p>
+                    Ta av ${item.name.toLowerCase()}.
+                </p>
+
+            `;
+
+            renderRemovedClothes();
+
+            button.disabled =
+                false;
+
+            if (
+                eveningClothes.length === 0
+            ) {
+
+                button.textContent =
+                    "🎉 ALLA KLÄDER AV!";
+
+            } else {
+
+                button.textContent =
+                    "🎰 SNURRA IGEN!";
+
+            }
+
+            playSound(
+                "complete"
+            );
+
+        },
+        3000
+    );
+
+}
+
+
+/* =========================================================
+   VISA AVTAGNA KLÄDER
+========================================================= */
+
+function renderRemovedClothes() {
+
+    const container =
+        document.getElementById(
+            "clothingDoneItems"
+        );
+
+    if (!container)
+        return;
+
+    if (
+        removedClothes.length === 0
+    ) {
+
+        container.innerHTML =
+            "Inga ännu";
+
+        return;
+
+    }
+
+    container.innerHTML =
+        removedClothes
+            .map(
+                item => `
+
+                    <span style="
+                        display:inline-block;
+                        background:#e2f4ea;
+                        padding:8px 12px;
+                        border-radius:12px;
+                        margin:4px;
+                    ">
+                        ${item.icon}
+                        ${item.name}
+                        ✓
+                    </span>
+
+                `
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   KLÄDER KLARA
+========================================================= */
+
+function completeClothingStep() {
+
+    if (
+        eveningClothes.length > 0
+    ) {
+
+        alert(
+            "Det finns fortfarande kläder kvar att ta av."
+        );
+
+        return;
+
+    }
+
+    completeStep(
+        "clothes"
+    );
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer(
+    stepId,
+    seconds
+) {
+
+    clearInterval(
+        activeTimer
+    );
+
+    const timer =
+        document.getElementById(
+            "timer-" + stepId
+        );
+
+    if (!timer)
+        return;
+
+    let remaining =
+        seconds;
+
+    updateTimerVisual(
+        stepId,
+        remaining,
+        seconds
+    );
+
+    activeTimer =
+        setInterval(
+            () => {
+
+                remaining--;
+
+                updateTimerVisual(
+                    stepId,
+                    remaining,
+                    seconds
+                );
+
+                if (
+                    remaining <= 0
+                ) {
+
+                    clearInterval(
+                        activeTimer
+                    );
+
+                    timer.classList.add(
+                        "finished"
+                    );
+
+                    playSound(
+                        "finished"
+                    );
+
+                }
+
+            },
+            1000
+        );
+
+}
+
+
+/* =========================================================
+   TIMER VISUAL
+========================================================= */
+
+function updateTimerVisual(
+    stepId,
+    remaining,
+    total
+) {
+
+    const number =
+        document.getElementById(
+            "timer-number-" +
+            stepId
+        );
+
+    const bar =
+        document.getElementById(
+            "timer-bar-" +
+            stepId
+        );
+
+    const timer =
+        document.getElementById(
+            "timer-" +
+            stepId
+        );
+
+    if (
+        !number ||
+        !bar ||
+        !timer
+    )
+        return;
+
+    number.textContent =
+        formatTime(
+            Math.max(
+                remaining,
+                0
+            )
+        );
+
+    const percent =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                (remaining / total) *
+                100
+            )
+        );
+
+    bar.style.width =
+        percent + "%";
+
+    timer.classList.toggle(
+        "warning",
+        remaining <= 15 &&
+        remaining > 0
+    );
+
+}
+
+
+/* =========================================================
+   FORMATERA TID
+========================================================= */
+
+function formatTime(
+    seconds
+) {
+
+    const min =
+        Math.floor(
+            seconds / 60
+        );
+
+    const sec =
+        seconds % 60;
+
+    return (
+        String(min)
+            .padStart(2, "0") +
+        ":" +
+        String(sec)
+            .padStart(2, "0")
+    );
+
+}
+
+
+/* =========================================================
+   AKTIVERA STEG
+========================================================= */
+
+function activateStep(
+    index
+) {
+
+    if (
+        index >= steps.length
+    ) {
+
+        showCompletion();
+
+        return;
+
+    }
+
+    currentStepIndex =
+        index;
+
+    document
+        .querySelectorAll(
+            ".step-card"
+        )
+        .forEach(
+            card => {
+                card.classList.remove(
+                    "current"
+                );
+            }
+        );
+
+    const step =
+        steps[index];
+
+    const card =
+        document.getElementById(
+            "step-" +
+            step.id
+        );
+
+    if (!card)
+        return;
+
+    card.classList.add(
+        "current"
+    );
+
+    setTimeout(
+        () => {
+
+            card.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        },
+        150
+    );
+
+    renderOverview();
+
+    playSound(
+        "start"
+    );
+
+    if (
+        step.type !==
+        "clothingLottery"
+    ) {
+
+        startTimer(
+            step.id,
+            settings.timers[
+                step.timerKey
+            ] || 60
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   KLAR
+========================================================= */
+
+function completeStep(
+    stepId
+) {
+
+    const index =
+        steps.findIndex(
+            step =>
+                step.id ===
+                stepId
+        );
+
+    if (
+        index === -1
+    )
+        return;
+
+    if (
+        completedSteps.has(
+            stepId
+        )
+    )
+        return;
+
+    completedSteps.add(
+        stepId
+    );
+
+    clearInterval(
+        activeTimer
+    );
+
+    const card =
+        document.getElementById(
+            "step-" +
+            stepId
+        );
+
+    if (card) {
+
+        card.classList.remove(
+            "current"
+        );
+
+        card.classList.add(
+            "done"
+        );
+
+    }
+
+    playSound(
+        "complete"
+    );
+
+    updateProgress();
+
+    setTimeout(
+        () => {
+
+            activateStep(
+                index + 1
+            );
+
+        },
+        400
+    );
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const total =
+        steps.length;
+
+    const done =
+        completedSteps.size;
+
+    const percentage =
+        (done / total) *
+        100;
+
+    document.getElementById(
+        "overallProgressBar"
+    ).style.width =
+        percentage + "%";
+
+    document.getElementById(
+        "overallProgressText"
+    ).textContent =
+        `${done} av ${total} klara`;
+
+    renderOverview();
+
+}
+
+
+/* =========================================================
+   ÖVERSIKT
+========================================================= */
+
+function renderOverview() {
+
+    const container =
+        document.getElementById(
+            "stepOverview"
+        );
+
+    if (!container)
+        return;
+
+    container.innerHTML =
+        "";
+
+    steps.forEach(
+        (step, index) => {
+
+            const dot =
+                document.createElement(
+                    "div"
+                );
+
+            dot.className =
+                "step-dot";
+
+            if (
+                completedSteps.has(
+                    step.id
+                )
+            ) {
+
+                dot.classList.add(
+                    "done"
+                );
+
+                dot.textContent =
+                    "✓";
+
+            } else if (
+                index ===
+                currentStepIndex
+            ) {
+
+                dot.classList.add(
+                    "current"
+                );
+
+                dot.textContent =
+                    index + 1;
+
+            } else {
+
+                dot.textContent =
+                    index + 1;
+
+            }
+
+            container.appendChild(
+                dot
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   KLAR
+========================================================= */
+
+function showCompletion() {
+
+    clearInterval(
+        activeTimer
+    );
+
+    document.getElementById(
+        "completion"
+    ).classList.remove(
+        "hidden"
+    );
+
+    setTimeout(
+        () => {
+
+            document.getElementById(
+                "completion"
+            ).scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        },
+        200
+    );
+
+    playSound(
+        "complete"
+    );
+
+}
+
+
+function restartEvening() {
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   FASTNADE
+========================================================= */
+
+function openStuck() {
+
+    document.getElementById(
+        "stuckOverlay"
+    ).style.display =
+        "flex";
+
+}
+
+
+function closeStuck() {
+
+    document.getElementById(
+        "stuckOverlay"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   KLOCKA
+========================================================= */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+    const hours =
+        String(
+            now.getHours()
+        ).padStart(
+            2,
+            "0"
+        );
+
+    const minutes =
+        String(
+            now.getMinutes()
+        ).padStart(
+            2,
+            "0"
+        );
+
+    document.getElementById(
+        "currentClock"
+    ).textContent =
+        `${hours}:${minutes}`;
+
+}
+
+
+/* =========================================================
+   SOVTID
+========================================================= */
+
+function updateBedTime() {
+
+    const hour =
+        String(
+            settings.bedHour
+        ).padStart(
+            2,
+            "0"
+        );
+
+    const minute =
+        String(
+            settings.bedMinute
+        ).padStart(
+            2,
+            "0"
+        );
+
+    document.getElementById(
+        "bedTime"
+    ).textContent =
+        `${hour}:${minute}`;
+
+}
+
+
+/* =========================================================
+   LJUD
+========================================================= */
+
+function playSound(
+    type
+) {
+
+    if (
+        !settings.sound
+    )
+        return;
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext)
+            return;
+
+        const ctx =
+            new AudioContext();
+
+        const oscillator =
+            ctx.createOscillator();
+
+        const gain =
+            ctx.createGain();
+
+        oscillator.connect(
+            gain
+        );
+
+        gain.connect(
+            ctx.destination
+        );
+
+        if (
+            type === "complete"
+        ) {
+
+            oscillator.frequency.value =
+                660;
+
+        } else if (
+            type === "finished"
+        ) {
+
+            oscillator.frequency.value =
+                250;
+
+        } else {
+
+            oscillator.frequency.value =
+                440;
+
+        }
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            ctx.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.15,
+            ctx.currentTime + .02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            ctx.currentTime + .25
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            ctx.currentTime + .25
+        );
+
+    } catch {
+
+        console.log(
+            "Ljud kunde inte spelas."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FÖRÄLDRALÄGE
+========================================================= */
+
+function openParentMode() {
+
+    document.getElementById(
+        "parentOverlay"
+    ).style.display =
+        "flex";
+
+    document.getElementById(
+        "parentName"
+    ).value =
+        settings.name || "";
+
+    document.getElementById(
+        "bedHour"
+    ).value =
+        settings.bedHour;
+
+    document.getElementById(
+        "bedMinute"
+    ).value =
+        settings.bedMinute;
+
+    document.getElementById(
+        "soundSetting"
+    ).checked =
+        settings.sound;
+
+    renderClothingSettings();
+
+    renderTimerSettings();
+
+}
+
+
+/* =========================================================
+   STÄNG FÖRÄLDRALÄGE
+========================================================= */
+
+function closeParentMode() {
+
+    document.getElementById(
+        "parentOverlay"
+    ).style.display =
+        "none";
+
+}
+
+
+/* =========================================================
+   KLÄDINSTÄLLNINGAR
+========================================================= */
+
+function renderClothingSettings() {
+
+    const container =
+        document.getElementById(
+            "clothingSettings"
+        );
+
+    container.innerHTML =
+        "";
+
+    Object.entries(
+        clothing
+    ).forEach(
+        ([id, item]) => {
+
+            const label =
+                document.createElement(
+                    "label"
+                );
+
+            label.className =
+                "clothing-option";
+
+            const checked =
+                settings.clothing.includes(
+                    id
+                );
+
+            label.innerHTML = `
+
+                <input
+                    type="checkbox"
+                    value="${id}"
+                    ${checked ? "checked" : ""}
+                >
+
+                <span>
+                    ${item.icon}
+                    ${item.name}
+                </span>
+
+            `;
+
+            container.appendChild(
+                label
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   TIMERINSTÄLLNINGAR
+========================================================= */
+
+function renderTimerSettings() {
+
+    const container =
+        document.getElementById(
+            "timerSettings"
+        );
+
+    container.innerHTML =
+        "";
+
+    const names = {
+
+        clothes:
+            "Ta av kläderna",
+
+        toilet:
+            "Kissa",
+
+        diaper:
+            "Ta på nattblöjan",
+
+        pajamas:
+            "Ta på pyjamasen",
+
+        teeth:
+            "Borsta tänderna",
+
+        reading:
+            "Läsa",
+
+        potty:
+            "Kissa på pottan",
+
+        sleep:
+            "Sova"
+
+    };
+
+    Object.entries(
+        settings.timers
+    ).forEach(
+        ([key, value]) => {
+
+            const row =
+                document.createElement(
+                    "div"
+                );
+
+            row.className =
+                "settings-row";
+
+            row.innerHTML = `
+
+                <label>
+                    ${names[key] || key}
+                </label>
+
+                <input
+                    type="number"
+                    min="10"
+                    max="3600"
+                    value="${value}"
+                    data-timer-key="${key}"
+                >
+
+                <span>
+                    sek
+                </span>
+
+            `;
+
+            container.appendChild(
+                row
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SPARA
+========================================================= */
+
+function saveSettings() {
+
+    settings.name =
+        document.getElementById(
+            "parentName"
+        ).value.trim();
+
+    settings.bedHour =
+        Number(
+            document.getElementById(
+                "bedHour"
+            ).value
+        );
+
+    settings.bedMinute =
+        Number(
+            document.getElementById(
+                "bedMinute"
+            ).value
+        );
+
+    settings.sound =
+        document.getElementById(
+            "soundSetting"
+        ).checked;
+
+
+    /* KLÄDER */
+
+    const selectedClothes =
+        Array.from(
+            document.querySelectorAll(
+                "#clothingSettings input:checked"
+            )
+        ).map(
+            input =>
+                input.value
+        );
+
+    settings.clothing =
+        selectedClothes;
+
+
+    /* TIMER */
+
+    document
+        .querySelectorAll(
+            "[data-timer-key]"
+        )
+        .forEach(
+            input => {
+
+                const key =
+                    input.dataset
+                        .timerKey;
+
+                settings.timers[
+                    key
+                ] =
+                    Number(
+                        input.value
+                    );
+
+            }
+        );
+
+
+    saveSettingsToStorage();
+
+    updateBedTime();
+
+    const name =
+        document.getElementById(
+            "childName"
+        );
+
+    if (name) {
+
+        name.textContent =
+            settings.name || "";
+
+    }
+
+    closeParentMode();
+
+}
+
+
+/* =========================================================
+   LOCAL STORAGE
+========================================================= */
+
+function saveSettingsToStorage() {
+
+    localStorage.setItem(
+        "eveningSettings",
+        JSON.stringify(
+            settings
+        )
+    );
+
+}
+
+
+/* =========================================================
+   ESC
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key ===
+            "Escape"
+        ) {
+
+            closeStuck();
+
+            closeParentMode();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   STARTVÄRDE
+========================================================= */
+
+document.getElementById(
+    "nameInput"
+).value =
+    settings.name || "";
+
+
+/* =========================================================
+   SLUT
+========================================================= */
+
+</script>
+
+</body>
+</html>
