@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Min dag</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(180deg, #eaf6ff, #ffffff);
+  color: #243447;
+  min-height: 100vh;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.app {
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* ---------------- STARTSIDA ---------------- */
+
+.start-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.start-card {
+  width: 100%;
+  max-width: 700px;
+  background: white;
+  border-radius: 35px;
+  padding: 35px 25px;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,.12);
+}
+
+.start-icon {
+  font-size: 80px;
+  margin-bottom: 5px;
+}
+
+h1 {
+  font-size: 42px;
+  margin: 10px 0;
+}
+
+.start-subtitle {
+  font-size: 20px;
+  color: #687785;
+  margin-bottom: 30px;
+}
+
+.name-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 15px 20px;
+  border-radius: 18px;
+  border: 3px solid #dce8f0;
+  text-align: center;
+  margin-bottom: 25px;
+  outline: none;
+}
+
+.routine-choice {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.routine-button {
+  padding: 30px 15px;
+  border-radius: 28px;
+  font-weight: bold;
+  transition: transform .15s;
+  box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+
+.routine-button:hover {
+  transform: translateY(-4px);
+}
+
+.morning {
+  background: #fff2a8;
+}
+
+.evening {
+  background: #c9c5ff;
+}
+
+.routine-button .big {
+  display: block;
+  font-size: 55px;
+  margin-bottom: 10px;
+}
+
+.routine-button .label {
+  display: block;
+  font-size: 25px;
+}
+
+.routine-button .small {
+  display: block;
+  margin-top: 8px;
+  font-weight: normal;
+}
+
+/* ---------------- TOPP ---------------- */
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.home-button,
+.parent-button {
+  background: white;
+  padding: 11px 16px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+.clock {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.routine-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.routine-header .icon {
+  font-size: 65px;
+}
+
+.routine-header h2 {
+  font-size: 34px;
+  margin: 5px;
+}
+
+.bedtime {
+  font-size: 17px;
+  color: #667;
+}
+
+/* ---------------- PROGRESS ---------------- */
+
+.progress-container {
+  background: white;
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 18px rgba(0,0,0,.07);
+}
+
+.progress-text {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.progress-bar {
+  height: 18px;
+  background: #e5edf2;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #67c587;
+  transition: width .4s;
+}
+
+/* ---------------- STEG ---------------- */
+
+.step-overview {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.step-dot {
+  min-width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 3px 8px rgba(0,0,0,.08);
+}
+
+.step-dot.done {
+  background: #73d395;
+  color: white;
+}
+
+.step-dot.current {
+  transform: scale(1.15);
+  border: 3px solid #536dfe;
+}
+
+/* ---------------- HUVUDKORT ---------------- */
+
+.task-card {
+  background: white;
+  border-radius: 35px;
+  padding: 30px 25px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(0,0,0,.10);
+}
+
+.task-icon {
+  font-size: 95px;
+  margin: 5px 0 10px;
+}
+
+.task-card h3 {
+  font-size: 34px;
+  margin: 5px 0 10px;
+}
+
+.task-description {
+  font-size: 20px;
+  color: #667;
+  min-height: 30px;
+}
+
+/* ---------------- TIMER ---------------- */
+
+.timer {
+  font-size: 48px;
+  font-weight: bold;
+  margin: 20px 0 8px;
+}
+
+.timer.warning {
+  animation: pulse .7s infinite alternate;
+}
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.08); }
+}
+
+.timer-bar {
+  height: 15px;
+  background: #e6edf2;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 25px;
+}
+
+.timer-fill {
+  height: 100%;
+  width: 100%;
+  background: #6ca8dc;
+  transition: width 1s linear;
+}
+
+.main-action {
+  width: 100%;
+  max-width: 430px;
+  padding: 20px;
+  border-radius: 22px;
+  background: #67c587;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+  margin: 8px auto;
+}
+
+.next-button {
+  background: #536dfe;
+}
+
+.stuck-button {
+  background: #fff0d5;
+  color: #805b00;
+}
+
+.back-button {
+  background: #edf1f4;
+  color: #455;
+}
+
+/* ---------------- KLÄDER ---------------- */
+
+.clothes-box {
+  margin: 15px auto;
+  max-width: 500px;
+}
+
+.wheel {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  margin: 20px auto;
+  border: 12px solid white;
+  box-shadow: 0 8px 25px rgba(0,0,0,.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    conic-gradient(
+      #ffd166 0deg 90deg,
+      #8ecae6 90deg 180deg,
+      #b8e0a5 180deg 270deg,
+      #f6a6c1 270deg 360deg
+    );
+  position: relative;
+}
+
+.wheel-center {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+}
+
+.pointer {
+  font-size: 40px;
+  transform: rotate(180deg);
+}
+
+.clothing-result {
+  min-height: 65px;
+  font-size: 27px;
+  font-weight: bold;
+  margin: 15px;
+}
+
+.spin-button {
+  background: #ffb703;
+  color: #4b3600;
+}
+
+/* ---------------- FAST ---------------- */
+
+.stuck-overlay,
+.parent-overlay,
+.finished-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(25,35,45,.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 100;
+}
+
+.overlay-card {
+  background: white;
+  border-radius: 30px;
+  padding: 30px;
+  max-width: 550px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 15px 50px rgba(0,0,0,.3);
+}
+
+.overlay-card h2 {
+  font-size: 32px;
+}
+
+.overlay-card p {
+  font-size: 20px;
+  line-height: 1.5;
+}
+
+/* ---------------- FÄRDIG ---------------- */
+
+.finished-overlay {
+  z-index: 200;
+}
+
+.finished-icon {
+  font-size: 90px;
+}
+
+.finished-overlay h2 {
+  font-size: 40px;
+}
+
+/* ---------------- FÖRÄLDER ---------------- */
+
+.parent-panel {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.settings-section {
+  text-align: left;
+  border-top: 2px solid #edf1f4;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.settings-section h3 {
+  font-size: 23px;
+}
+
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.setting-row input[type="number"] {
+  width: 90px;
+  padding: 10px;
+  border: 2px solid #dce5eb;
+  border-radius: 10px;
+}
+
+.clothing-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.clothing-option {
+  background: #f3f7fa;
+  padding: 14px;
+  border-radius: 15px;
+}
+
+.save-button {
+  background: #67c587;
+  color: white;
+  width: 100%;
+  padding: 17px;
+  border-radius: 18px;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+.reset-button {
+  background: #ffe0e0;
+  color: #8b3333;
+  width: 100%;
+  padding: 15px;
+  border-radius: 18px;
+  margin-top: 10px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  h1 {
+    font-size: 34px;
+  }
+
+  .routine-choice {
+    grid-template-columns: 1fr;
+  }
+
+  .task-card h3 {
+    font-size: 29px;
+  }
+
+  .task-icon {
+    font-size: 75px;
+  }
+
+  .timer {
+    font-size: 40px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+     STARTSIDA
+========================================================= -->
+
+<div id="startScreen" class="start-screen">
+  <div class="start-card">
+
+    <div class="start-icon">🌈</div>
+
+    <h1>Min dag</h1>
+
+    <div class="start-subtitle">
+      Vad ska vi göra?
+    </div>
+
+    <input
+      id="childNameInput"
+      class="name-input"
+      type="text"
+      placeholder="Vad heter du?"
+    >
+
+    <div class="routine-choice">
+
+      <button class="routine-button morning" onclick="startRoutine('morning')">
+        <span class="big">☀️</span>
+        <span class="label">Morgonrutin</span>
+        <span class="small">Göra sig redo för dagen</span>
+      </button>
+
+      <button class="routine-button evening" onclick="startRoutine('evening')">
+        <span class="big">🌙</span>
+        <span class="label">Kvällsrutin</span>
+        <span class="small">Göra sig redo för natten</span>
+      </button>
+
+    </div>
+
+    <button
+      class="parent-button"
+      style="margin-top:25px;"
+      onclick="openParentSettings()">
+      ⚙️ Föräldrakontroll
+    </button>
+
+  </div>
+</div>
+
+
+<!-- =========================================================
+     HUVUDAPP
+========================================================= -->
+
+<div id="appScreen" class="app hidden">
+
+  <div class="topbar">
+
+    <button class="home-button" onclick="goHome()">
+      🏠 Hem
+    </button>
+
+    <div id="clock" class="clock"></div>
+
+    <button class="parent-button" onclick="openParentSettings()">
+      ⚙️
+    </button>
+
+  </div>
+
+
+  <div class="routine-header">
+
+    <div id="routineIcon" class="icon">☀️</div>
+
+    <h2 id="routineTitle">Morgonrutin</h2>
+
+    <div id="bedtimeText" class="bedtime"></div>
+
+  </div>
+
+
+  <div class="progress-container">
+
+    <div class="progress-text">
+      <span>Så här långt har vi kommit</span>
+      <span id="progressText">0 / 0</span>
+    </div>
+
+    <div class="progress-bar">
+      <div id="progressFill" class="progress-fill"></div>
+    </div>
+
+  </div>
+
+
+  <div id="stepOverview" class="step-overview"></div>
+
+
+  <div class="task-card">
+
+    <div id="taskIcon" class="task-icon">👕</div>
+
+    <h3 id="taskTitle">Uppgift</h3>
+
+    <div id="taskDescription" class="task-description"></div>
+
+
+    <!-- Vanligt steg -->
+
+    <div id="normalTask">
+
+      <div id="timer" class="timer">00:00</div>
+
+      <div class="timer-bar">
+        <div id="timerFill" class="timer-fill"></div>
+      </div>
+
+      <button
+        class="main-action"
+        onclick="completeCurrentTask()">
+        ✅ KLAR!
+      </button>
+
+      <button
+        class="main-action next-button"
+        onclick="nextTask()">
+        👉 Nästa
+      </button>
+
+      <button
+        class="main-action stuck-button"
+        onclick="openStuck()">
+        🆘 Jag fastnade
+      </button>
+
+    </div>
+
+
+    <!-- Klädslumpare -->
+
+    <div id="clothesTask" class="clothes-box hidden">
+
+      <div class="pointer">🔻</div>
+
+      <div id="wheel" class="wheel">
+
+        <div class="wheel-center">
+          🎲
+        </div>
+
+      </div>
+
+      <div id="clothingResult" class="clothing-result">
+        Snurra hjulet!
+      </div>
+
+      <button
+        class="main-action spin-button"
+        onclick="spinClothes()">
+        🎡 SNURRA!
+      </button>
+
+      <button
+        class="main-action next-button"
+        onclick="nextTask()">
+        👉 Nästa
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     FASTNAT
+========================================================= -->
+
+<div id="stuckOverlay" class="stuck-overlay">
+
+  <div class="overlay-card">
+
+    <div style="font-size:70px;">🧘</div>
+
+    <h2>Ingen fara!</h2>
+
+    <p id="stuckText">
+      Ta ett litet steg i taget.
+    </p>
+
+    <button
+      class="main-action"
+      onclick="closeStuck()">
+      👍 Jag provar igen
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     KLAR
+========================================================= -->
+
+<div id="finishedOverlay" class="finished-overlay">
+
+  <div class="overlay-card">
+
+    <div class="finished-icon">🎉</div>
+
+    <h2 id="finishedTitle">Klart!</h2>
+
+    <p id="finishedText">
+      Bra jobbat!
+    </p>
+
+    <button
+      class="main-action"
+      onclick="goHome()">
+      🏠 Till startsidan
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     FÖRÄLDRAKONTROLL
+========================================================= -->
+
+<div id="parentOverlay" class="parent-overlay">
+
+  <div class="overlay-card parent-panel">
+
+    <h2>⚙️ Föräldrakontroll</h2>
+
+    <p>
+      Här kan du ändra hur rutinen fungerar.
+    </p>
+
+
+    <div class="settings-section">
+
+      <h3>👧 Barnets namn</h3>
+
+      <input
+        id="settingsName"
+        class="name-input"
+        type="text"
+        placeholder="Barnets namn"
+      >
+
+    </div>
+
+
+    <!-- KVÄLL -->
+
+    <div class="settings-section">
+
+      <h3>🌙 Kväll – läggtid</h3>
+
+      <div class="setting-row">
+        <span>Läggtid</span>
+
+        <div>
+          <input id="bedHour" type="number" min="0" max="23">
+          :
+          <input id="bedMinute" type="number" min="0" max="59">
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- MORONKLÄDER -->
+
+    <div class="settings-section">
+
+      <h3>☀️ Morgon – kläder som ska på</h3>
+
+      <div class="clothing-options">
+
+        <label class="clothing-option">
+          <input id="morningShirt" type="checkbox">
+          👕 Tröja
+        </label>
+
+        <label class="clothing-option">
+          <input id="morningPants" type="checkbox">
+          👖 Byxor
+        </label>
+
+        <label class="clothing-option">
+          <input id="morningSocks" type="checkbox">
+          🧦 Strumpor
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- KVÄLLSKLÄDER -->
+
+    <div class="settings-section">
+
+      <h3>🌙 Kväll – kläder som ska av</h3>
+
+      <div class="clothing-options">
+
+        <label class="clothing-option">
+          <input id="eveningShirt" type="checkbox">
+          👕 Tröja
+        </label>
+
+        <label class="clothing-option">
+          <input id="eveningPants" type="checkbox">
+          👖 Byxor
+        </label>
+
+        <label class="clothing-option">
+          <input id="eveningSocks" type="checkbox">
+          🧦 Strumpor
+        </label>
+
+        <label class="clothing-option">
+          <input id="eveningUnderwear" type="checkbox">
+          🩲 Kalsonger
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- MORONTIDER -->
+
+    <div class="settings-section">
+
+      <h3>☀️ Morgon – tider</h3>
+
+      <div id="morningSettings"></div>
+
+    </div>
+
+
+    <!-- KVÄLLSTIDER -->
+
+    <div class="settings-section">
+
+      <h3>🌙 Kväll – tider</h3>
+
+      <div id="eveningSettings"></div>
+
+    </div>
+
+
+    <!-- LJUD -->
+
+    <div class="settings-section">
+
+      <h3>🔊 Ljud</h3>
+
+      <label>
+        <input id="soundEnabled" type="checkbox">
+        Använd ljud
+      </label>
+
+    </div>
+
+
+    <button
+      class="save-button"
+      onclick="saveSettings()">
+      💾 Spara inställningar
+    </button>
+
+    <button
+      class="reset-button"
+      onclick="resetSettings()">
+      🔄 Återställ grundinställningar
+    </button>
+
+    <button
+      class="main-action back-button"
+      onclick="closeParentSettings()">
+      Tillbaka
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   STANDARDINSTÄLLNINGAR
+========================================================= */
+
+const defaultSettings = {
+
+  name: "",
+
+  bedtimeHour: 19,
+  bedtimeMinute: 30,
+
+  sound: true,
+
+  morningClothes: [
+    "Tröja",
+    "Byxor",
+    "Strumpor"
+  ],
+
+  eveningClothes: [
+    "Tröja",
+    "Byxor",
+    "Strumpor",
+    "Kalsonger"
+  ],
+
+  morningTimes: {
+    diaper: 60,
+    pajamas: 60,
+    underwear: 60,
+    clothes: 180,
+    sandwich: 300,
+    moreFood: 30,
+    drink: 60,
+    teeth: 120,
+    toilet: 120,
+    outerwear: 180,
+    shoes: 120,
+    backpack: 60,
+    sport: 60,
+    school: 60
+  },
+
+  eveningTimes: {
+    clothes: 180,
+    toilet: 120,
+    nightDiaper: 60,
+    pajamas: 180,
+    teeth: 120,
+    reading: 900,
+    potty: 120,
+    sleep: 60
+  }
+
+};
+
+
+/* =========================================================
+   LADDA INSTÄLLNINGAR
+========================================================= */
+
+let settings =
+  JSON.parse(localStorage.getItem("minDagSettings"))
+  || JSON.parse(JSON.stringify(defaultSettings));
+
+
+/* =========================================================
+   RUTINER
+========================================================= */
+
+const routines = {
+
+  morning: [
+
+    {
+      id: "diaper",
+      icon: "🩲",
+      title: "Ta av nattblöjan",
+      description: "Ta av nattblöjan och lägg den där den ska vara."
+    },
+
+    {
+      id: "pajamas",
+      icon: "🌙",
+      title: "Ta av pyjamasen",
+      description: "Nu åker pyjamasen av!"
+    },
+
+    {
+      id: "underwear",
+      icon: "🩲",
+      title: "Ta på kalsonger",
+      description: "Ta på kalsongerna."
+    },
+
+    {
+      id: "clothes",
+      type: "clothes",
+      icon: "🎡",
+      title: "Vilket plagg blir först?",
+      description: "Snurra hjulet och se!"
+    },
+
+    {
+      id: "sandwich",
+      icon: "🥪",
+      title: "Ät mackan",
+      description: "Sätt dig och ät mackan."
+    },
+
+    {
+      id: "moreFood",
+      icon: "🍎",
+      title: "Ska du äta mer?",
+      description: "Känner du dig fortfarande hungrig?"
+    },
+
+    {
+      id: "drink",
+      icon: "🥛",
+      title: "Drick upp",
+      description: "Drick upp det du har."
+    },
+
+    {
+      id: "teeth",
+      icon: "🪥",
+      title: "Borsta tänderna",
+      description: "Fram, bak, upp och ner!"
+    },
+
+    {
+      id: "toilet",
+      icon: "🚽",
+      title: "Kissa",
+      description: "Gå på toaletten."
+    },
+
+    {
+      id: "outerwear",
+      icon: "🧥",
+      title: "Ta på ytterkläder",
+      description: "Jacka och resten av ytterkläderna."
+    },
+
+    {
+      id: "shoes",
+      icon: "👟",
+      title: "Skor eller stövlar",
+      description: "Ta på skorna."
+    },
+
+    {
+      id: "backpack",
+      icon: "🎒",
+      title: "Ta på ryggsäcken",
+      description: "Ryggsäcken på!"
+    },
+
+    {
+      id: "sport",
+      icon: "🏃",
+      title: "Är det idrott idag?",
+      description: "Behöver idrottsväskan följa med?"
+    },
+
+    {
+      id: "school",
+      icon: "🏫",
+      title: "Gå till skolan",
+      description: "Nu är det dags att gå!"
+    }
+
+  ],
+
+
+  evening: [
+
+    {
+      id: "clothes",
+      type: "clothes",
+      icon: "🎡",
+      title: "Vilket plagg ska av först?",
+      description: "Snurra hjulet!"
+    },
+
+    {
+      id: "toilet",
+      icon: "🚽",
+      title: "Kissa",
+      description: "Gå på toaletten."
+    },
+
+    {
+      id: "nightDiaper",
+      icon: "🌙",
+      title: "Ta på nattblöjan",
+      description: "Nattblöjan på."
+    },
+
+    {
+      id: "pajamas",
+      icon: "😴",
+      title: "Ta på pyjamasen",
+      description: "Nu blir det mysigt."
+    },
+
+    {
+      id: "teeth",
+      icon: "🪥",
+      title: "Borsta tänderna",
+      description: "Borsta riktigt noga."
+    },
+
+    {
+      id: "reading",
+      icon: "📖",
+      title: "Läsa",
+      description: "Nu är det mys- och lässtund."
+    },
+
+    {
+      id: "potty",
+      icon: "🧸",
+      title: "Kissa på pottan",
+      description: "Ett sista toalettbesök."
+    },
+
+    {
+      id: "sleep",
+      icon: "😴",
+      title: "Sova",
+      description: "God natt!"
+    }
+
+  ]
+
+};
+
+
+/* =========================================================
+   VARIABLER
+========================================================= */
+
+let currentRoutine = null;
+let currentStep = 0;
+let completed = [];
+let timerInterval = null;
+let timerRemaining = 0;
+let timerTotal = 0;
+
+let remainingClothes = [];
+
+
+/* =========================================================
+   STARTA RUTIN
+========================================================= */
+
+function startRoutine(type) {
+
+  currentRoutine = type;
+  currentStep = 0;
+  completed = [];
+
+  document.getElementById("startScreen")
+    .classList.add("hidden");
+
+  document.getElementById("appScreen")
+    .classList.remove("hidden");
+
+  const name =
+    settings.name ||
+    document.getElementById("childNameInput").value ||
+    "kompis";
+
+  settings.name = name;
+
+  if (type === "morning") {
+
+    document.getElementById("routineIcon").textContent = "☀️";
+    document.getElementById("routineTitle").textContent =
+      "Morgonrutin";
+
+    document.getElementById("bedtimeText").textContent =
+      "Nu gör vi oss redo för dagen!";
+
+  } else {
+
+    document.getElementById("routineIcon").textContent = "🌙";
+    document.getElementById("routineTitle").textContent =
+      "Kvällsrutin";
+
+    document.getElementById("bedtimeText").textContent =
+      `Läggdags är ${String(settings.bedtimeHour).padStart(2,"0")}:${String(settings.bedtimeMinute).padStart(2,"0")}`;
+
+  }
+
+  renderStepOverview();
+  showCurrentTask();
+
+}
+
+
+/* =========================================================
+   HEM
+========================================================= */
+
+function goHome() {
+
+  clearInterval(timerInterval);
+
+  document.getElementById("appScreen")
+    .classList.add("hidden");
+
+  document.getElementById("startScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   VISA STEG
+========================================================= */
+
+function showCurrentTask() {
+
+  clearInterval(timerInterval);
+
+  const steps = routines[currentRoutine];
+
+  if (currentStep >= steps.length) {
+    finishRoutine();
+    return;
+  }
+
+  const task = steps[currentStep];
+
+  document.getElementById("taskIcon").textContent =
+    task.icon;
+
+  document.getElementById("taskTitle").textContent =
+    task.title;
+
+  document.getElementById("taskDescription").textContent =
+    task.description;
+
+  if (task.type === "clothes") {
+
+    document.getElementById("normalTask")
+      .classList.add("hidden");
+
+    document.getElementById("clothesTask")
+      .classList.remove("hidden");
+
+    setupClothes();
+
+  } else {
+
+    document.getElementById("clothesTask")
+      .classList.add("hidden");
+
+    document.getElementById("normalTask")
+      .classList.remove("hidden");
+
+    startTimer(task);
+
+  }
+
+  renderStepOverview();
+  updateProgress();
+
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer(task) {
+
+  const times =
+    currentRoutine === "morning"
+      ? settings.morningTimes
+      : settings.eveningTimes;
+
+  timerTotal = times[task.id] || 60;
+  timerRemaining = timerTotal;
+
+  updateTimerDisplay();
+
+  timerInterval = setInterval(() => {
+
+    timerRemaining--;
+
+    updateTimerDisplay();
+
+    if (timerRemaining <= 0) {
+
+      clearInterval(timerInterval);
+
+      playSound("finish");
+
+    }
+
+  }, 1000);
+
+  playSound("start");
+}
+
+
+function updateTimerDisplay() {
+
+  const minutes =
+    Math.floor(timerRemaining / 60);
+
+  const seconds =
+    timerRemaining % 60;
+
+  document.getElementById("timer").textContent =
+    `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
+  const percentage =
+    timerTotal > 0
+      ? (timerRemaining / timerTotal) * 100
+      : 0;
+
+  document.getElementById("timerFill").style.width =
+    percentage + "%";
+
+  if (timerRemaining <= 15) {
+
+    document.getElementById("timer")
+      .classList.add("warning");
+
+  } else {
+
+    document.getElementById("timer")
+      .classList.remove("warning");
+
+  }
+
+}
+
+
+/* =========================================================
+   KLAR / NÄSTA
+========================================================= */
+
+function completeCurrentTask() {
+
+  if (!completed.includes(currentStep)) {
+    completed.push(currentStep);
+  }
+
+  playSound("finish");
+
+  renderStepOverview();
+  updateProgress();
+
+}
+
+
+function nextTask() {
+
+  if (!completed.includes(currentStep)) {
+    completed.push(currentStep);
+  }
+
+  currentStep++;
+
+  showCurrentTask();
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+  const total =
+    routines[currentRoutine].length;
+
+  const done =
+    completed.length;
+
+  document.getElementById("progressText").textContent =
+    `${done} / ${total}`;
+
+  document.getElementById("progressFill").style.width =
+    `${(done / total) * 100}%`;
+
+}
+
+
+function renderStepOverview() {
+
+  const container =
+    document.getElementById("stepOverview");
+
+  container.innerHTML = "";
+
+  routines[currentRoutine].forEach((step, index) => {
+
+    const dot =
+      document.createElement("div");
+
+    dot.className = "step-dot";
+
+    if (completed.includes(index)) {
+      dot.classList.add("done");
+      dot.textContent = "✓";
+    } else {
+      dot.textContent = index + 1;
+    }
+
+    if (index === currentStep) {
+      dot.classList.add("current");
+    }
+
+    container.appendChild(dot);
+
+  });
+
+}
+
+
+/* =========================================================
+   KLÄDSLUMPARE
+========================================================= */
+
+function setupClothes() {
+
+  if (currentRoutine === "morning") {
+
+    remainingClothes =
+      [...settings.morningClothes];
+
+  } else {
+
+    remainingClothes =
+      [...settings.eveningClothes];
+
+  }
+
+  document.getElementById("clothingResult").textContent =
+    "Snurra hjulet!";
+
+}
+
+
+function spinClothes() {
+
+  if (remainingClothes.length === 0) {
+
+    document.getElementById("clothingResult").textContent =
+      "🎉 Alla kläder är klara!";
+
+    return;
+  }
+
+  const wheel =
+    document.getElementById("wheel");
+
+  wheel.style.transform = "rotate(0deg)";
+
+  setTimeout(() => {
+
+    const randomIndex =
+      Math.floor(Math.random() * remainingClothes.length);
+
+    const selected =
+      remainingClothes[randomIndex];
+
+    remainingClothes.splice(randomIndex, 1);
+
+    wheel.style.transition =
+      "transform 2s cubic-bezier(.2,.8,.2,1)";
+
+    const rotation =
+      720 + Math.floor(Math.random() * 720);
+
+    wheel.style.transform =
+      `rotate(${rotation}deg)`;
+
+    setTimeout(() => {
+
+      const emoji = getClothingEmoji(selected);
+
+      document.getElementById("clothingResult").innerHTML =
+        `🎉 <strong>${emoji} ${selected}</strong>!<br>
+         Ta av den nu.`;
+
+      playSound("finish");
+
+    }, 2000);
+
+  }, 100);
+
+}
+
+
+function getClothingEmoji(clothing) {
+
+  if (clothing === "Tröja") return "👕";
+  if (clothing === "Byxor") return "👖";
+  if (clothing === "Strumpor") return "🧦";
+  if (clothing === "Kalsonger") return "🩲";
+
+  return "👕";
+
+}
+
+
+/* =========================================================
+   FASTNAT
+========================================================= */
+
+function openStuck() {
+
+  const task =
+    routines[currentRoutine][currentStep];
+
+  document.getElementById("stuckText").textContent =
+    `Ta bara nästa lilla steg: ${task.title.toLowerCase()}. Du behöver inte göra allt på en gång.`;
+
+  document.getElementById("stuckOverlay")
+    .style.display = "flex";
+
+}
+
+
+function closeStuck() {
+
+  document.getElementById("stuckOverlay")
+    .style.display = "none";
+
+}
+
+
+/* =========================================================
+   FÄRDIG
+========================================================= */
+
+function finishRoutine() {
+
+  clearInterval(timerInterval);
+
+  const name =
+    settings.name || "kompis";
+
+  if (currentRoutine === "morning") {
+
+    document.getElementById("finishedTitle").textContent =
+      "☀️ Morgonen är klar!";
+
+    document.getElementById("finishedText").textContent =
+      `Superbra jobbat, ${name}! Nu är det dags för skolan. 🎒`;
+
+  } else {
+
+    document.getElementById("finishedTitle").textContent =
+      "🌙 Kvällen är klar!";
+
+    document.getElementById("finishedText").textContent =
+      `Bra jobbat, ${name}! Nu kan kroppen vila. 😴`;
+
+  }
+
+  document.getElementById("finishedOverlay")
+    .style.display = "flex";
+
+}
+
+
+/* =========================================================
+   FÖRÄLDRAKONTROLL
+========================================================= */
+
+function openParentSettings() {
+
+  populateParentSettings();
+
+  document.getElementById("parentOverlay")
+    .style.display = "flex";
+
+}
+
+
+function closeParentSettings() {
+
+  document.getElementById("parentOverlay")
+    .style.display = "none";
+
+}
+
+
+function populateParentSettings() {
+
+  document.getElementById("settingsName").value =
+    settings.name || "";
+
+  document.getElementById("bedHour").value =
+    settings.bedtimeHour;
+
+  document.getElementById("bedMinute").value =
+    settings.bedtimeMinute;
+
+  document.getElementById("soundEnabled").checked =
+    settings.sound;
+
+
+  const morningClothes =
+    settings.morningClothes;
+
+  document.getElementById("morningShirt").checked =
+    morningClothes.includes("Tröja");
+
+  document.getElementById("morningPants").checked =
+    morningClothes.includes("Byxor");
+
+  document.getElementById("morningSocks").checked =
+    morningClothes.includes("Strumpor");
+
+
+  const eveningClothes =
+    settings.eveningClothes;
+
+  document.getElementById("eveningShirt").checked =
+    eveningClothes.includes("Tröja");
+
+  document.getElementById("eveningPants").checked =
+    eveningClothes.includes("Byxor");
+
+  document.getElementById("eveningSocks").checked =
+    eveningClothes.includes("Strumpor");
+
+  document.getElementById("eveningUnderwear").checked =
+    eveningClothes.includes("Kalsonger");
+
+
+  createTimeSettings(
+    "morningSettings",
+    routines.morning,
+    settings.morningTimes
+  );
+
+  createTimeSettings(
+    "eveningSettings",
+    routines.evening,
+    settings.eveningTimes
+  );
+
+}
+
+
+function createTimeSettings(containerId, steps, times) {
+
+  const container =
+    document.getElementById(containerId);
+
+  container.innerHTML = "";
+
+  steps.forEach(step => {
+
+    if (step.type === "clothes") {
+      return;
+    }
+
+    const row =
+      document.createElement("div");
+
+    row.className = "setting-row";
+
+    row.innerHTML = `
+      <span>${step.icon} ${step.title}</span>
+
+      <input
+        type="number"
+        min="5"
+        max="3600"
+        value="${times[step.id] || 60}"
+        data-time-id="${step.id}"
+      >
+    `;
+
+    container.appendChild(row);
+
+  });
+
+}
+
+
+function saveSettings() {
+
+  settings.name =
+    document.getElementById("settingsName").value.trim();
+
+  settings.bedtimeHour =
+    Number(document.getElementById("bedHour").value);
+
+  settings.bedtimeMinute =
+    Number(document.getElementById("bedMinute").value);
+
+  settings.sound =
+    document.getElementById("soundEnabled").checked;
+
+
+  settings.morningClothes = [];
+
+  if (document.getElementById("morningShirt").checked)
+    settings.morningClothes.push("Tröja");
+
+  if (document.getElementById("morningPants").checked)
+    settings.morningClothes.push("Byxor");
+
+  if (document.getElementById("morningSocks").checked)
+    settings.morningClothes.push("Strumpor");
+
+
+  settings.eveningClothes = [];
+
+  if (document.getElementById("eveningShirt").checked)
+    settings.eveningClothes.push("Tröja");
+
+  if (document.getElementById("eveningPants").checked)
+    settings.eveningClothes.push("Byxor");
+
+  if (document.getElementById("eveningSocks").checked)
+    settings.eveningClothes.push("Strumpor");
+
+  if (document.getElementById("eveningUnderwear").checked)
+    settings.eveningClothes.push("Kalsonger");
+
+
+  document.querySelectorAll(
+    "#morningSettings input[data-time-id]"
+  ).forEach(input => {
+
+    settings.morningTimes[input.dataset.timeId] =
+      Number(input.value);
+
+  });
+
+
+  document.querySelectorAll(
+    "#eveningSettings input[data-time-id]"
+  ).forEach(input => {
+
+    settings.eveningTimes[input.dataset.timeId] =
+      Number(input.value);
+
+  });
+
+
+  localStorage.setItem(
+    "minDagSettings",
+    JSON.stringify(settings)
+  );
+
+
+  closeParentSettings();
+
+  document.getElementById("childNameInput").value =
+    settings.name;
+
+  alert("Inställningarna är sparade! 💾");
+
+}
+
+
+/* =========================================================
+   ÅTERSTÄLL
+========================================================= */
+
+function resetSettings() {
+
+  if (!confirm(
+    "Vill du återställa alla inställningar?"
+  )) {
+    return;
+  }
+
+  settings =
+    JSON.parse(JSON.stringify(defaultSettings));
+
+  localStorage.setItem(
+    "minDagSettings",
+    JSON.stringify(settings)
+  );
+
+  populateParentSettings();
+
+}
+
+
+/* =========================================================
+   KLOCKA
+========================================================= */
+
+function updateClock() {
+
+  const now = new Date();
+
+  const time =
+    now.toLocaleTimeString("sv-SE", {
+      hour: "2-digit",
+      minute: "2-digit"
+    });
+
+  document.getElementById("clock").textContent =
+    time;
+
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+
+/* =========================================================
+   LJUD
+========================================================= */
+
+function playSound(type) {
+
+  if (!settings.sound) {
+    return;
+  }
+
+  try {
+
+    const AudioContext =
+      window.AudioContext ||
+      window.webkitAudioContext;
+
+    const context =
+      new AudioContext();
+
+    const oscillator =
+      context.createOscillator();
+
+    const gain =
+      context.createGain();
+
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+
+    oscillator.frequency.value =
+      type === "finish"
+        ? 700
+        : 450;
+
+    gain.gain.value = 0.08;
+
+    oscillator.start();
+
+    setTimeout(() => {
+      oscillator.stop();
+      context.close();
+    }, 180);
+
+  } catch (error) {
+
+    console.log("Ljud kunde inte spelas.");
+
+  }
+
+}
+
+
+/* =========================================================
+   NAMN VID START
+========================================================= */
+
+document.getElementById("childNameInput").value =
+  settings.name || "";
+
+
+/* =========================================================
+   START
+========================================================= */
+
+</script>
+
+</body>
+</html>
