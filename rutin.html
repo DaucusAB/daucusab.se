@@ -3,70 +3,72 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Min dag</title>
+<title>Min dag 🌈</title>
 
 <style>
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(180deg, #eaf6ff, #ffffff);
-  color: #243447;
-  min-height: 100vh;
+  color: #263746;
+  background: linear-gradient(180deg, #eef8ff 0%, #ffffff 100%);
 }
 
 button,
-input,
-select {
+input {
   font: inherit;
 }
 
 button {
+  border: 0;
   cursor: pointer;
-  border: none;
 }
 
-.app {
-  max-width: 850px;
-  margin: auto;
-  padding: 20px;
+.hidden {
+  display: none !important;
 }
 
-/* ---------------- STARTSIDA ---------------- */
+/* =====================================================
+   STARTSIDA
+===================================================== */
 
 .start-screen {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 25px;
 }
 
 .start-card {
   width: 100%;
-  max-width: 700px;
+  max-width: 720px;
   background: white;
-  border-radius: 35px;
-  padding: 35px 25px;
+  border-radius: 36px;
+  padding: 40px 25px;
   text-align: center;
-  box-shadow: 0 15px 50px rgba(0,0,0,.12);
+  box-shadow: 0 15px 45px rgba(0,0,0,.12);
 }
 
 .start-icon {
-  font-size: 80px;
-  margin-bottom: 5px;
+  font-size: 85px;
 }
 
-h1 {
-  font-size: 42px;
-  margin: 10px 0;
+.start-card h1 {
+  font-size: 46px;
+  margin: 5px 0 10px;
 }
 
 .start-subtitle {
-  font-size: 20px;
   color: #687785;
+  font-size: 21px;
   margin-bottom: 30px;
 }
 
@@ -74,11 +76,11 @@ h1 {
   width: 100%;
   max-width: 400px;
   padding: 15px 20px;
+  border: 3px solid #dce7ee;
   border-radius: 18px;
-  border: 3px solid #dce8f0;
+  outline: none;
   text-align: center;
   margin-bottom: 25px;
-  outline: none;
 }
 
 .routine-choice {
@@ -90,101 +92,117 @@ h1 {
 .routine-button {
   padding: 30px 15px;
   border-radius: 28px;
-  font-weight: bold;
+  box-shadow: 0 8px 20px rgba(0,0,0,.10);
   transition: transform .15s;
-  box-shadow: 0 8px 20px rgba(0,0,0,.1);
 }
 
 .routine-button:hover {
   transform: translateY(-4px);
 }
 
-.morning {
-  background: #fff2a8;
+.routine-button.morning {
+  background: #fff0a8;
 }
 
-.evening {
+.routine-button.evening {
   background: #c9c5ff;
 }
 
 .routine-button .big {
   display: block;
-  font-size: 55px;
-  margin-bottom: 10px;
+  font-size: 60px;
 }
 
 .routine-button .label {
   display: block;
-  font-size: 25px;
+  font-size: 26px;
+  font-weight: bold;
+  margin-top: 8px;
 }
 
 .routine-button .small {
   display: block;
-  margin-top: 8px;
-  font-weight: normal;
+  margin-top: 7px;
 }
 
-/* ---------------- TOPP ---------------- */
+/* =====================================================
+   APP
+===================================================== */
+
+.app {
+  max-width: 850px;
+  margin: auto;
+  padding: 18px;
+}
 
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(238,248,255,.94);
+  backdrop-filter: blur(8px);
+  padding: 8px 0;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 10px;
-  margin-bottom: 15px;
 }
 
-.home-button,
-.parent-button {
+.small-button {
   background: white;
-  padding: 11px 16px;
+  padding: 11px 15px;
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0,0,0,.08);
 }
 
 .clock {
   font-weight: bold;
-  font-size: 18px;
 }
+
+/* =====================================================
+   RUBRIK
+===================================================== */
 
 .routine-header {
   text-align: center;
-  margin-bottom: 20px;
+  padding: 15px 0 10px;
 }
 
 .routine-header .icon {
-  font-size: 65px;
+  font-size: 70px;
 }
 
 .routine-header h2 {
-  font-size: 34px;
+  font-size: 38px;
   margin: 5px;
 }
 
-.bedtime {
-  font-size: 17px;
-  color: #667;
+.routine-header p {
+  font-size: 18px;
+  color: #687785;
 }
 
-/* ---------------- PROGRESS ---------------- */
+/* =====================================================
+   ÖVERSIKT
+===================================================== */
 
-.progress-container {
+.overview-card {
   background: white;
-  padding: 15px;
-  border-radius: 20px;
-  margin-bottom: 20px;
+  border-radius: 22px;
+  padding: 16px;
+  margin: 10px 0 20px;
   box-shadow: 0 5px 18px rgba(0,0,0,.07);
 }
 
-.progress-text {
+.progress-label {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
   font-weight: bold;
+  margin-bottom: 8px;
 }
 
 .progress-bar {
-  height: 18px;
+  height: 17px;
   background: #e5edf2;
   border-radius: 20px;
   overflow: hidden;
@@ -192,75 +210,110 @@ h1 {
 
 .progress-fill {
   height: 100%;
-  width: 0%;
-  background: #67c587;
+  width: 0;
+  background: #68c989;
   transition: width .4s;
 }
 
-/* ---------------- STEG ---------------- */
+/* =====================================================
+   HELA LISTAN
+===================================================== */
 
-.step-overview {
+.task-list {
   display: flex;
-  gap: 7px;
-  overflow-x: auto;
-  padding-bottom: 10px;
-  margin-bottom: 15px;
+  flex-direction: column;
+  gap: 18px;
 }
 
-.step-dot {
-  min-width: 36px;
-  height: 36px;
-  border-radius: 50%;
+.task-card {
   background: white;
+  border-radius: 30px;
+  padding: 22px;
+  box-shadow: 0 7px 22px rgba(0,0,0,.08);
+  border: 4px solid transparent;
+  transition: .25s;
+  scroll-margin-top: 90px;
+}
+
+.task-card.future {
+  opacity: .72;
+}
+
+.task-card.current {
+  border-color: #6574ff;
+  box-shadow: 0 10px 30px rgba(83,109,254,.20);
+  transform: scale(1.01);
+}
+
+.task-card.completed {
+  border-color: #69ca89;
+  background: #f2fff6;
+  opacity: 1;
+}
+
+.task-top {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.task-number {
+  min-width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #edf2f5;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  box-shadow: 0 3px 8px rgba(0,0,0,.08);
+  font-size: 18px;
 }
 
-.step-dot.done {
-  background: #73d395;
+.completed .task-number {
+  background: #69ca89;
   color: white;
 }
 
-.step-dot.current {
-  transform: scale(1.15);
-  border: 3px solid #536dfe;
-}
-
-/* ---------------- HUVUDKORT ---------------- */
-
-.task-card {
-  background: white;
-  border-radius: 35px;
-  padding: 30px 25px;
-  text-align: center;
-  box-shadow: 0 12px 35px rgba(0,0,0,.10);
-}
-
 .task-icon {
-  font-size: 95px;
-  margin: 5px 0 10px;
+  font-size: 55px;
 }
 
-.task-card h3 {
-  font-size: 34px;
-  margin: 5px 0 10px;
+.task-heading {
+  flex: 1;
 }
 
-.task-description {
-  font-size: 20px;
-  color: #667;
-  min-height: 30px;
+.task-heading h3 {
+  margin: 0;
+  font-size: 27px;
 }
 
-/* ---------------- TIMER ---------------- */
+.task-heading p {
+  margin: 5px 0 0;
+  color: #697985;
+}
+
+.status {
+  font-size: 28px;
+}
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.task-body {
+  margin-top: 18px;
+  display: none;
+}
+
+.current .task-body {
+  display: block;
+}
 
 .timer {
+  text-align: center;
   font-size: 48px;
   font-weight: bold;
-  margin: 20px 0 8px;
+  margin: 8px 0;
 }
 
 .timer.warning {
@@ -268,68 +321,74 @@ h1 {
 }
 
 @keyframes pulse {
-  from { transform: scale(1); }
-  to { transform: scale(1.08); }
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
 }
 
 .timer-bar {
-  height: 15px;
+  height: 14px;
   background: #e6edf2;
   border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
 }
 
 .timer-fill {
   height: 100%;
   width: 100%;
-  background: #6ca8dc;
+  background: #6574ff;
   transition: width 1s linear;
 }
 
-.main-action {
+.task-buttons {
+  display: grid;
+  gap: 10px;
+}
+
+.main-button {
   width: 100%;
-  max-width: 430px;
-  padding: 20px;
-  border-radius: 22px;
-  background: #67c587;
-  color: white;
+  padding: 17px;
+  border-radius: 20px;
+  font-size: 23px;
   font-weight: bold;
-  font-size: 24px;
-  margin: 8px auto;
+}
+
+.done-button {
+  background: #69ca89;
+  color: white;
 }
 
 .next-button {
-  background: #536dfe;
+  background: #6574ff;
+  color: white;
 }
 
 .stuck-button {
-  background: #fff0d5;
-  color: #805b00;
+  background: #fff0d6;
+  color: #765600;
 }
 
-.back-button {
-  background: #edf1f4;
-  color: #455;
-}
+/* =====================================================
+   KLÄDER
+===================================================== */
 
-/* ---------------- KLÄDER ---------------- */
-
-.clothes-box {
-  margin: 15px auto;
-  max-width: 500px;
+.clothes-area {
+  margin-top: 20px;
+  text-align: center;
 }
 
 .wheel {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
+  width: 230px;
+  height: 230px;
   margin: 20px auto;
-  border: 12px solid white;
+  border-radius: 50%;
+  border: 10px solid white;
   box-shadow: 0 8px 25px rgba(0,0,0,.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   background:
     conic-gradient(
       #ffd166 0deg 90deg,
@@ -337,61 +396,128 @@ h1 {
       #b8e0a5 180deg 270deg,
       #f6a6c1 270deg 360deg
     );
-  position: relative;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: transform 2s cubic-bezier(.15,.75,.15,1);
 }
 
 .wheel-center {
-  width: 105px;
-  height: 105px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 45px;
-  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+  font-size: 42px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
 }
 
 .pointer {
-  font-size: 40px;
-  transform: rotate(180deg);
+  font-size: 35px;
 }
 
 .clothing-result {
+  font-size: 25px;
   min-height: 65px;
-  font-size: 27px;
   font-weight: bold;
-  margin: 15px;
 }
 
-.spin-button {
-  background: #ffb703;
-  color: #4b3600;
+.clothing-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 10px 0 20px;
 }
 
-/* ---------------- FAST ---------------- */
+.clothing-pill {
+  padding: 8px 13px;
+  border-radius: 20px;
+  background: #edf2f5;
+}
 
-.stuck-overlay,
-.parent-overlay,
-.finished-overlay {
+/* =====================================================
+   UPPMUNTRAN
+===================================================== */
+
+.encouragement {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(.8);
+  z-index: 100;
+  background: white;
+  padding: 25px 35px;
+  border-radius: 30px;
+  box-shadow: 0 15px 50px rgba(0,0,0,.25);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.encouragement.show {
+  animation: encouragement .9s forwards;
+}
+
+.encouragement .emoji {
+  font-size: 65px;
+}
+
+.encouragement .text {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+@keyframes encouragement {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.6);
+  }
+
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.95);
+  }
+}
+
+/* =====================================================
+   OVERLAYS
+===================================================== */
+
+.overlay {
   position: fixed;
   inset: 0;
+  z-index: 200;
   background: rgba(25,35,45,.65);
   display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  z-index: 100;
 }
 
 .overlay-card {
   background: white;
   border-radius: 30px;
   padding: 30px;
-  max-width: 550px;
+  max-width: 600px;
   width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
   text-align: center;
-  box-shadow: 0 15px 50px rgba(0,0,0,.3);
 }
 
 .overlay-card h2 {
@@ -399,53 +525,48 @@ h1 {
 }
 
 .overlay-card p {
-  font-size: 20px;
+  font-size: 19px;
   line-height: 1.5;
 }
 
-/* ---------------- FÄRDIG ---------------- */
+/* =====================================================
+   FÄRDIG
+===================================================== */
 
-.finished-overlay {
-  z-index: 200;
-}
-
-.finished-icon {
+.finished-emoji {
   font-size: 90px;
 }
 
-.finished-overlay h2 {
+.finished-card h2 {
   font-size: 40px;
 }
 
-/* ---------------- FÖRÄLDER ---------------- */
-
-.parent-panel {
-  max-height: 90vh;
-  overflow-y: auto;
-}
+/* =====================================================
+   FÖRÄLDRAR
+===================================================== */
 
 .settings-section {
   text-align: left;
   border-top: 2px solid #edf1f4;
-  padding-top: 20px;
+  padding-top: 18px;
   margin-top: 20px;
 }
 
 .settings-section h3 {
-  font-size: 23px;
+  font-size: 22px;
 }
 
 .setting-row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   gap: 15px;
-  padding: 10px 0;
+  padding: 9px 0;
 }
 
 .setting-row input[type="number"] {
-  width: 90px;
-  padding: 10px;
+  width: 80px;
+  padding: 9px;
   border: 2px solid #dce5eb;
   border-radius: 10px;
 }
@@ -453,69 +574,88 @@ h1 {
 .clothing-options {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px;
+  gap: 9px;
 }
 
 .clothing-option {
   background: #f3f7fa;
-  padding: 14px;
-  border-radius: 15px;
+  padding: 13px;
+  border-radius: 14px;
 }
 
 .save-button {
-  background: #67c587;
-  color: white;
+  margin-top: 20px;
   width: 100%;
   padding: 17px;
   border-radius: 18px;
+  background: #69ca89;
+  color: white;
   font-weight: bold;
-  margin-top: 20px;
 }
 
 .reset-button {
-  background: #ffe0e0;
-  color: #8b3333;
+  margin-top: 10px;
   width: 100%;
   padding: 15px;
   border-radius: 18px;
-  margin-top: 10px;
+  background: #ffe1e1;
+  color: #843737;
 }
 
-.hidden {
-  display: none !important;
+.close-button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 18px;
+  background: #edf1f4;
 }
+
+/* =====================================================
+   MOBIL
+===================================================== */
 
 @media (max-width: 600px) {
-  h1 {
-    font-size: 34px;
-  }
 
   .routine-choice {
     grid-template-columns: 1fr;
   }
 
-  .task-card h3 {
-    font-size: 29px;
+  .start-card h1 {
+    font-size: 37px;
+  }
+
+  .routine-header h2 {
+    font-size: 31px;
+  }
+
+  .task-heading h3 {
+    font-size: 23px;
   }
 
   .task-icon {
-    font-size: 75px;
+    font-size: 45px;
   }
 
   .timer {
     font-size: 40px;
   }
+
+  .clothing-options {
+    grid-template-columns: 1fr;
+  }
+
 }
 </style>
 </head>
 
 <body>
 
-<!-- =========================================================
+<!-- =====================================================
      STARTSIDA
-========================================================= -->
+===================================================== -->
 
 <div id="startScreen" class="start-screen">
+
   <div class="start-card">
 
     <div class="start-icon">🌈</div>
@@ -535,46 +675,66 @@ h1 {
 
     <div class="routine-choice">
 
-      <button class="routine-button morning" onclick="startRoutine('morning')">
+      <button
+        class="routine-button morning"
+        onclick="startRoutine('morning')">
+
         <span class="big">☀️</span>
         <span class="label">Morgonrutin</span>
-        <span class="small">Göra sig redo för dagen</span>
+        <span class="small">
+          Göra sig redo för dagen
+        </span>
+
       </button>
 
-      <button class="routine-button evening" onclick="startRoutine('evening')">
+
+      <button
+        class="routine-button evening"
+        onclick="startRoutine('evening')">
+
         <span class="big">🌙</span>
         <span class="label">Kvällsrutin</span>
-        <span class="small">Göra sig redo för natten</span>
+        <span class="small">
+          Göra sig redo för natten
+        </span>
+
       </button>
 
     </div>
 
     <button
-      class="parent-button"
-      style="margin-top:25px;"
+      class="small-button"
+      style="margin-top:25px"
       onclick="openParentSettings()">
+
       ⚙️ Föräldrakontroll
+
     </button>
 
   </div>
+
 </div>
 
 
-<!-- =========================================================
-     HUVUDAPP
-========================================================= -->
+<!-- =====================================================
+     APP
+===================================================== -->
 
 <div id="appScreen" class="app hidden">
 
   <div class="topbar">
 
-    <button class="home-button" onclick="goHome()">
+    <button
+      class="small-button"
+      onclick="goHome()">
       🏠 Hem
     </button>
 
     <div id="clock" class="clock"></div>
 
-    <button class="parent-button" onclick="openParentSettings()">
+    <button
+      class="small-button"
+      onclick="openParentSettings()">
       ⚙️
     </button>
 
@@ -583,127 +743,89 @@ h1 {
 
   <div class="routine-header">
 
-    <div id="routineIcon" class="icon">☀️</div>
+    <div id="routineIcon" class="icon">
+      ☀️
+    </div>
 
-    <h2 id="routineTitle">Morgonrutin</h2>
+    <h2 id="routineTitle">
+      Morgonrutin
+    </h2>
 
-    <div id="bedtimeText" class="bedtime"></div>
+    <p id="routineDescription"></p>
 
   </div>
 
 
-  <div class="progress-container">
+  <div class="overview-card">
 
-    <div class="progress-text">
+    <div class="progress-label">
       <span>Så här långt har vi kommit</span>
       <span id="progressText">0 / 0</span>
     </div>
 
     <div class="progress-bar">
-      <div id="progressFill" class="progress-fill"></div>
+      <div
+        id="progressFill"
+        class="progress-fill">
+      </div>
     </div>
 
   </div>
 
 
-  <div id="stepOverview" class="step-overview"></div>
+  <!-- HÄR LIGGER HELA LISTAN -->
 
-
-  <div class="task-card">
-
-    <div id="taskIcon" class="task-icon">👕</div>
-
-    <h3 id="taskTitle">Uppgift</h3>
-
-    <div id="taskDescription" class="task-description"></div>
-
-
-    <!-- Vanligt steg -->
-
-    <div id="normalTask">
-
-      <div id="timer" class="timer">00:00</div>
-
-      <div class="timer-bar">
-        <div id="timerFill" class="timer-fill"></div>
-      </div>
-
-      <button
-        class="main-action"
-        onclick="completeCurrentTask()">
-        ✅ KLAR!
-      </button>
-
-      <button
-        class="main-action next-button"
-        onclick="nextTask()">
-        👉 Nästa
-      </button>
-
-      <button
-        class="main-action stuck-button"
-        onclick="openStuck()">
-        🆘 Jag fastnade
-      </button>
-
-    </div>
-
-
-    <!-- Klädslumpare -->
-
-    <div id="clothesTask" class="clothes-box hidden">
-
-      <div class="pointer">🔻</div>
-
-      <div id="wheel" class="wheel">
-
-        <div class="wheel-center">
-          🎲
-        </div>
-
-      </div>
-
-      <div id="clothingResult" class="clothing-result">
-        Snurra hjulet!
-      </div>
-
-      <button
-        class="main-action spin-button"
-        onclick="spinClothes()">
-        🎡 SNURRA!
-      </button>
-
-      <button
-        class="main-action next-button"
-        onclick="nextTask()">
-        👉 Nästa
-      </button>
-
-    </div>
-
+  <div
+    id="taskList"
+    class="task-list">
   </div>
 
 </div>
 
 
-<!-- =========================================================
-     FASTNAT
-========================================================= -->
+<!-- =====================================================
+     UPPMUNTRAN
+===================================================== -->
 
-<div id="stuckOverlay" class="stuck-overlay">
+<div
+  id="encouragement"
+  class="encouragement">
+
+  <div
+    id="encouragementEmoji"
+    class="emoji">
+    🎉
+  </div>
+
+  <div
+    id="encouragementText"
+    class="text">
+    Bra jobbat!
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     FASTNAT
+===================================================== -->
+
+<div
+  id="stuckOverlay"
+  class="overlay">
 
   <div class="overlay-card">
 
-    <div style="font-size:70px;">🧘</div>
+    <div style="font-size:70px">
+      🧘
+    </div>
 
     <h2>Ingen fara!</h2>
 
-    <p id="stuckText">
-      Ta ett litet steg i taget.
-    </p>
+    <p id="stuckText"></p>
 
     <button
-      class="main-action"
+      class="main-button done-button"
       onclick="closeStuck()">
       👍 Jag provar igen
     </button>
@@ -713,24 +835,28 @@ h1 {
 </div>
 
 
-<!-- =========================================================
-     KLAR
-========================================================= -->
+<!-- =====================================================
+     FÄRDIG
+===================================================== -->
 
-<div id="finishedOverlay" class="finished-overlay">
+<div
+  id="finishedOverlay"
+  class="overlay">
 
-  <div class="overlay-card">
+  <div class="overlay-card finished-card">
 
-    <div class="finished-icon">🎉</div>
+    <div class="finished-emoji">
+      🎉⭐🎉
+    </div>
 
-    <h2 id="finishedTitle">Klart!</h2>
+    <h2 id="finishedTitle">
+      Du klarade det!
+    </h2>
 
-    <p id="finishedText">
-      Bra jobbat!
-    </p>
+    <p id="finishedText"></p>
 
     <button
-      class="main-action"
+      class="main-button done-button"
       onclick="goHome()">
       🏠 Till startsidan
     </button>
@@ -740,20 +866,25 @@ h1 {
 </div>
 
 
-<!-- =========================================================
-     FÖRÄLDRAKONTROLL
-========================================================= -->
+<!-- =====================================================
+     FÖRÄLDRAR
+===================================================== -->
 
-<div id="parentOverlay" class="parent-overlay">
+<div
+  id="parentOverlay"
+  class="overlay">
 
-  <div class="overlay-card parent-panel">
+  <div class="overlay-card">
 
     <h2>⚙️ Föräldrakontroll</h2>
 
     <p>
-      Här kan du ändra hur rutinen fungerar.
+      Här kan du anpassa rutinerna.
+      Tiderna anges i sekunder.
     </p>
 
+
+    <!-- NAMN -->
 
     <div class="settings-section">
 
@@ -763,26 +894,39 @@ h1 {
         id="settingsName"
         class="name-input"
         type="text"
-        placeholder="Barnets namn"
-      >
+        placeholder="Barnets namn">
 
     </div>
 
 
-    <!-- KVÄLL -->
+    <!-- LÄGGTID -->
 
     <div class="settings-section">
 
-      <h3>🌙 Kväll – läggtid</h3>
+      <h3>🌙 Läggtid</h3>
 
       <div class="setting-row">
-        <span>Läggtid</span>
+
+        <span>Läggdags</span>
 
         <div>
-          <input id="bedHour" type="number" min="0" max="23">
+
+          <input
+            id="bedHour"
+            type="number"
+            min="0"
+            max="23">
+
           :
-          <input id="bedMinute" type="number" min="0" max="59">
+
+          <input
+            id="bedMinute"
+            type="number"
+            min="0"
+            max="59">
+
         </div>
+
       </div>
 
     </div>
@@ -792,22 +936,28 @@ h1 {
 
     <div class="settings-section">
 
-      <h3>☀️ Morgon – kläder som ska på</h3>
+      <h3>☀️ Kläder på morgonen</h3>
 
       <div class="clothing-options">
 
         <label class="clothing-option">
-          <input id="morningShirt" type="checkbox">
+          <input
+            id="morningShirt"
+            type="checkbox">
           👕 Tröja
         </label>
 
         <label class="clothing-option">
-          <input id="morningPants" type="checkbox">
+          <input
+            id="morningPants"
+            type="checkbox">
           👖 Byxor
         </label>
 
         <label class="clothing-option">
-          <input id="morningSocks" type="checkbox">
+          <input
+            id="morningSocks"
+            type="checkbox">
           🧦 Strumpor
         </label>
 
@@ -820,27 +970,35 @@ h1 {
 
     <div class="settings-section">
 
-      <h3>🌙 Kväll – kläder som ska av</h3>
+      <h3>🌙 Kläder som ska av på kvällen</h3>
 
       <div class="clothing-options">
 
         <label class="clothing-option">
-          <input id="eveningShirt" type="checkbox">
+          <input
+            id="eveningShirt"
+            type="checkbox">
           👕 Tröja
         </label>
 
         <label class="clothing-option">
-          <input id="eveningPants" type="checkbox">
+          <input
+            id="eveningPants"
+            type="checkbox">
           👖 Byxor
         </label>
 
         <label class="clothing-option">
-          <input id="eveningSocks" type="checkbox">
+          <input
+            id="eveningSocks"
+            type="checkbox">
           🧦 Strumpor
         </label>
 
         <label class="clothing-option">
-          <input id="eveningUnderwear" type="checkbox">
+          <input
+            id="eveningUnderwear"
+            type="checkbox">
           🩲 Kalsonger
         </label>
 
@@ -853,7 +1011,7 @@ h1 {
 
     <div class="settings-section">
 
-      <h3>☀️ Morgon – tider</h3>
+      <h3>☀️ Tider – morgon</h3>
 
       <div id="morningSettings"></div>
 
@@ -864,7 +1022,7 @@ h1 {
 
     <div class="settings-section">
 
-      <h3>🌙 Kväll – tider</h3>
+      <h3>🌙 Tider – kväll</h3>
 
       <div id="eveningSettings"></div>
 
@@ -878,7 +1036,9 @@ h1 {
       <h3>🔊 Ljud</h3>
 
       <label>
-        <input id="soundEnabled" type="checkbox">
+        <input
+          id="soundEnabled"
+          type="checkbox">
         Använd ljud
       </label>
 
@@ -898,7 +1058,7 @@ h1 {
     </button>
 
     <button
-      class="main-action back-button"
+      class="close-button"
       onclick="closeParentSettings()">
       Tillbaka
     </button>
@@ -910,9 +1070,9 @@ h1 {
 
 <script>
 
-/* =========================================================
-   STANDARDINSTÄLLNINGAR
-========================================================= */
+/* =====================================================
+   INSTÄLLNINGAR
+===================================================== */
 
 const defaultSettings = {
 
@@ -937,6 +1097,7 @@ const defaultSettings = {
   ],
 
   morningTimes: {
+
     diaper: 60,
     pajamas: 60,
     underwear: 60,
@@ -951,9 +1112,11 @@ const defaultSettings = {
     backpack: 60,
     sport: 60,
     school: 60
+
   },
 
   eveningTimes: {
+
     clothes: 180,
     toilet: 120,
     nightDiaper: 60,
@@ -962,23 +1125,20 @@ const defaultSettings = {
     reading: 900,
     potty: 120,
     sleep: 60
+
   }
 
 };
 
-
-/* =========================================================
-   LADDA INSTÄLLNINGAR
-========================================================= */
 
 let settings =
   JSON.parse(localStorage.getItem("minDagSettings"))
   || JSON.parse(JSON.stringify(defaultSettings));
 
 
-/* =========================================================
+/* =====================================================
    RUTINER
-========================================================= */
+===================================================== */
 
 const routines = {
 
@@ -1008,9 +1168,9 @@ const routines = {
     {
       id: "clothes",
       type: "clothes",
-      icon: "🎡",
-      title: "Vilket plagg blir först?",
-      description: "Snurra hjulet och se!"
+      icon: "🎲",
+      title: "Slumpa kläder",
+      description: "Vilket plagg blir först?"
     },
 
     {
@@ -1052,7 +1212,7 @@ const routines = {
       id: "outerwear",
       icon: "🧥",
       title: "Ta på ytterkläder",
-      description: "Jacka och resten av ytterkläderna."
+      description: "Jacka och ytterkläder på."
     },
 
     {
@@ -1091,9 +1251,9 @@ const routines = {
     {
       id: "clothes",
       type: "clothes",
-      icon: "🎡",
-      title: "Vilket plagg ska av först?",
-      description: "Snurra hjulet!"
+      icon: "🎲",
+      title: "Slumpa kläder",
+      description: "Vilket plagg ska av först?"
     },
 
     {
@@ -1150,143 +1310,362 @@ const routines = {
 };
 
 
-/* =========================================================
+/* =====================================================
    VARIABLER
-========================================================= */
+===================================================== */
 
 let currentRoutine = null;
 let currentStep = 0;
 let completed = [];
+
 let timerInterval = null;
 let timerRemaining = 0;
 let timerTotal = 0;
 
 let remainingClothes = [];
 
+let spinning = false;
 
-/* =========================================================
-   STARTA RUTIN
-========================================================= */
+
+/* =====================================================
+   UPPMUNTRAN
+===================================================== */
+
+const encouragements = [
+
+  ["🎉", "Snyggt jobbat!"],
+
+  ["⭐", "Du fixade det!"],
+
+  ["👏", "Bra kämpat!"],
+
+  ["🥳", "Yes! Klart!"],
+
+  ["💪", "Vilken hjälte!"],
+
+  ["🌟", "Superbra!"],
+
+  ["🚀", "Du är på gång!"],
+
+  ["🎈", "Tjoho!"],
+
+  ["🏆", "En uppgift till klar!"]
+
+];
+
+
+function showEncouragement() {
+
+  const item =
+    encouragements[
+      Math.floor(
+        Math.random() * encouragements.length
+      )
+    ];
+
+  document.getElementById(
+    "encouragementEmoji"
+  ).textContent = item[0];
+
+  document.getElementById(
+    "encouragementText"
+  ).textContent = item[1];
+
+  const box =
+    document.getElementById("encouragement");
+
+  box.classList.remove("show");
+
+  void box.offsetWidth;
+
+  box.classList.add("show");
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
 
 function startRoutine(type) {
 
   currentRoutine = type;
+
   currentStep = 0;
+
   completed = [];
 
-  document.getElementById("startScreen")
+  clearInterval(timerInterval);
+
+  document
+    .getElementById("startScreen")
     .classList.add("hidden");
 
-  document.getElementById("appScreen")
+  document
+    .getElementById("appScreen")
     .classList.remove("hidden");
 
-  const name =
-    settings.name ||
-    document.getElementById("childNameInput").value ||
-    "kompis";
 
-  settings.name = name;
+  const enteredName =
+    document
+      .getElementById("childNameInput")
+      .value
+      .trim();
+
+  if (enteredName) {
+    settings.name = enteredName;
+  }
+
 
   if (type === "morning") {
 
-    document.getElementById("routineIcon").textContent = "☀️";
-    document.getElementById("routineTitle").textContent =
-      "Morgonrutin";
+    document
+      .getElementById("routineIcon")
+      .textContent = "☀️";
 
-    document.getElementById("bedtimeText").textContent =
-      "Nu gör vi oss redo för dagen!";
+    document
+      .getElementById("routineTitle")
+      .textContent = "Morgonrutin";
+
+    document
+      .getElementById("routineDescription")
+      .textContent =
+      `God morgon ${settings.name || "kompis"}! Nu tar vi en sak i taget.`;
 
   } else {
 
-    document.getElementById("routineIcon").textContent = "🌙";
-    document.getElementById("routineTitle").textContent =
-      "Kvällsrutin";
+    document
+      .getElementById("routineIcon")
+      .textContent = "🌙";
 
-    document.getElementById("bedtimeText").textContent =
-      `Läggdags är ${String(settings.bedtimeHour).padStart(2,"0")}:${String(settings.bedtimeMinute).padStart(2,"0")}`;
+    document
+      .getElementById("routineTitle")
+      .textContent = "Kvällsrutin";
+
+    document
+      .getElementById("routineDescription")
+      .textContent =
+      `God kväll ${settings.name || "kompis"}! Nu varvar vi ner.`;
 
   }
 
-  renderStepOverview();
-  showCurrentTask();
+
+  renderAllTasks();
+
+  startCurrentTask();
 
 }
 
 
-/* =========================================================
-   HEM
-========================================================= */
+/* =====================================================
+   VISA HELA LISTAN
+===================================================== */
 
-function goHome() {
+function renderAllTasks() {
 
-  clearInterval(timerInterval);
+  const list =
+    document.getElementById("taskList");
 
-  document.getElementById("appScreen")
-    .classList.add("hidden");
-
-  document.getElementById("startScreen")
-    .classList.remove("hidden");
-
-}
+  list.innerHTML = "";
 
 
-/* =========================================================
-   VISA STEG
-========================================================= */
+  const steps =
+    routines[currentRoutine];
 
-function showCurrentTask() {
 
-  clearInterval(timerInterval);
+  steps.forEach((task, index) => {
 
-  const steps = routines[currentRoutine];
+    const card =
+      document.createElement("div");
 
-  if (currentStep >= steps.length) {
-    finishRoutine();
-    return;
-  }
+    card.id = `task-${index}`;
 
-  const task = steps[currentStep];
+    card.className = "task-card";
 
-  document.getElementById("taskIcon").textContent =
-    task.icon;
 
-  document.getElementById("taskTitle").textContent =
-    task.title;
+    if (index < currentStep) {
+      card.classList.add("future");
+    }
 
-  document.getElementById("taskDescription").textContent =
-    task.description;
+    if (index === currentStep) {
+      card.classList.add("current");
+    }
 
-  if (task.type === "clothes") {
+    if (completed.includes(index)) {
+      card.classList.remove("future");
+      card.classList.remove("current");
+      card.classList.add("completed");
+    }
 
-    document.getElementById("normalTask")
-      .classList.add("hidden");
 
-    document.getElementById("clothesTask")
-      .classList.remove("hidden");
+    card.innerHTML = `
 
-    setupClothes();
+      <div class="task-top">
 
-  } else {
+        <div class="task-number">
+          ${
+            completed.includes(index)
+              ? "✓"
+              : index + 1
+          }
+        </div>
 
-    document.getElementById("clothesTask")
-      .classList.add("hidden");
+        <div class="task-icon">
+          ${task.icon}
+        </div>
 
-    document.getElementById("normalTask")
-      .classList.remove("hidden");
+        <div class="task-heading">
 
-    startTimer(task);
+          <h3>${task.title}</h3>
 
-  }
+          <p>${task.description}</p>
 
-  renderStepOverview();
+        </div>
+
+        <div class="status">
+          ${
+            completed.includes(index)
+              ? "🎉"
+              : ""
+          }
+        </div>
+
+      </div>
+
+      <div class="task-body"
+           id="body-${index}">
+      </div>
+
+    `;
+
+
+    list.appendChild(card);
+
+  });
+
+
   updateProgress();
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   STARTA AKTUELLT STEG
+===================================================== */
+
+function startCurrentTask() {
+
+  clearInterval(timerInterval);
+
+  if (
+    currentStep >=
+    routines[currentRoutine].length
+  ) {
+
+    finishRoutine();
+    return;
+
+  }
+
+
+  const task =
+    routines[currentRoutine][currentStep];
+
+
+  renderAllTasks();
+
+
+  const body =
+    document.getElementById(
+      `body-${currentStep}`
+    );
+
+
+  if (task.type === "clothes") {
+
+    renderClothesTask(body);
+
+  } else {
+
+    renderNormalTask(body, task);
+
+  }
+
+
+  setTimeout(() => {
+
+    const card =
+      document.getElementById(
+        `task-${currentStep}`
+      );
+
+    if (card) {
+
+      card.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+
+    }
+
+  }, 100);
+
+}
+
+
+/* =====================================================
+   VANLIGT STEG
+===================================================== */
+
+function renderNormalTask(body, task) {
+
+  body.innerHTML = `
+
+    <div class="timer"
+         id="timer">
+      00:00
+    </div>
+
+    <div class="timer-bar">
+
+      <div
+        id="timerFill"
+        class="timer-fill">
+      </div>
+
+    </div>
+
+    <div class="task-buttons">
+
+      <button
+        class="main-button done-button"
+        onclick="completeCurrentTask()">
+
+        ✅ KLAR!
+
+      </button>
+
+      <button
+        class="main-button stuck-button"
+        onclick="openStuck()">
+
+        🆘 Jag fastnade
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  startTimer(task);
+
+}
+
+
+/* =====================================================
    TIMER
-========================================================= */
+===================================================== */
 
 function startTimer(task) {
 
@@ -1295,32 +1674,55 @@ function startTimer(task) {
       ? settings.morningTimes
       : settings.eveningTimes;
 
-  timerTotal = times[task.id] || 60;
-  timerRemaining = timerTotal;
 
-  updateTimerDisplay();
+  timerTotal =
+    Number(times[task.id]) || 60;
 
-  timerInterval = setInterval(() => {
+  timerRemaining =
+    timerTotal;
 
-    timerRemaining--;
 
-    updateTimerDisplay();
+  updateTimer();
 
-    if (timerRemaining <= 0) {
 
-      clearInterval(timerInterval);
+  timerInterval =
+    setInterval(() => {
 
-      playSound("finish");
+      if (timerRemaining <= 0) {
 
-    }
+        clearInterval(timerInterval);
 
-  }, 1000);
+        playSound("finish");
+
+        return;
+
+      }
+
+      timerRemaining--;
+
+      updateTimer();
+
+    }, 1000);
+
 
   playSound("start");
+
 }
 
 
-function updateTimerDisplay() {
+function updateTimer() {
+
+  const timer =
+    document.getElementById("timer");
+
+  const fill =
+    document.getElementById("timerFill");
+
+
+  if (!timer || !fill) {
+    return;
+  }
+
 
   const minutes =
     Math.floor(timerRemaining / 60);
@@ -1328,119 +1730,201 @@ function updateTimerDisplay() {
   const seconds =
     timerRemaining % 60;
 
-  document.getElementById("timer").textContent =
+
+  timer.textContent =
     `${String(minutes).padStart(2,"0")}:${String(seconds).padStart(2,"0")}`;
+
 
   const percentage =
     timerTotal > 0
       ? (timerRemaining / timerTotal) * 100
       : 0;
 
-  document.getElementById("timerFill").style.width =
+
+  fill.style.width =
     percentage + "%";
+
 
   if (timerRemaining <= 15) {
 
-    document.getElementById("timer")
-      .classList.add("warning");
+    timer.classList.add("warning");
 
   } else {
 
-    document.getElementById("timer")
-      .classList.remove("warning");
+    timer.classList.remove("warning");
 
   }
 
 }
 
 
-/* =========================================================
-   KLAR / NÄSTA
-========================================================= */
+/* =====================================================
+   KLAR
+===================================================== */
 
 function completeCurrentTask() {
 
+  clearInterval(timerInterval);
+
+
   if (!completed.includes(currentStep)) {
+
     completed.push(currentStep);
+
   }
+
 
   playSound("finish");
 
-  renderStepOverview();
-  updateProgress();
+  showEncouragement();
+
+  renderAllTasks();
+
+
+  setTimeout(() => {
+
+    nextTask();
+
+  }, 1100);
 
 }
 
+
+/* =====================================================
+   NÄSTA
+===================================================== */
 
 function nextTask() {
 
-  if (!completed.includes(currentStep)) {
-    completed.push(currentStep);
-  }
+  clearInterval(timerInterval);
 
   currentStep++;
 
-  showCurrentTask();
+
+  if (
+    currentStep >=
+    routines[currentRoutine].length
+  ) {
+
+    finishRoutine();
+
+    return;
+
+  }
+
+
+  startCurrentTask();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    PROGRESS
-========================================================= */
+===================================================== */
 
 function updateProgress() {
 
   const total =
-    routines[currentRoutine].length;
+    routines[currentRoutine]
+      ? routines[currentRoutine].length
+      : 0;
+
 
   const done =
     completed.length;
 
-  document.getElementById("progressText").textContent =
+
+  document.getElementById(
+    "progressText"
+  ).textContent =
     `${done} / ${total}`;
 
-  document.getElementById("progressFill").style.width =
-    `${(done / total) * 100}%`;
+
+  document.getElementById(
+    "progressFill"
+  ).style.width =
+    `${total ? (done / total) * 100 : 0}%`;
 
 }
 
 
-function renderStepOverview() {
-
-  const container =
-    document.getElementById("stepOverview");
-
-  container.innerHTML = "";
-
-  routines[currentRoutine].forEach((step, index) => {
-
-    const dot =
-      document.createElement("div");
-
-    dot.className = "step-dot";
-
-    if (completed.includes(index)) {
-      dot.classList.add("done");
-      dot.textContent = "✓";
-    } else {
-      dot.textContent = index + 1;
-    }
-
-    if (index === currentStep) {
-      dot.classList.add("current");
-    }
-
-    container.appendChild(dot);
-
-  });
-
-}
-
-
-/* =========================================================
+/* =====================================================
    KLÄDSLUMPARE
-========================================================= */
+===================================================== */
+
+function renderClothesTask(body) {
+
+  setupClothes();
+
+
+  body.innerHTML = `
+
+    <div class="clothes-area">
+
+      <div class="pointer">
+        🔻
+      </div>
+
+      <div
+        id="wheel"
+        class="wheel">
+
+        <div class="wheel-center">
+          🎲
+        </div>
+
+      </div>
+
+      <div
+        id="clothingResult"
+        class="clothing-result">
+
+        Snurra hjulet!
+
+      </div>
+
+      <div
+        id="clothingList"
+        class="clothing-list">
+      </div>
+
+      <div class="task-buttons">
+
+        <button
+          class="main-button next-button"
+          onclick="spinClothes()">
+
+          🎡 SNURRA!
+
+        </button>
+
+        <button
+          class="main-button done-button"
+          onclick="completeClothingTask()">
+
+          ✅ ALLA KLÄDER KLARA!
+
+        </button>
+
+        <button
+          class="main-button stuck-button"
+          onclick="openStuck()">
+
+          🆘 Jag fastnade
+
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  renderClothingList();
+
+}
+
 
 function setupClothes() {
 
@@ -1456,200 +1940,382 @@ function setupClothes() {
 
   }
 
-  document.getElementById("clothingResult").textContent =
-    "Snurra hjulet!";
+}
+
+
+function renderClothingList() {
+
+  const list =
+    document.getElementById(
+      "clothingList"
+    );
+
+  if (!list) {
+    return;
+  }
+
+
+  list.innerHTML = "";
+
+
+  remainingClothes.forEach(item => {
+
+    const pill =
+      document.createElement("div");
+
+    pill.className =
+      "clothing-pill";
+
+    pill.textContent =
+      `${getClothingEmoji(item)} ${item}`;
+
+    list.appendChild(pill);
+
+  });
+
+
+  if (remainingClothes.length === 0) {
+
+    list.innerHTML =
+      `<div class="clothing-pill">
+        🎉 Alla kläder är klara!
+      </div>`;
+
+  }
 
 }
 
 
 function spinClothes() {
 
+  if (spinning) {
+    return;
+  }
+
+
   if (remainingClothes.length === 0) {
 
-    document.getElementById("clothingResult").textContent =
+    document.getElementById(
+      "clothingResult"
+    ).textContent =
       "🎉 Alla kläder är klara!";
 
     return;
+
   }
+
+
+  spinning = true;
+
 
   const wheel =
     document.getElementById("wheel");
 
-  wheel.style.transform = "rotate(0deg)";
+
+  const result =
+    document.getElementById(
+      "clothingResult"
+    );
+
+
+  const randomIndex =
+    Math.floor(
+      Math.random() *
+      remainingClothes.length
+    );
+
+
+  const selected =
+    remainingClothes[randomIndex];
+
+
+  const rotation =
+    720 +
+    Math.floor(
+      Math.random() * 720
+    );
+
+
+  wheel.style.transform =
+    `rotate(${rotation}deg)`;
+
+
+  result.textContent =
+    "🎲 Snurrar...";
+
 
   setTimeout(() => {
 
-    const randomIndex =
-      Math.floor(Math.random() * remainingClothes.length);
+    remainingClothes.splice(
+      randomIndex,
+      1
+    );
 
-    const selected =
-      remainingClothes[randomIndex];
 
-    remainingClothes.splice(randomIndex, 1);
+    result.innerHTML =
+      `🎉 <strong>
+        ${getClothingEmoji(selected)}
+        ${selected}
+      </strong><br>
+      ${currentRoutine === "evening"
+        ? "Ta av det plagget!"
+        : "Ta på det plagget!"
+      }`;
 
-    wheel.style.transition =
-      "transform 2s cubic-bezier(.2,.8,.2,1)";
 
-    const rotation =
-      720 + Math.floor(Math.random() * 720);
+    renderClothingList();
 
-    wheel.style.transform =
-      `rotate(${rotation}deg)`;
+    playSound("finish");
 
-    setTimeout(() => {
+    spinning = false;
 
-      const emoji = getClothingEmoji(selected);
 
-      document.getElementById("clothingResult").innerHTML =
-        `🎉 <strong>${emoji} ${selected}</strong>!<br>
-         Ta av den nu.`;
-
-      playSound("finish");
-
-    }, 2000);
-
-  }, 100);
+  }, 2100);
 
 }
 
 
-function getClothingEmoji(clothing) {
+function completeClothingTask() {
 
-  if (clothing === "Tröja") return "👕";
-  if (clothing === "Byxor") return "👖";
-  if (clothing === "Strumpor") return "🧦";
-  if (clothing === "Kalsonger") return "🩲";
+  if (remainingClothes.length > 0) {
+
+    const ok =
+      confirm(
+        "Det finns fortfarande kläder kvar. Är alla kläder verkligen klara?"
+      );
+
+    if (!ok) {
+      return;
+    }
+
+  }
+
+
+  completeCurrentTask();
+
+}
+
+
+function getClothingEmoji(item) {
+
+  if (item === "Tröja")
+    return "👕";
+
+  if (item === "Byxor")
+    return "👖";
+
+  if (item === "Strumpor")
+    return "🧦";
+
+  if (item === "Kalsonger")
+    return "🩲";
 
   return "👕";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    FASTNAT
-========================================================= */
+===================================================== */
 
 function openStuck() {
 
   const task =
     routines[currentRoutine][currentStep];
 
-  document.getElementById("stuckText").textContent =
-    `Ta bara nästa lilla steg: ${task.title.toLowerCase()}. Du behöver inte göra allt på en gång.`;
 
-  document.getElementById("stuckOverlay")
-    .style.display = "flex";
+  document.getElementById(
+    "stuckText"
+  ).textContent =
+    `Det är helt okej. Ta bara ett litet steg: ${task.title.toLowerCase()}. Du behöver inte tänka på resten just nu.`;
+
+
+  document.getElementById(
+    "stuckOverlay"
+  ).style.display =
+    "flex";
 
 }
 
 
 function closeStuck() {
 
-  document.getElementById("stuckOverlay")
-    .style.display = "none";
+  document.getElementById(
+    "stuckOverlay"
+  ).style.display =
+    "none";
 
 }
 
 
-/* =========================================================
+/* =====================================================
    FÄRDIG
-========================================================= */
+===================================================== */
 
 function finishRoutine() {
 
   clearInterval(timerInterval);
 
+
   const name =
     settings.name || "kompis";
 
+
   if (currentRoutine === "morning") {
 
-    document.getElementById("finishedTitle").textContent =
+    document.getElementById(
+      "finishedTitle"
+    ).textContent =
       "☀️ Morgonen är klar!";
 
-    document.getElementById("finishedText").textContent =
-      `Superbra jobbat, ${name}! Nu är det dags för skolan. 🎒`;
+    document.getElementById(
+      "finishedText"
+    ).textContent =
+      `Fantastiskt jobbat, ${name}! 🎒 Nu är du redo för dagen!`;
 
   } else {
 
-    document.getElementById("finishedTitle").textContent =
+    document.getElementById(
+      "finishedTitle"
+    ).textContent =
       "🌙 Kvällen är klar!";
 
-    document.getElementById("finishedText").textContent =
-      `Bra jobbat, ${name}! Nu kan kroppen vila. 😴`;
+    document.getElementById(
+      "finishedText"
+    ).textContent =
+      `Superbra jobbat, ${name}! 😴 Nu är det dags att vila.`;
 
   }
 
-  document.getElementById("finishedOverlay")
-    .style.display = "flex";
+
+  document.getElementById(
+    "finishedOverlay"
+  ).style.display =
+    "flex";
+
+
+  playSound("finish");
 
 }
 
 
-/* =========================================================
+/* =====================================================
+   HEM
+===================================================== */
+
+function goHome() {
+
+  clearInterval(timerInterval);
+
+  document.getElementById(
+    "finishedOverlay"
+  ).style.display =
+    "none";
+
+  document.getElementById(
+    "appScreen"
+  ).classList.add("hidden");
+
+  document.getElementById(
+    "startScreen"
+  ).classList.remove("hidden");
+
+}
+
+
+/* =====================================================
    FÖRÄLDRAKONTROLL
-========================================================= */
+===================================================== */
 
 function openParentSettings() {
 
   populateParentSettings();
 
-  document.getElementById("parentOverlay")
-    .style.display = "flex";
+  document.getElementById(
+    "parentOverlay"
+  ).style.display =
+    "flex";
 
 }
 
 
 function closeParentSettings() {
 
-  document.getElementById("parentOverlay")
-    .style.display = "none";
+  document.getElementById(
+    "parentOverlay"
+  ).style.display =
+    "none";
 
 }
 
 
 function populateParentSettings() {
 
-  document.getElementById("settingsName").value =
+  document.getElementById(
+    "settingsName"
+  ).value =
     settings.name || "";
 
-  document.getElementById("bedHour").value =
+
+  document.getElementById(
+    "bedHour"
+  ).value =
     settings.bedtimeHour;
 
-  document.getElementById("bedMinute").value =
+
+  document.getElementById(
+    "bedMinute"
+  ).value =
     settings.bedtimeMinute;
 
-  document.getElementById("soundEnabled").checked =
+
+  document.getElementById(
+    "soundEnabled"
+  ).checked =
     settings.sound;
 
 
-  const morningClothes =
-    settings.morningClothes;
-
-  document.getElementById("morningShirt").checked =
-    morningClothes.includes("Tröja");
-
-  document.getElementById("morningPants").checked =
-    morningClothes.includes("Byxor");
-
-  document.getElementById("morningSocks").checked =
-    morningClothes.includes("Strumpor");
+  document.getElementById(
+    "morningShirt"
+  ).checked =
+    settings.morningClothes.includes("Tröja");
 
 
-  const eveningClothes =
-    settings.eveningClothes;
+  document.getElementById(
+    "morningPants"
+  ).checked =
+    settings.morningClothes.includes("Byxor");
 
-  document.getElementById("eveningShirt").checked =
-    eveningClothes.includes("Tröja");
 
-  document.getElementById("eveningPants").checked =
-    eveningClothes.includes("Byxor");
+  document.getElementById(
+    "morningSocks"
+  ).checked =
+    settings.morningClothes.includes("Strumpor");
 
-  document.getElementById("eveningSocks").checked =
-    eveningClothes.includes("Strumpor");
 
-  document.getElementById("eveningUnderwear").checked =
-    eveningClothes.includes("Kalsonger");
+  document.getElementById(
+    "eveningShirt"
+  ).checked =
+    settings.eveningClothes.includes("Tröja");
+
+
+  document.getElementById(
+    "eveningPants"
+  ).checked =
+    settings.eveningClothes.includes("Byxor");
+
+
+  document.getElementById(
+    "eveningSocks"
+  ).checked =
+    settings.eveningClothes.includes("Strumpor");
+
+
+  document.getElementById(
+    "eveningUnderwear"
+  ).checked =
+    settings.eveningClothes.includes("Kalsonger");
 
 
   createTimeSettings(
@@ -1657,6 +2323,7 @@ function populateParentSettings() {
     routines.morning,
     settings.morningTimes
   );
+
 
   createTimeSettings(
     "eveningSettings",
@@ -1667,12 +2334,20 @@ function populateParentSettings() {
 }
 
 
-function createTimeSettings(containerId, steps, times) {
+function createTimeSettings(
+  containerId,
+  steps,
+  times
+) {
 
   const container =
-    document.getElementById(containerId);
+    document.getElementById(
+      containerId
+    );
+
 
   container.innerHTML = "";
+
 
   steps.forEach(step => {
 
@@ -1680,13 +2355,21 @@ function createTimeSettings(containerId, steps, times) {
       return;
     }
 
+
     const row =
       document.createElement("div");
 
-    row.className = "setting-row";
+
+    row.className =
+      "setting-row";
+
 
     row.innerHTML = `
-      <span>${step.icon} ${step.title}</span>
+
+      <span>
+        ${step.icon}
+        ${step.title}
+      </span>
 
       <input
         type="number"
@@ -1695,7 +2378,9 @@ function createTimeSettings(containerId, steps, times) {
         value="${times[step.id] || 60}"
         data-time-id="${step.id}"
       >
+
     `;
+
 
     container.appendChild(row);
 
@@ -1707,132 +2392,230 @@ function createTimeSettings(containerId, steps, times) {
 function saveSettings() {
 
   settings.name =
-    document.getElementById("settingsName").value.trim();
+    document.getElementById(
+      "settingsName"
+    ).value.trim();
+
 
   settings.bedtimeHour =
-    Number(document.getElementById("bedHour").value);
+    Number(
+      document.getElementById(
+        "bedHour"
+      ).value
+    );
+
 
   settings.bedtimeMinute =
-    Number(document.getElementById("bedMinute").value);
+    Number(
+      document.getElementById(
+        "bedMinute"
+      ).value
+    );
+
 
   settings.sound =
-    document.getElementById("soundEnabled").checked;
+    document.getElementById(
+      "soundEnabled"
+    ).checked;
 
 
   settings.morningClothes = [];
 
-  if (document.getElementById("morningShirt").checked)
-    settings.morningClothes.push("Tröja");
 
-  if (document.getElementById("morningPants").checked)
-    settings.morningClothes.push("Byxor");
+  if (
+    document.getElementById(
+      "morningShirt"
+    ).checked
+  ) {
+    settings.morningClothes.push(
+      "Tröja"
+    );
+  }
 
-  if (document.getElementById("morningSocks").checked)
-    settings.morningClothes.push("Strumpor");
+
+  if (
+    document.getElementById(
+      "morningPants"
+    ).checked
+  ) {
+    settings.morningClothes.push(
+      "Byxor"
+    );
+  }
+
+
+  if (
+    document.getElementById(
+      "morningSocks"
+    ).checked
+  ) {
+    settings.morningClothes.push(
+      "Strumpor"
+    );
+  }
 
 
   settings.eveningClothes = [];
 
-  if (document.getElementById("eveningShirt").checked)
-    settings.eveningClothes.push("Tröja");
 
-  if (document.getElementById("eveningPants").checked)
-    settings.eveningClothes.push("Byxor");
-
-  if (document.getElementById("eveningSocks").checked)
-    settings.eveningClothes.push("Strumpor");
-
-  if (document.getElementById("eveningUnderwear").checked)
-    settings.eveningClothes.push("Kalsonger");
-
-
-  document.querySelectorAll(
-    "#morningSettings input[data-time-id]"
-  ).forEach(input => {
-
-    settings.morningTimes[input.dataset.timeId] =
-      Number(input.value);
-
-  });
+  if (
+    document.getElementById(
+      "eveningShirt"
+    ).checked
+  ) {
+    settings.eveningClothes.push(
+      "Tröja"
+    );
+  }
 
 
-  document.querySelectorAll(
-    "#eveningSettings input[data-time-id]"
-  ).forEach(input => {
+  if (
+    document.getElementById(
+      "eveningPants"
+    ).checked
+  ) {
+    settings.eveningClothes.push(
+      "Byxor"
+    );
+  }
 
-    settings.eveningTimes[input.dataset.timeId] =
-      Number(input.value);
 
-  });
+  if (
+    document.getElementById(
+      "eveningSocks"
+    ).checked
+  ) {
+    settings.eveningClothes.push(
+      "Strumpor"
+    );
+  }
+
+
+  if (
+    document.getElementById(
+      "eveningUnderwear"
+    ).checked
+  ) {
+    settings.eveningClothes.push(
+      "Kalsonger"
+    );
+  }
+
+
+  document
+    .querySelectorAll(
+      "#morningSettings input[data-time-id]"
+    )
+    .forEach(input => {
+
+      settings.morningTimes[
+        input.dataset.timeId
+      ] =
+        Number(input.value);
+
+    });
+
+
+  document
+    .querySelectorAll(
+      "#eveningSettings input[data-time-id]"
+    )
+    .forEach(input => {
+
+      settings.eveningTimes[
+        input.dataset.timeId
+      ] =
+        Number(input.value);
+
+    });
 
 
   localStorage.setItem(
     "minDagSettings",
     JSON.stringify(settings)
   );
+
+
+  document.getElementById(
+    "childNameInput"
+  ).value =
+    settings.name;
 
 
   closeParentSettings();
 
-  document.getElementById("childNameInput").value =
-    settings.name;
-
-  alert("Inställningarna är sparade! 💾");
-
 }
 
 
-/* =========================================================
+/* =====================================================
    ÅTERSTÄLL
-========================================================= */
+===================================================== */
 
 function resetSettings() {
 
-  if (!confirm(
-    "Vill du återställa alla inställningar?"
-  )) {
+  if (
+    !confirm(
+      "Vill du återställa alla inställningar?"
+    )
+  ) {
     return;
   }
 
+
   settings =
-    JSON.parse(JSON.stringify(defaultSettings));
+    JSON.parse(
+      JSON.stringify(
+        defaultSettings
+      )
+    );
+
 
   localStorage.setItem(
     "minDagSettings",
     JSON.stringify(settings)
   );
+
 
   populateParentSettings();
 
 }
 
 
-/* =========================================================
+/* =====================================================
    KLOCKA
-========================================================= */
+===================================================== */
 
 function updateClock() {
 
-  const now = new Date();
+  const now =
+    new Date();
 
-  const time =
-    now.toLocaleTimeString("sv-SE", {
-      hour: "2-digit",
-      minute: "2-digit"
-    });
 
-  document.getElementById("clock").textContent =
-    time;
+  document.getElementById(
+    "clock"
+  ).textContent =
+    now.toLocaleTimeString(
+      "sv-SE",
+      {
+        hour: "2-digit",
+        minute: "2-digit"
+      }
+    );
 
 }
 
-setInterval(updateClock, 1000);
+
+setInterval(
+  updateClock,
+  1000
+);
+
 updateClock();
 
 
-/* =========================================================
+/* =====================================================
    LJUD
-========================================================= */
+===================================================== */
 
 function playSound(type) {
 
@@ -1840,58 +2623,74 @@ function playSound(type) {
     return;
   }
 
+
   try {
 
     const AudioContext =
       window.AudioContext ||
       window.webkitAudioContext;
 
+
     const context =
       new AudioContext();
+
 
     const oscillator =
       context.createOscillator();
 
+
     const gain =
       context.createGain();
 
+
     oscillator.connect(gain);
-    gain.connect(context.destination);
+
+    gain.connect(
+      context.destination
+    );
+
 
     oscillator.frequency.value =
       type === "finish"
         ? 700
         : 450;
 
-    gain.gain.value = 0.08;
+
+    gain.gain.value =
+      0.08;
+
 
     oscillator.start();
 
+
     setTimeout(() => {
+
       oscillator.stop();
+
       context.close();
+
     }, 180);
+
 
   } catch (error) {
 
-    console.log("Ljud kunde inte spelas.");
+    console.log(
+      "Ljud kunde inte spelas."
+    );
 
   }
 
 }
 
 
-/* =========================================================
-   NAMN VID START
-========================================================= */
+/* =====================================================
+   STARTVÄRDE
+===================================================== */
 
-document.getElementById("childNameInput").value =
+document.getElementById(
+  "childNameInput"
+).value =
   settings.name || "";
-
-
-/* =========================================================
-   START
-========================================================= */
 
 </script>
 
