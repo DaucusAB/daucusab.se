@@ -1,0 +1,2758 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Min morgon</title>
+
+<style>
+/* =========================================================
+   GRUND
+========================================================= */
+
+:root {
+    --bg: #f4f7fb;
+    --card: #ffffff;
+    --text: #263238;
+    --muted: #718096;
+    --primary: #4f7cff;
+    --primary-dark: #315edb;
+    --success: #42b883;
+    --warning: #ffb84d;
+    --danger: #ef6b73;
+    --shadow: 0 10px 30px rgba(30, 50, 80, 0.10);
+    --radius: 28px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+}
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+    width: 100%;
+    max-width: 850px;
+    margin: auto;
+    padding: 20px 16px 80px;
+}
+
+/* =========================================================
+   START
+========================================================= */
+
+.start-screen {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.start-card {
+    width: 100%;
+    background: var(--card);
+    border-radius: 36px;
+    padding: 40px 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.sun {
+    font-size: 80px;
+    margin-bottom: 10px;
+}
+
+.start-card h1 {
+    font-size: clamp(40px, 8vw, 64px);
+    margin: 0 0 10px;
+}
+
+.start-card p {
+    font-size: 22px;
+    color: var(--muted);
+}
+
+.name-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px;
+    font-size: 22px;
+    border-radius: 18px;
+    border: 2px solid #dbe2ee;
+    text-align: center;
+    margin: 20px auto;
+}
+
+.start-button {
+    width: 100%;
+    max-width: 400px;
+    border: 0;
+    border-radius: 20px;
+    padding: 20px;
+    font-size: 25px;
+    font-weight: 800;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+}
+
+.start-button:active {
+    transform: scale(0.98);
+}
+
+/* =========================================================
+   TOPP
+========================================================= */
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(244,247,251,0.94);
+    backdrop-filter: blur(10px);
+    padding: 8px 0 14px;
+}
+
+.greeting {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.greeting h1 {
+    font-size: clamp(28px, 6vw, 42px);
+    margin: 5px 0;
+}
+
+.clock {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--muted);
+}
+
+.overall-time {
+    background: white;
+    border-radius: 18px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    box-shadow: 0 5px 18px rgba(30,50,80,.06);
+}
+
+.overall-time-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.overall-progress {
+    height: 12px;
+    background: #e8edf5;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.overall-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--success);
+    border-radius: 20px;
+    transition: width .5s ease;
+}
+
+/* =========================================================
+   STEGÖVERSIKT
+========================================================= */
+
+.step-overview {
+    background: white;
+    border-radius: 20px;
+    padding: 12px;
+    margin-top: 10px;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    box-shadow: 0 5px 18px rgba(30,50,80,.06);
+}
+
+.step-dot {
+    min-width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #e9eef6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.step-dot.current {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.15);
+}
+
+.step-dot.done {
+    background: var(--success);
+    color: white;
+}
+
+/* =========================================================
+   ZONER
+========================================================= */
+
+.zone-title {
+    margin: 55px 0 18px;
+    text-align: center;
+}
+
+.zone-title .zone-icon {
+    font-size: 55px;
+}
+
+.zone-title h2 {
+    font-size: clamp(28px, 6vw, 40px);
+    margin: 5px 0;
+}
+
+.zone-title p {
+    color: var(--muted);
+    font-size: 18px;
+}
+
+/* =========================================================
+   MOMENTKORT
+========================================================= */
+
+.step-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 25px 18px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow);
+    scroll-margin-top: 190px;
+    transition: .3s ease;
+}
+
+.step-card.current {
+    box-shadow:
+        0 0 0 4px rgba(79,124,255,.15),
+        var(--shadow);
+}
+
+.step-card.done {
+    opacity: .65;
+}
+
+.step-card.done .main-action {
+    background: var(--success);
+}
+
+.step-number {
+    text-align: center;
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.step-title {
+    text-align: center;
+    font-size: clamp(30px, 7vw, 48px);
+    line-height: 1.05;
+    margin: 8px 0 18px;
+}
+
+.step-description {
+    text-align: center;
+    color: var(--muted);
+    font-size: 19px;
+    margin-bottom: 18px;
+}
+
+/* =========================================================
+   BILD
+========================================================= */
+
+.visual {
+    width: min(100%, 400px);
+    aspect-ratio: 1 / 1;
+    margin: 0 auto 20px;
+    border-radius: 30px;
+    background: #f0f4fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(100px, 25vw, 180px);
+    user-select: none;
+}
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+.timer {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+.timer-number {
+    font-size: clamp(42px, 10vw, 68px);
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.timer-label {
+    color: var(--muted);
+    font-size: 16px;
+}
+
+.timer-progress {
+    height: 18px;
+    background: #e7ecf4;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.timer-bar {
+    height: 100%;
+    width: 100%;
+    background: var(--primary);
+    transition: width 1s linear;
+}
+
+.timer.warning .timer-number {
+    color: var(--warning);
+}
+
+.timer.finished .timer-number {
+    color: var(--danger);
+}
+
+/* =========================================================
+   KNAPPAR
+========================================================= */
+
+.main-action {
+    width: 100%;
+    border: none;
+    border-radius: 22px;
+    padding: 21px;
+    font-size: 25px;
+    font-weight: 900;
+    background: var(--primary);
+    color: white;
+    cursor: pointer;
+}
+
+.main-action:active {
+    transform: scale(.98);
+}
+
+.secondary-action {
+    width: 100%;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    padding: 15px;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.stuck-button {
+    margin-top: 5px;
+    border: 0;
+    background: #f2f5fa;
+    border-radius: 18px;
+    padding: 14px 20px;
+    color: #667085;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* =========================================================
+   KLÄDLOTTOT
+========================================================= */
+
+.lottery {
+    text-align: center;
+}
+
+.wheel {
+    position: relative;
+    width: min(80vw, 340px);
+    height: min(80vw, 340px);
+    margin: 10px auto 25px;
+    border-radius: 50%;
+    border: 10px solid white;
+    box-shadow: 0 12px 30px rgba(30,50,80,.15);
+    overflow: hidden;
+    background:
+        conic-gradient(
+            #ffcf70 0deg 120deg,
+            #86d6bb 120deg 240deg,
+            #8cb5ff 240deg 360deg
+        );
+    transition: transform 3s cubic-bezier(.12,.65,.16,1);
+}
+
+.wheel.spinning {
+    transform: rotate(1440deg);
+}
+
+.wheel-pointer {
+    position: absolute;
+    z-index: 5;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+}
+
+.wheel-label {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.wheel-label span {
+    position: absolute;
+    width: 100px;
+}
+
+.wheel-label .one {
+    top: 55px;
+}
+
+.wheel-label .two {
+    bottom: 55px;
+    left: 40px;
+}
+
+.wheel-label .three {
+    bottom: 55px;
+    right: 40px;
+}
+
+.spin-button {
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 20px;
+    padding: 18px 30px;
+    font-size: 22px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.spin-result {
+    min-height: 100px;
+    margin: 20px 0;
+}
+
+.spin-result-icon {
+    font-size: 70px;
+}
+
+.spin-result-text {
+    font-size: 28px;
+    font-weight: 900;
+}
+
+/* =========================================================
+   VAL
+========================================================= */
+
+.choice-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.choice-button {
+    border: none;
+    border-radius: 22px;
+    padding: 25px 15px;
+    background: #edf2f8;
+    font-size: 23px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.choice-button.yes {
+    background: #dff5ea;
+}
+
+.choice-button.no {
+    background: #e9eef8;
+}
+
+/* =========================================================
+   KLAR
+========================================================= */
+
+.completion {
+    background: white;
+    border-radius: 35px;
+    padding: 45px 25px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-top: 60px;
+}
+
+.completion-icon {
+    font-size: 100px;
+}
+
+.completion h2 {
+    font-size: clamp(38px, 8vw, 60px);
+    margin: 10px 0;
+}
+
+.completion p {
+    font-size: 22px;
+    color: var(--muted);
+}
+
+/* =========================================================
+   FASTNAT
+========================================================= */
+
+.stuck-overlay,
+.parent-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(20,30,50,.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.overlay-card {
+    background: white;
+    width: min(600px, 100%);
+    border-radius: 35px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,.2);
+}
+
+.overlay-card h2 {
+    font-size: 38px;
+}
+
+.overlay-card p {
+    font-size: 21px;
+    color: var(--muted);
+}
+
+.overlay-close {
+    width: 100%;
+    border: none;
+    background: var(--primary);
+    color: white;
+    padding: 18px;
+    border-radius: 20px;
+    font-size: 21px;
+    font-weight: 900;
+}
+
+/* =========================================================
+   FÖRÄLDRALÄGE
+========================================================= */
+
+.parent-overlay .overlay-card {
+    max-height: 90vh;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.parent-overlay h2 {
+    text-align: center;
+}
+
+.settings-group {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f5f7fb;
+    border-radius: 20px;
+}
+
+.settings-group h3 {
+    margin-top: 0;
+}
+
+.settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 0;
+}
+
+.settings-row input[type="number"],
+.settings-row input[type="text"] {
+    width: 100px;
+    padding: 10px;
+    border: 2px solid #dbe2ee;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+.day-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.day-button {
+    border: none;
+    background: #e6ebf3;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.day-button.active {
+    background: var(--primary);
+    color: white;
+}
+
+.parent-buttons {
+    display: grid;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.parent-save {
+    background: var(--success);
+    color: white;
+    border: none;
+    padding: 17px;
+    border-radius: 18px;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   DOLD
+========================================================= */
+
+.hidden {
+    display: none !important;
+}
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (min-width: 700px) {
+
+    .app {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .step-card {
+        padding: 35px;
+    }
+
+    .choice-container {
+        max-width: 600px;
+        margin: auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+     STARTSKÄRM
+===================================================== -->
+
+<div id="startScreen" class="start-screen">
+    <div class="app">
+
+        <div class="start-card">
+
+            <div class="sun">☀️</div>
+
+            <h1>God morgon!</h1>
+
+            <p>
+                Nu gör vi morgonen tillsammans.
+            </p>
+
+            <input
+                id="nameInput"
+                class="name-input"
+                type="text"
+                placeholder="Vad heter du?"
+                maxlength="20"
+            >
+
+            <button
+                class="start-button"
+                onclick="startMorning()"
+            >
+                🚀 Börja morgonen
+            </button>
+
+            <br><br>
+
+            <button
+                class="secondary-action"
+                onclick="openParentMode()"
+            >
+                ⚙️ Förälder
+            </button>
+
+        </div>
+
+    </div>
+</div>
+
+
+<!-- =====================================================
+     HUVUDAPP
+===================================================== -->
+
+<div id="mainApp" class="hidden">
+
+    <div class="app">
+
+        <!-- TOPP -->
+        <div class="top-bar">
+
+            <div class="greeting">
+
+                <h1>
+                    ☀️ Hej <span id="childName">!</span>
+                </h1>
+
+                <div id="currentClock" class="clock">
+                    07:00
+                </div>
+
+            </div>
+
+            <div class="overall-time">
+
+                <div class="overall-time-row">
+                    <span>🎒 Vi ska gå</span>
+                    <span id="leaveTime">07:35</span>
+                </div>
+
+                <div class="overall-progress">
+                    <div
+                        id="overallProgressBar"
+                        class="overall-progress-bar"
+                    ></div>
+                </div>
+
+                <div
+                    id="overallProgressText"
+                    style="text-align:center;margin-top:6px;color:#718096;"
+                >
+                    0 av 14 klara
+                </div>
+
+            </div>
+
+            <div
+                id="stepOverview"
+                class="step-overview"
+            ></div>
+
+        </div>
+
+
+        <!-- =================================================
+             MORGENENS MOMENT
+        ================================================= -->
+
+        <main id="stepsContainer"></main>
+
+
+        <!-- =================================================
+             SLUT
+        ================================================= -->
+
+        <section
+            id="completion"
+            class="completion hidden"
+        >
+
+            <div class="completion-icon">
+                🎉
+            </div>
+
+            <h2>Morgonen klar!</h2>
+
+            <p>
+                Du klarade det!
+            </p>
+
+            <p>
+                🎒 Ryggsäcken är med.<br>
+                👟 Skorna är på.<br>
+                🏫 Nu går vi till skolan!
+            </p>
+
+            <button
+                class="main-action"
+                onclick="restartMorning()"
+            >
+                ☀️ Börja om
+            </button>
+
+        </section>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FASTNADE
+===================================================== -->
+
+<div
+    id="stuckOverlay"
+    class="stuck-overlay"
+>
+
+    <div class="overlay-card">
+
+        <div style="font-size:80px;">
+            🧭
+        </div>
+
+        <h2>Vi tappade bort oss!</h2>
+
+        <p>
+            Det är ingen fara.
+        </p>
+
+        <p>
+            👀 Titta på bilden.<br>
+            👉 Gör det som bilden visar.<br>
+            ⏱️ Sedan fortsätter vi.
+        </p>
+
+        <button
+            class="overlay-close"
+            onclick="closeStuck()"
+        >
+            👍 Jag fortsätter!
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FÖRÄLDRALÄGE
+===================================================== -->
+
+<div
+    id="parentOverlay"
+    class="parent-overlay"
+>
+
+    <div class="overlay-card">
+
+        <h2>⚙️ Föräldraläge</h2>
+
+        <div class="settings-group">
+
+            <h3>👤 Barnets namn</h3>
+
+            <div class="settings-row">
+                <label>Namn</label>
+
+                <input
+                    id="parentName"
+                    type="text"
+                    maxlength="20"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="settings-group">
+
+            <h3>🎒 Tid att gå</h3>
+
+            <div class="settings-row">
+                <label>Vi ska gå</label>
+
+                <input
+                    id="leaveHour"
+                    type="number"
+                    min="0"
+                    max="23"
+                >
+
+                <span>:</span>
+
+                <input
+                    id="leaveMinute"
+                    type="number"
+                    min="0"
+                    max="59"
+                >
+            </div>
+
+        </div>
+
+
+        <div class="settings-group">
+
+            <h3>🏃 Idrottsdagar</h3>
+
+            <p>
+                Klicka på de dagar då idrottsväskan ska med.
+            </p>
+
+            <div class="day-buttons">
+
+                <button class="day-button" data-day="1">
+                    Mån
+                </button>
+
+                <button class="day-button" data-day="2">
+                    Tis
+                </button>
+
+                <button class="day-button" data-day="3">
+                    Ons
+                </button>
+
+                <button class="day-button" data-day="4">
+                    Tor
+                </button>
+
+                <button class="day-button" data-day="5">
+                    Fre
+                </button>
+
+                <button class="day-button" data-day="6">
+                    Lör
+                </button>
+
+                <button class="day-button" data-day="0">
+                    Sön
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="settings-group">
+
+            <h3>⏱️ Tider för momenten</h3>
+
+            <div id="timerSettings"></div>
+
+        </div>
+
+
+        <div class="settings-group">
+
+            <h3>🔊 Ljud</h3>
+
+            <div class="settings-row">
+
+                <label>
+                    Använd ljud
+                </label>
+
+                <input
+                    id="soundSetting"
+                    type="checkbox"
+                >
+
+            </div>
+
+        </div>
+
+
+        <div class="parent-buttons">
+
+            <button
+                class="parent-save"
+                onclick="saveSettings()"
+            >
+                💾 Spara
+            </button>
+
+            <button
+                class="secondary-action"
+                onclick="closeParentMode()"
+            >
+                Stäng
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   INSTÄLLNINGAR
+========================================================= */
+
+const defaultSettings = {
+
+    name: "",
+
+    leaveHour: 7,
+    leaveMinute: 35,
+
+    sportsDays: [2, 4],
+
+    sound: true,
+
+    timers: {
+
+        diaper: 60,
+        pajamas: 60,
+        underwear: 60,
+
+        dress: 180,
+
+        eat: 300,
+        moreFood: 30,
+        drink: 60,
+
+        teeth: 120,
+        toilet: 120,
+
+        outerwear: 120,
+        shoes: 90,
+        backpack: 30,
+
+        sports: 60,
+        school: 300
+    }
+};
+
+
+/* =========================================================
+   LÄS INSTÄLLNINGAR
+========================================================= */
+
+let settings = loadSettings();
+
+function loadSettings() {
+
+    const saved = localStorage.getItem("morningSettings");
+
+    if (!saved) {
+        return structuredClone(defaultSettings);
+    }
+
+    try {
+
+        const parsed = JSON.parse(saved);
+
+        return {
+            ...structuredClone(defaultSettings),
+            ...parsed,
+            timers: {
+                ...defaultSettings.timers,
+                ...(parsed.timers || {})
+            }
+        };
+
+    } catch (error) {
+
+        return structuredClone(defaultSettings);
+
+    }
+}
+
+
+/* =========================================================
+   STEG
+========================================================= */
+
+const steps = [
+
+    {
+        id: "diaper",
+        zone: "Vakna",
+        zoneIcon: "🛏️",
+        title: "Ta av nattblöjan",
+        description: "Nu börjar morgonen.",
+        icon: "🩲",
+        timerKey: "diaper"
+    },
+
+    {
+        id: "pajamas",
+        zone: "Vakna",
+        zoneIcon: "🛏️",
+        title: "Ta av pyjamasen",
+        description: "Pyjamasen av.",
+        icon: "👕",
+        timerKey: "pajamas"
+    },
+
+    {
+        id: "underwear",
+        zone: "Vakna",
+        zoneIcon: "🛏️",
+        title: "Ta på kalsonger",
+        description: "Nu tar vi på kalsongerna.",
+        icon: "🩲",
+        timerKey: "underwear"
+    },
+
+    {
+        id: "dress",
+        zone: "Klä på dig",
+        zoneIcon: "👕",
+        title: "Klä på dig!",
+        description: "Vi låter lotteriet bestämma ordningen.",
+        icon: "🎰",
+        type: "dressLottery",
+        timerKey: "dress"
+    },
+
+    {
+        id: "eat",
+        zone: "Frukost",
+        zoneIcon: "🍞",
+        title: "Ät mackan",
+        description: "Nu äter vi mackan.",
+        icon: "🥪",
+        timerKey: "eat"
+    },
+
+    {
+        id: "moreFood",
+        zone: "Frukost",
+        zoneIcon: "🍞",
+        title: "Ska du äta mer?",
+        description: "Känn efter i magen.",
+        icon: "🍎",
+        type: "choice",
+        timerKey: "moreFood"
+    },
+
+    {
+        id: "drink",
+        zone: "Frukost",
+        zoneIcon: "🍞",
+        title: "Drick upp",
+        description: "Drick upp ditt glas.",
+        icon: "🥛",
+        timerKey: "drink"
+    },
+
+    {
+        id: "teeth",
+        zone: "Badrum",
+        zoneIcon: "🪥",
+        title: "Borsta tänderna",
+        description: "Övre, undre och tuggytor.",
+        icon: "🪥",
+        timerKey: "teeth"
+    },
+
+    {
+        id: "toilet",
+        zone: "Badrum",
+        zoneIcon: "🚽",
+        title: "Kissa",
+        description: "Gå på toaletten.",
+        icon: "🚽",
+        timerKey: "toilet"
+    },
+
+    {
+        id: "outerwear",
+        zone: "Ut genom dörren",
+        zoneIcon: "🎒",
+        title: "Ta på ytterkläder",
+        description: "Jacka och det som behövs.",
+        icon: "🧥",
+        timerKey: "outerwear"
+    },
+
+    {
+        id: "shoes",
+        zone: "Ut genom dörren",
+        zoneIcon: "🎒",
+        title: "Skorna / stövlarna",
+        description: "Nu tar vi på fötterna.",
+        icon: "👟",
+        timerKey: "shoes"
+    },
+
+    {
+        id: "backpack",
+        zone: "Ut genom dörren",
+        zoneIcon: "🎒",
+        title: "Ta på ryggsäcken",
+        description: "Ryggsäcken på!",
+        icon: "🎒",
+        timerKey: "backpack"
+    },
+
+    {
+        id: "sports",
+        zone: "Ut genom dörren",
+        zoneIcon: "🎒",
+        title: "Är det idrott idag?",
+        description: "Behöver idrottsväskan följa med?",
+        icon: "🏃",
+        type: "sports",
+        timerKey: "sports"
+    },
+
+    {
+        id: "school",
+        zone: "Ut genom dörren",
+        zoneIcon: "🏫",
+        title: "Gå till skolan",
+        description: "Nu går vi!",
+        icon: "🏫",
+        timerKey: "school"
+    }
+];
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+let currentStepIndex = 0;
+
+let completedSteps = new Set();
+
+let activeTimer = null;
+
+let dressItems = [
+
+    {
+        id: "shirt",
+        name: "Tröja",
+        icon: "👕"
+    },
+
+    {
+        id: "pants",
+        name: "Byxor",
+        icon: "👖"
+    },
+
+    {
+        id: "socks",
+        name: "Strumpor",
+        icon: "🧦"
+    }
+];
+
+let dressCompleted = [];
+
+
+/* =========================================================
+   START
+========================================================= */
+
+function startMorning() {
+
+    const inputName =
+        document.getElementById("nameInput").value.trim();
+
+    if (inputName) {
+        settings.name = inputName;
+    }
+
+    saveSettingsToStorage();
+
+    document
+        .getElementById("startScreen")
+        .classList.add("hidden");
+
+    document
+        .getElementById("mainApp")
+        .classList.remove("hidden");
+
+    initializeMorning();
+
+}
+
+
+/* =========================================================
+   INIT
+========================================================= */
+
+function initializeMorning() {
+
+    currentStepIndex = 0;
+
+    completedSteps = new Set();
+
+    dressItems = [
+
+        {
+            id: "shirt",
+            name: "Tröja",
+            icon: "👕"
+        },
+
+        {
+            id: "pants",
+            name: "Byxor",
+            icon: "👖"
+        },
+
+        {
+            id: "socks",
+            name: "Strumpor",
+            icon: "🧦"
+        }
+
+    ];
+
+    dressCompleted = [];
+
+    document.getElementById("childName").textContent =
+        settings.name || "";
+
+    updateLeaveTime();
+
+    renderSteps();
+
+    renderOverview();
+
+    updateProgress();
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+
+    activateStep(0);
+}
+
+
+/* =========================================================
+   RENDERA ALLA STEG
+========================================================= */
+
+function renderSteps() {
+
+    const container =
+        document.getElementById("stepsContainer");
+
+    container.innerHTML = "";
+
+    let lastZone = "";
+
+    steps.forEach((step, index) => {
+
+        if (step.zone !== lastZone) {
+
+            const zone =
+                document.createElement("section");
+
+            zone.className = "zone-title";
+
+            zone.innerHTML = `
+                <div class="zone-icon">
+                    ${step.zoneIcon}
+                </div>
+
+                <h2>${step.zone}</h2>
+
+                <p>
+                    En sak i taget.
+                </p>
+            `;
+
+            container.appendChild(zone);
+
+            lastZone = step.zone;
+        }
+
+        const card =
+            createStepCard(step, index);
+
+        container.appendChild(card);
+    });
+
+}
+
+
+/* =========================================================
+   SKAPA STEGKORT
+========================================================= */
+
+function createStepCard(step, index) {
+
+    const card =
+        document.createElement("article");
+
+    card.className = "step-card";
+
+    card.id = "step-" + step.id;
+
+    let content = "";
+
+    if (step.type === "dressLottery") {
+
+        content = createDressLottery();
+
+    } else if (step.type === "choice") {
+
+        content = createFoodChoice();
+
+    } else if (step.type === "sports") {
+
+        content = createSportsChoice();
+
+    } else {
+
+        content = createNormalStep(step, index);
+
+    }
+
+    card.innerHTML = content;
+
+    return card;
+}
+
+
+/* =========================================================
+   VANLIGT MOMENT
+========================================================= */
+
+function createNormalStep(step, index) {
+
+    const seconds =
+        settings.timers[step.timerKey] || 60;
+
+    return `
+
+        <div class="step-number">
+            ${index + 1} av ${steps.length}
+        </div>
+
+        <div class="visual">
+            ${step.icon}
+        </div>
+
+        <h2 class="step-title">
+            ${step.title}
+        </h2>
+
+        <div class="step-description">
+            ${step.description}
+        </div>
+
+        ${createTimerHTML(step.id, seconds)}
+
+        <button
+            class="main-action"
+            onclick="completeStep('${step.id}')"
+        >
+            ✅ KLAR!
+        </button>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+}
+
+
+/* =========================================================
+   TIMER HTML
+========================================================= */
+
+function createTimerHTML(id, seconds) {
+
+    return `
+
+        <div
+            class="timer"
+            id="timer-${id}"
+            data-total="${seconds}"
+            data-remaining="${seconds}"
+        >
+
+            <div
+                class="timer-number"
+                id="timer-number-${id}"
+            >
+                ${formatTime(seconds)}
+            </div>
+
+            <div class="timer-label">
+                kvar
+            </div>
+
+            <div class="timer-progress">
+                <div
+                    class="timer-bar"
+                    id="timer-bar-${id}"
+                ></div>
+            </div>
+
+        </div>
+
+    `;
+}
+
+
+/* =========================================================
+   KLÄDLOTTO
+========================================================= */
+
+function createDressLottery() {
+
+    return `
+
+        <div class="step-number">
+            4 av ${steps.length}
+        </div>
+
+        <div class="visual">
+            👕
+        </div>
+
+        <h2 class="step-title">
+            Klä på dig!
+        </h2>
+
+        <div class="step-description">
+            Lotteriet bestämmer vilket plagg som blir först.
+        </div>
+
+        <div class="lottery">
+
+            <div class="wheel-pointer">
+                🔻
+            </div>
+
+            <div
+                id="dressWheel"
+                class="wheel"
+            >
+
+                <div class="wheel-label">
+
+                    <span class="one">
+                        👕<br>Tröja
+                    </span>
+
+                    <span class="two">
+                        👖<br>Byxor
+                    </span>
+
+                    <span class="three">
+                        🧦<br>Strumpor
+                    </span>
+
+                </div>
+
+            </div>
+
+            <button
+                id="spinButton"
+                class="spin-button"
+                onclick="spinDressWheel()"
+            >
+                🎰 SNURRA!
+            </button>
+
+            <div
+                id="spinResult"
+                class="spin-result"
+            ></div>
+
+            <div
+                id="dressDone"
+                style="margin:20px 0;"
+            >
+                <strong>KLARA PLAGG</strong>
+                <div id="dressDoneItems">
+                    Inga ännu
+                </div>
+            </div>
+
+        </div>
+
+        ${createTimerHTML(
+            "dress",
+            settings.timers.dress
+        )}
+
+        <button
+            id="dressCompleteButton"
+            class="main-action"
+            onclick="completeDressStep()"
+        >
+            👕 ALLA KLÄDER ÄR PÅ!
+        </button>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+}
+
+
+/* =========================================================
+   MATVAL
+========================================================= */
+
+function createFoodChoice() {
+
+    return `
+
+        <div class="visual">
+            🍎
+        </div>
+
+        <h2 class="step-title">
+            Ska du äta mer?
+        </h2>
+
+        <div class="step-description">
+            Känn efter i magen.
+        </div>
+
+        <div class="choice-container">
+
+            <button
+                class="choice-button yes"
+                onclick="chooseMoreFood(true)"
+            >
+                👍 JA
+            </button>
+
+            <button
+                class="choice-button no"
+                onclick="chooseMoreFood(false)"
+            >
+                😊 NEJ
+            </button>
+
+        </div>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+}
+
+
+/* =========================================================
+   IDROTT
+========================================================= */
+
+function createSportsChoice() {
+
+    return `
+
+        <div class="visual">
+            🏃
+        </div>
+
+        <h2 class="step-title">
+            Är det idrott idag?
+        </h2>
+
+        <div class="step-description">
+            Behöver idrottsväskan följa med?
+        </div>
+
+        <div class="choice-container">
+
+            <button
+                class="choice-button yes"
+                onclick="chooseSports(true)"
+            >
+                🏃 JA
+            </button>
+
+            <button
+                class="choice-button no"
+                onclick="chooseSports(false)"
+            >
+                😊 NEJ
+            </button>
+
+        </div>
+
+        <div
+            id="sportsResult"
+            style="text-align:center;margin-top:25px;font-size:24px;font-weight:800;"
+        ></div>
+
+        <button
+            id="sportsDoneButton"
+            class="main-action hidden"
+            onclick="completeStep('sports')"
+        >
+            🎒 KLAR!
+        </button>
+
+        <button
+            class="stuck-button"
+            onclick="openStuck()"
+        >
+            🆘 Jag fastnade
+        </button>
+
+    `;
+}
+
+
+/* =========================================================
+   TIMER
+========================================================= */
+
+function startTimer(stepId, seconds) {
+
+    clearInterval(activeTimer);
+
+    const timer =
+        document.getElementById("timer-" + stepId);
+
+    if (!timer) return;
+
+    let remaining = seconds;
+
+    timer.dataset.remaining = remaining;
+
+    updateTimerVisual(
+        stepId,
+        remaining,
+        seconds
+    );
+
+    activeTimer = setInterval(() => {
+
+        remaining--;
+
+        timer.dataset.remaining = remaining;
+
+        updateTimerVisual(
+            stepId,
+            remaining,
+            seconds
+        );
+
+        if (remaining <= 0) {
+
+            clearInterval(activeTimer);
+
+            timer.classList.add("finished");
+
+            playSound("finished");
+
+        }
+
+    }, 1000);
+}
+
+
+function updateTimerVisual(
+    stepId,
+    remaining,
+    total
+) {
+
+    const number =
+        document.getElementById(
+            "timer-number-" + stepId
+        );
+
+    const bar =
+        document.getElementById(
+            "timer-bar-" + stepId
+        );
+
+    const timer =
+        document.getElementById(
+            "timer-" + stepId
+        );
+
+    if (!number || !bar) return;
+
+    number.textContent =
+        formatTime(Math.max(remaining, 0));
+
+    const percent =
+        Math.max(
+            0,
+            Math.min(
+                100,
+                (remaining / total) * 100
+            )
+        );
+
+    bar.style.width = percent + "%";
+
+    timer.classList.toggle(
+        "warning",
+        remaining <= 15 && remaining > 0
+    );
+}
+
+
+function formatTime(seconds) {
+
+    const min =
+        Math.floor(seconds / 60);
+
+    const sec =
+        seconds % 60;
+
+    return (
+        String(min).padStart(2, "0") +
+        ":" +
+        String(sec).padStart(2, "0")
+    );
+}
+
+
+/* =========================================================
+   AKTIVERA STEG
+========================================================= */
+
+function activateStep(index) {
+
+    if (index >= steps.length) {
+
+        showCompletion();
+
+        return;
+    }
+
+    currentStepIndex = index;
+
+    document
+        .querySelectorAll(".step-card")
+        .forEach(card => {
+            card.classList.remove("current");
+        });
+
+    const step =
+        steps[index];
+
+    const card =
+        document.getElementById(
+            "step-" + step.id
+        );
+
+    if (!card) return;
+
+    card.classList.add("current");
+
+    setTimeout(() => {
+
+        card.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 150);
+
+    renderOverview();
+
+    playSound("start");
+
+    if (
+        step.type !== "dressLottery" &&
+        step.type !== "choice" &&
+        step.type !== "sports"
+    ) {
+
+        startTimer(
+            step.id,
+            settings.timers[step.timerKey] || 60
+        );
+    }
+
+}
+
+
+/* =========================================================
+   KLAR
+========================================================= */
+
+function completeStep(stepId) {
+
+    const index =
+        steps.findIndex(
+            step => step.id === stepId
+        );
+
+    if (index === -1) return;
+
+    if (completedSteps.has(stepId)) return;
+
+    completedSteps.add(stepId);
+
+    clearInterval(activeTimer);
+
+    const card =
+        document.getElementById(
+            "step-" + stepId
+        );
+
+    if (card) {
+
+        card.classList.remove("current");
+
+        card.classList.add("done");
+
+    }
+
+    playSound("complete");
+
+    updateProgress();
+
+    setTimeout(() => {
+
+        activateStep(index + 1);
+
+    }, 400);
+
+}
+
+
+/* =========================================================
+   KLÄDER KLARA
+========================================================= */
+
+function completeDressStep() {
+
+    if (dressItems.length > 0) {
+
+        alert(
+            "Det finns fortfarande kläder kvar att ta på."
+        );
+
+        return;
+    }
+
+    completeStep("dress");
+}
+
+
+/* =========================================================
+   LOTTERI
+========================================================= */
+
+function spinDressWheel() {
+
+    if (dressItems.length === 0) {
+
+        document.getElementById(
+            "spinResult"
+        ).innerHTML = `
+            <div class="spin-result-text">
+                🎉 Alla kläder är på!
+            </div>
+        `;
+
+        return;
+    }
+
+    const wheel =
+        document.getElementById(
+            "dressWheel"
+        );
+
+    const button =
+        document.getElementById(
+            "spinButton"
+        );
+
+    button.disabled = true;
+
+    wheel.classList.remove("spinning");
+
+    void wheel.offsetWidth;
+
+    wheel.classList.add("spinning");
+
+    setTimeout(() => {
+
+        const randomIndex =
+            Math.floor(
+                Math.random() *
+                dressItems.length
+            );
+
+        const item =
+            dressItems[randomIndex];
+
+        dressItems.splice(
+            randomIndex,
+            1
+        );
+
+        dressCompleted.push(item);
+
+        document.getElementById(
+            "spinResult"
+        ).innerHTML = `
+
+            <div class="spin-result-icon">
+                ${item.icon}
+            </div>
+
+            <div class="spin-result-text">
+                ${item.name}!
+            </div>
+
+            <p>
+                Ta på dig ${item.name.toLowerCase()}.
+            </p>
+
+        `;
+
+        renderDressDone();
+
+        button.disabled = false;
+
+        if (dressItems.length === 0) {
+
+            document.getElementById(
+                "spinButton"
+            ).textContent =
+                "🎉 ALLA KLÄDER KLARA!";
+
+        } else {
+
+            button.textContent =
+                "🎰 SNURRA IGEN!";
+
+        }
+
+        playSound("complete");
+
+    }, 3000);
+
+}
+
+
+function renderDressDone() {
+
+    const container =
+        document.getElementById(
+            "dressDoneItems"
+        );
+
+    if (!container) return;
+
+    if (dressCompleted.length === 0) {
+
+        container.innerHTML =
+            "Inga ännu";
+
+        return;
+    }
+
+    container.innerHTML =
+        dressCompleted
+            .map(
+                item =>
+                    `<span style="
+                        display:inline-block;
+                        background:#e2f4ea;
+                        padding:8px 12px;
+                        border-radius:12px;
+                        margin:4px;
+                    ">
+                        ${item.icon} ✓
+                    </span>`
+            )
+            .join("");
+
+}
+
+
+/* =========================================================
+   MAT
+========================================================= */
+
+function chooseMoreFood(wantsMore) {
+
+    if (wantsMore) {
+
+        alert(
+            "👍 Ät lite mer och tryck sedan KLAR på nästa steg."
+        );
+
+        return;
+    }
+
+    completeStep("moreFood");
+
+}
+
+
+/* =========================================================
+   IDROTT
+========================================================= */
+
+function chooseSports(isSportsDay) {
+
+    const result =
+        document.getElementById(
+            "sportsResult"
+        );
+
+    const button =
+        document.getElementById(
+            "sportsDoneButton"
+        );
+
+    if (isSportsDay) {
+
+        result.innerHTML = `
+            🏃 JA!<br><br>
+            🎒 Ta med idrottsväskan!
+        `;
+
+    } else {
+
+        result.innerHTML = `
+            😊 Nej, ingen idrottsväska idag.
+        `;
+
+    }
+
+    button.classList.remove("hidden");
+
+}
+
+
+/* =========================================================
+   PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+    const total =
+        steps.length;
+
+    const done =
+        completedSteps.size;
+
+    const percentage =
+        (done / total) * 100;
+
+    document.getElementById(
+        "overallProgressBar"
+    ).style.width =
+        percentage + "%";
+
+    document.getElementById(
+        "overallProgressText"
+    ).textContent =
+        `${done} av ${total} klara`;
+
+    renderOverview();
+
+}
+
+
+function renderOverview() {
+
+    const container =
+        document.getElementById(
+            "stepOverview"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    steps.forEach((step, index) => {
+
+        const dot =
+            document.createElement("div");
+
+        dot.className = "step-dot";
+
+        if (completedSteps.has(step.id)) {
+
+            dot.classList.add("done");
+
+            dot.textContent = "✓";
+
+        } else if (
+            index === currentStepIndex
+        ) {
+
+            dot.classList.add("current");
+
+            dot.textContent =
+                index + 1;
+
+        } else {
+
+            dot.textContent =
+                index + 1;
+
+        }
+
+        container.appendChild(dot);
+
+    });
+
+}
+
+
+/* =========================================================
+   SLUT
+========================================================= */
+
+function showCompletion() {
+
+    clearInterval(activeTimer);
+
+    document.getElementById(
+        "completion"
+    ).classList.remove("hidden");
+
+    setTimeout(() => {
+
+        document.getElementById(
+            "completion"
+        ).scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 200);
+
+    playSound("complete");
+
+}
+
+
+function restartMorning() {
+
+    location.reload();
+
+}
+
+
+/* =========================================================
+   FASTNADE
+========================================================= */
+
+function openStuck() {
+
+    document.getElementById(
+        "stuckOverlay"
+    ).style.display = "flex";
+
+}
+
+
+function closeStuck() {
+
+    document.getElementById(
+        "stuckOverlay"
+    ).style.display = "none";
+
+}
+
+
+/* =========================================================
+   KLOCKA
+========================================================= */
+
+function updateClock() {
+
+    const now = new Date();
+
+    const hours =
+        String(now.getHours())
+            .padStart(2, "0");
+
+    const minutes =
+        String(now.getMinutes())
+            .padStart(2, "0");
+
+    document.getElementById(
+        "currentClock"
+    ).textContent =
+        `${hours}:${minutes}`;
+
+}
+
+
+/* =========================================================
+   GÅ-TID
+========================================================= */
+
+function updateLeaveTime() {
+
+    const hour =
+        String(settings.leaveHour)
+            .padStart(2, "0");
+
+    const minute =
+        String(settings.leaveMinute)
+            .padStart(2, "0");
+
+    document.getElementById(
+        "leaveTime"
+    ).textContent =
+        `${hour}:${minute}`;
+
+}
+
+
+/* =========================================================
+   LJUD
+========================================================= */
+
+function playSound(type) {
+
+    if (!settings.sound) return;
+
+    /*
+       Vi använder Web Audio API istället för
+       externa ljudfiler.
+    */
+
+    try {
+
+        const AudioContext =
+            window.AudioContext ||
+            window.webkitAudioContext;
+
+        if (!AudioContext) return;
+
+        const ctx =
+            new AudioContext();
+
+        const oscillator =
+            ctx.createOscillator();
+
+        const gain =
+            ctx.createGain();
+
+        oscillator.connect(gain);
+
+        gain.connect(ctx.destination);
+
+        if (type === "complete") {
+
+            oscillator.frequency.value = 660;
+
+        } else if (type === "finished") {
+
+            oscillator.frequency.value = 250;
+
+        } else {
+
+            oscillator.frequency.value = 440;
+
+        }
+
+        gain.gain.setValueAtTime(
+            0.0001,
+            ctx.currentTime
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.15,
+            ctx.currentTime + 0.02
+        );
+
+        gain.gain.exponentialRampToValueAtTime(
+            0.0001,
+            ctx.currentTime + 0.25
+        );
+
+        oscillator.start();
+
+        oscillator.stop(
+            ctx.currentTime + 0.25
+        );
+
+    } catch (error) {
+
+        console.log(
+            "Ljud kunde inte spelas."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FÖRÄLDRALÄGE
+========================================================= */
+
+function openParentMode() {
+
+    document.getElementById(
+        "parentOverlay"
+    ).style.display = "flex";
+
+    document.getElementById(
+        "parentName"
+    ).value =
+        settings.name || "";
+
+    document.getElementById(
+        "leaveHour"
+    ).value =
+        settings.leaveHour;
+
+    document.getElementById(
+        "leaveMinute"
+    ).value =
+        settings.leaveMinute;
+
+    document.getElementById(
+        "soundSetting"
+    ).checked =
+        settings.sound;
+
+    renderTimerSettings();
+
+    renderSportsDays();
+
+}
+
+
+function closeParentMode() {
+
+    document.getElementById(
+        "parentOverlay"
+    ).style.display = "none";
+
+}
+
+
+/* =========================================================
+   TIMERINSTÄLLNINGAR
+========================================================= */
+
+function renderTimerSettings() {
+
+    const container =
+        document.getElementById(
+            "timerSettings"
+        );
+
+    container.innerHTML = "";
+
+    const names = {
+
+        diaper: "Ta av nattblöjan",
+        pajamas: "Ta av pyjamasen",
+        underwear: "Ta på kalsonger",
+        dress: "Klä på dig",
+        eat: "Ät mackan",
+        moreFood: "Ska du äta mer?",
+        drink: "Drick upp",
+        teeth: "Borsta tänderna",
+        toilet: "Kissa",
+        outerwear: "Ytterkläder",
+        shoes: "Skor / stövlar",
+        backpack: "Ryggsäck",
+        sports: "Idrott",
+        school: "Gå till skolan"
+
+    };
+
+    Object.entries(
+        settings.timers
+    ).forEach(([key, value]) => {
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "settings-row";
+
+        row.innerHTML = `
+
+            <label>
+                ${names[key] || key}
+            </label>
+
+            <input
+                type="number"
+                min="10"
+                max="1800"
+                value="${value}"
+                data-timer-key="${key}"
+            >
+
+            <span>sek</span>
+
+        `;
+
+        container.appendChild(row);
+
+    });
+
+}
+
+
+/* =========================================================
+   IDROTTSDAGAR
+========================================================= */
+
+function renderSportsDays() {
+
+    document
+        .querySelectorAll(".day-button")
+        .forEach(button => {
+
+            const day =
+                Number(
+                    button.dataset.day
+                );
+
+            button.classList.toggle(
+                "active",
+                settings.sportsDays.includes(day)
+            );
+
+            button.onclick = () => {
+
+                if (
+                    settings.sportsDays.includes(day)
+                ) {
+
+                    settings.sportsDays =
+                        settings.sportsDays.filter(
+                            d => d !== day
+                        );
+
+                } else {
+
+                    settings.sportsDays.push(day);
+
+                }
+
+                renderSportsDays();
+
+            };
+
+        });
+
+}
+
+
+/* =========================================================
+   SPARA INSTÄLLNINGAR
+========================================================= */
+
+function saveSettings() {
+
+    settings.name =
+        document.getElementById(
+            "parentName"
+        ).value.trim();
+
+    settings.leaveHour =
+        Number(
+            document.getElementById(
+                "leaveHour"
+            ).value
+        );
+
+    settings.leaveMinute =
+        Number(
+            document.getElementById(
+                "leaveMinute"
+            ).value
+        );
+
+    settings.sound =
+        document.getElementById(
+            "soundSetting"
+        ).checked;
+
+    document
+        .querySelectorAll(
+            "[data-timer-key]"
+        )
+        .forEach(input => {
+
+            const key =
+                input.dataset.timerKey;
+
+            settings.timers[key] =
+                Number(input.value);
+
+        });
+
+    saveSettingsToStorage();
+
+    updateLeaveTime();
+
+    const name =
+        document.getElementById(
+            "childName"
+        );
+
+    if (name) {
+        name.textContent =
+            settings.name || "";
+    }
+
+    closeParentMode();
+
+}
+
+
+function saveSettingsToStorage() {
+
+    localStorage.setItem(
+        "morningSettings",
+        JSON.stringify(settings)
+    );
+
+}
+
+
+/* =========================================================
+   AUTOMATISK IDROTTSFRÅGA
+========================================================= */
+
+/*
+   Den här funktionen kan senare användas för att
+   automatiskt bestämma om det är idrott.
+
+   JavaScript:
+   getDay()
+
+   0 = söndag
+   1 = måndag
+   2 = tisdag
+   osv.
+*/
+
+function isSportsDayToday() {
+
+    const today =
+        new Date().getDay();
+
+    return settings.sportsDays.includes(
+        today
+    );
+
+}
+
+
+/* =========================================================
+   ESC = STÄNG FÖNSTER
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (event.key === "Escape") {
+
+            closeStuck();
+            closeParentMode();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   STARTA INSTÄLLNINGAR
+========================================================= */
+
+document.getElementById(
+    "nameInput"
+).value =
+    settings.name || "";
+
+
+/* =========================================================
+   FÖRBERED AUTOMATISK IDROTT
+========================================================= */
+
+/*
+   Här kan vi senare välja att låta sidan automatiskt
+   visa JA eller NEJ utifrån veckodagen.
+
+   Just nu får barnet fortfarande frågan.
+*/
+
+
+</script>
+
+</body>
+</html>
