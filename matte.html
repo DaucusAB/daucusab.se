@@ -3,2271 +3,2981 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lär & Spela 🎮</title>
+<title>Lär & Spela</title>
 
 <style>
-:root {
-  --primary: #7c5cff;
-  --secondary: #ff6584;
-  --accent: #ffd166;
-  --success: #38c172;
-  --danger: #ef476f;
-  --text: #25243a;
-  --muted: #6d6a83;
-  --card: rgba(255,255,255,.94);
-  --shadow: 0 15px 40px rgba(50,40,100,.14);
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: "Trebuchet MS", Arial, sans-serif;
-  color: var(--text);
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at 10% 10%, rgba(255,255,255,.7) 0 40px, transparent 41px),
-    radial-gradient(circle at 90% 20%, rgba(255,255,255,.5) 0 55px, transparent 56px),
-    linear-gradient(135deg, #dff7ff, #f7e8ff 45%, #fff3d5);
-  background-size: auto;
-  transition: .3s ease;
+:root{
+  --primary:#6c63ff;
+  --primary2:#8b5cf6;
+  --accent:#ffcf33;
+  --green:#35c77a;
+  --red:#ff647c;
+  --blue:#42b9ff;
+  --bg:#f5f7ff;
+  --card:#ffffff;
+  --text:#243047;
+  --muted:#718096;
+  --shadow:0 12px 35px rgba(45,55,90,.12);
+  --radius:24px;
 }
 
-body.bg-stars {
-  background:
-    radial-gradient(circle at 20% 20%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 70% 30%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 40% 70%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 85% 80%, #fff 0 2px, transparent 3px),
-    linear-gradient(135deg, #17164b, #49328b, #7b4ca8);
-  color: white;
-}
+*{box-sizing:border-box}
 
-body.bg-ocean {
-  background:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,.5), transparent 25%),
-    linear-gradient(135deg, #8be9fd, #48bfe3, #5390d9);
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:var(--bg);
+  min-height:100vh;
+  transition:.3s;
 }
 
-body.bg-jungle {
-  background:
-    radial-gradient(circle at 15% 15%, rgba(255,255,255,.45), transparent 25%),
-    linear-gradient(135deg, #b8f2c8, #52b788, #168aad);
+body.has-bg{
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
 }
 
-body.bg-sunset {
-  background:
-    radial-gradient(circle at 70% 20%, #fff3b0 0 60px, transparent 61px),
-    linear-gradient(135deg, #ff9a8b, #ff6a88, #9b5de5);
+body.has-bg::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(255,255,255,.72);
+  z-index:-1;
 }
 
-body.bg-space {
-  background:
-    radial-gradient(circle at 20% 30%, #fff 0 2px, transparent 3px),
-    radial-gradient(circle at 80% 20%, #fff 0 1px, transparent 2px),
-    radial-gradient(circle at 60% 75%, #fff 0 2px, transparent 3px),
-    linear-gradient(135deg, #08001f, #1d0757, #3c096c);
-  color: white;
-}
+button,input,select{font:inherit}
 
-.container {
-  width: min(1150px, 94%);
-  margin: auto;
+button{
+  border:0;
+  cursor:pointer;
 }
 
-header {
-  padding: 25px 0 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
+.app{
+  max-width:1250px;
+  margin:auto;
+  padding:20px;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 28px;
-  font-weight: 900;
+header{
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:white;
+  border-radius:30px;
+  padding:25px;
+  box-shadow:var(--shadow);
+  margin-bottom:20px;
 }
 
-.logo-icon {
-  width: 55px;
-  height: 55px;
-  background: white;
-  border-radius: 18px;
-  display: grid;
-  place-items: center;
-  font-size: 30px;
-  box-shadow: var(--shadow);
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
 }
 
-.header-buttons {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.logo{
+  display:flex;
+  align-items:center;
+  gap:15px;
 }
 
-button {
-  border: none;
-  cursor: pointer;
-  font-family: inherit;
-  font-weight: 800;
-  transition: transform .15s, box-shadow .15s, opacity .15s;
+.logo-icon{
+  font-size:48px;
 }
 
-button:hover {
-  transform: translateY(-2px);
+.logo h1{
+  margin:0;
+  font-size:32px;
 }
 
-button:active {
-  transform: translateY(0);
+.logo p{
+  margin:5px 0 0;
+  opacity:.9;
 }
 
-.small-btn {
-  padding: 10px 14px;
-  border-radius: 13px;
-  background: rgba(255,255,255,.9);
-  color: var(--text);
+.stats{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
-main {
-  padding-bottom: 50px;
+.stat{
+  background:rgba(255,255,255,.18);
+  padding:10px 15px;
+  border-radius:16px;
+  text-align:center;
+  min-width:85px;
 }
 
-.hero {
-  text-align: center;
-  padding: 25px 10px 35px;
+.stat strong{
+  display:block;
+  font-size:20px;
 }
 
-.hero h1 {
-  font-size: clamp(38px, 7vw, 70px);
-  margin: 10px 0;
-  line-height: 1;
+.nav{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:22px;
 }
 
-.hero p {
-  font-size: 20px;
-  color: var(--muted);
-  max-width: 700px;
-  margin: 15px auto;
+.nav button{
+  background:white;
+  color:var(--primary);
+  padding:11px 17px;
+  border-radius:14px;
+  font-weight:bold;
 }
 
-body.bg-stars .hero p,
-body.bg-space .hero p {
-  color: rgba(255,255,255,.8);
+.nav button.active{
+  background:var(--accent);
+  color:#4a3b00;
 }
 
-.stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 25px;
-}
+.page{display:none}
+.page.active{display:block}
 
-.stat {
-  background: var(--card);
-  padding: 17px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: var(--shadow);
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:25px;
+  margin-bottom:20px;
 }
 
-.stat .number {
-  display: block;
-  font-size: 28px;
-  font-weight: 900;
-  color: var(--primary);
+.hero{
+  text-align:center;
+  padding:35px 20px;
 }
 
-.stat span:last-child {
-  color: var(--muted);
-  font-size: 13px;
+.hero h2{
+  font-size:34px;
+  margin:5px 0 10px;
 }
 
-.games {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+.hero p{
+  color:var(--muted);
+  font-size:18px;
 }
 
-.game-card {
-  background: var(--card);
-  border-radius: 28px;
-  padding: 25px;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
+.game-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
 }
 
-.game-card::after {
-  content: "";
-  position: absolute;
-  width: 130px;
-  height: 130px;
-  right: -50px;
-  top: -50px;
-  border-radius: 50%;
-  background: var(--card-color, #ddd);
-  opacity: .5;
+.game-card{
+  border-radius:25px;
+  padding:25px;
+  color:white;
+  min-height:220px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  box-shadow:var(--shadow);
+  transition:.2s;
 }
 
-.game-icon {
-  font-size: 55px;
-  position: relative;
-  z-index: 1;
+.game-card:hover{
+  transform:translateY(-4px);
 }
 
-.game-card h2 {
-  margin: 8px 0;
-  position: relative;
-  z-index: 1;
+.game-card h3{
+  font-size:25px;
+  margin:8px 0;
 }
 
-.game-card p {
-  color: var(--muted);
-  position: relative;
-  z-index: 1;
+.game-card p{
+  line-height:1.5;
 }
 
-.game-card button {
-  background: var(--primary);
-  color: white;
-  padding: 13px 20px;
-  border-radius: 15px;
-  font-size: 16px;
-  position: relative;
-  z-index: 1;
-}
+.game-card.math{background:linear-gradient(135deg,#ff7a59,#ffb347)}
+.game-card.memory{background:linear-gradient(135deg,#4facfe,#00c6ff)}
+.game-card.words{background:linear-gradient(135deg,#43d17a,#8bdc65)}
+.game-card.world{background:linear-gradient(135deg,#8e62ff,#d05cff)}
 
-.math-card { --card-color: #c8b6ff; }
-.memory-card { --card-color: #a0e7e5; }
-.word-card { --card-color: #ffd6a5; }
-.world-card { --card-color: #b9fbc0; }
+.big-icon{font-size:48px}
 
-.hidden {
-  display: none !important;
+.btn{
+  padding:12px 18px;
+  border-radius:15px;
+  background:var(--primary);
+  color:white;
+  font-weight:bold;
+  transition:.2s;
 }
+
+.btn:hover{transform:translateY(-2px)}
 
-.screen {
-  background: var(--card);
-  border-radius: 30px;
-  padding: 25px;
-  box-shadow: var(--shadow);
+.btn.secondary{
+  background:#edf0ff;
+  color:var(--primary);
 }
 
-.screen-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.btn.yellow{background:var(--accent);color:#493b00}
+.btn.blue{background:var(--blue)}
+
+.btn-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:15px;
 }
 
-.back-btn {
-  background: #eeeafc;
-  padding: 10px 16px;
-  border-radius: 13px;
-  color: var(--text);
+.section-title{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
 }
 
-.game-area {
-  text-align: center;
-  padding: 10px;
+.section-title h2,
+.section-title h3{
+  margin:0;
 }
 
-.game-area h2 {
-  font-size: 34px;
+label{
+  display:block;
+  font-weight:bold;
+  margin-bottom:8px;
 }
 
-.question {
-  font-size: clamp(40px, 9vw, 75px);
-  font-weight: 900;
-  margin: 30px 0;
-  color: var(--primary);
+select,input[type=text],input[type=number]{
+  width:100%;
+  border:2px solid #e4e8f4;
+  border-radius:14px;
+  padding:12px;
+  background:white;
+  outline:none;
 }
 
-.answer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(120px, 250px));
-  justify-content: center;
-  gap: 15px;
+select:focus,input:focus{
+  border-color:var(--primary);
 }
 
-.answer-btn {
-  background: white;
-  border: 4px solid #eee;
-  border-radius: 20px;
-  padding: 20px;
-  font-size: 28px;
-  color: var(--text);
+.setting-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:18px;
 }
 
-.answer-btn:hover {
-  border-color: var(--primary);
-  background: #f8f6ff;
+.operation-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:8px;
 }
 
-.feedback {
-  min-height: 45px;
-  font-size: 22px;
-  font-weight: 900;
-  margin: 15px;
+.operation{
+  padding:14px 8px;
+  border-radius:14px;
+  background:#edf0f7;
+  font-size:22px;
+  font-weight:bold;
 }
 
-.correct {
-  color: var(--success);
+.operation.selected{
+  background:var(--primary);
+  color:white;
 }
 
-.wrong {
-  color: var(--danger);
+.number-grid{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  gap:8px;
 }
 
-.controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin: 20px 0;
+.number-btn{
+  padding:13px 5px;
+  border-radius:12px;
+  background:#eef1f8;
+  font-weight:bold;
 }
 
-.primary-btn {
-  background: var(--primary);
-  color: white;
-  padding: 13px 20px;
-  border-radius: 15px;
+.number-btn.selected{
+  background:var(--primary);
+  color:white;
 }
 
-.secondary-btn {
-  background: #eeeafc;
-  color: var(--text);
-  padding: 13px 20px;
-  border-radius: 15px;
+.progress{
+  height:14px;
+  background:#e9edf5;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-select,
-input[type="number"],
-input[type="text"] {
-  border: 2px solid #e4e0f0;
-  border-radius: 12px;
-  padding: 11px 13px;
-  font: inherit;
-  background: white;
+.progress div{
+  height:100%;
+  background:linear-gradient(90deg,var(--primary),var(--blue));
+  transition:.3s;
 }
 
-.settings-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
+.question-box{
+  text-align:center;
+  max-width:700px;
+  margin:25px auto;
 }
 
-.setting-box {
-  background: #f7f5fc;
-  padding: 18px;
-  border-radius: 18px;
+.question{
+  font-size:55px;
+  font-weight:bold;
+  margin:30px 0;
 }
 
-.setting-box h3 {
-  margin-top: 0;
+.answers{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
 }
 
-.operations {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+.answer{
+  background:#f0f3ff;
+  border:3px solid transparent;
+  padding:22px;
+  border-radius:20px;
+  font-size:25px;
+  font-weight:bold;
 }
 
-.op-btn {
-  padding: 11px 16px;
-  border-radius: 12px;
-  background: white;
-  border: 2px solid #ddd;
+.answer:hover{
+  border-color:var(--primary);
 }
 
-.op-btn.active {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
+.answer.correct{
+  background:#c9f6d9;
+  border-color:var(--green);
 }
 
-.number-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.answer.wrong{
+  background:#ffd2d9;
+  border-color:var(--red);
 }
 
-.num-btn {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: white;
-  border: 2px solid #ddd;
+.feedback{
+  font-size:21px;
+  font-weight:bold;
+  min-height:30px;
+  margin:20px;
 }
 
-.num-btn.active {
-  background: var(--secondary);
-  color: white;
-  border-color: var(--secondary);
+.memory-board{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  max-width:700px;
+  margin:25px auto;
 }
 
-.timer {
-  font-size: 20px;
-  font-weight: 900;
-  color: var(--danger);
+.memory-card{
+  aspect-ratio:1;
+  border-radius:18px;
+  background:linear-gradient(135deg,var(--primary),var(--primary2));
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:23px;
+  font-weight:bold;
+  text-align:center;
+  padding:10px;
+  transition:.25s;
 }
 
-.progress {
-  height: 12px;
-  background: #eee;
-  border-radius: 20px;
-  overflow: hidden;
-  margin: 15px 0;
+.memory-card.revealed,
+.memory-card.matched{
+  background:white;
+  color:var(--text);
+  border:3px solid var(--primary);
 }
 
-.progress-bar {
-  height: 100%;
-  background: var(--primary);
-  width: 0%;
-  transition: width .3s;
+.memory-card.matched{
+  border-color:var(--green);
+  background:#e2f9eb;
 }
 
-.result {
-  text-align: center;
-  padding: 30px;
+.memory-card.hidden-text{
+  color:transparent;
 }
 
-.result .big {
-  font-size: 70px;
+.word-question{
+  font-size:25px;
+  margin:30px 0;
+  text-align:center;
 }
 
-.result h2 {
-  font-size: 38px;
+.word-option{
+  font-size:22px;
 }
 
-.memory-board {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  max-width: 650px;
-  margin: 25px auto;
+.daily{
+  background:linear-gradient(135deg,#fff3b0,#ffd96a);
+  border-radius:25px;
+  padding:25px;
 }
 
-.memory-card {
-  aspect-ratio: 1;
-  border-radius: 18px;
-  background: var(--primary);
-  color: white;
-  font-size: 28px;
-  display: grid;
-  place-items: center;
-  padding: 8px;
+.daily h3{
+  margin-top:0;
 }
 
-.memory-card.flipped,
-.memory-card.matched {
-  background: white;
-  color: var(--text);
-  border: 3px solid var(--primary);
+.badges{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-.word-question {
-  font-size: 32px;
-  font-weight: 900;
-  margin: 30px;
+.badge{
+  background:#f1f3fb;
+  border-radius:18px;
+  padding:12px 15px;
+  text-align:center;
 }
 
-.word-answer-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(180px, 300px));
-  justify-content: center;
-  gap: 15px;
+.badge.unlocked{
+  background:#fff0a8;
 }
 
-.quiz-option {
-  padding: 18px;
-  border-radius: 17px;
-  background: white;
-  border: 3px solid #eee;
-  font-size: 19px;
+.profile-box{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:25px;
+  align-items:center;
 }
 
-.modal-bg {
-  position: fixed;
-  inset: 0;
-  background: rgba(20,15,45,.55);
-  display: grid;
-  place-items: center;
-  padding: 15px;
-  z-index: 100;
+.avatar{
+  width:140px;
+  height:140px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--primary),var(--blue));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+  color:white;
+  margin:auto;
 }
 
-.modal {
-  background: white;
-  color: var(--text);
-  width: min(800px, 100%);
-  max-height: 90vh;
-  overflow-y: auto;
-  border-radius: 28px;
-  padding: 25px;
-  box-shadow: 0 30px 80px rgba(0,0,0,.3);
+.profile-name{
+  font-size:30px;
+  font-weight:bold;
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.level{
+  font-size:20px;
+  font-weight:bold;
+  margin:8px 0;
 }
 
-.close {
-  background: #eee;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+.admin-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
 }
 
-.color-options,
-.bg-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.admin-stat{
+  padding:20px;
+  border-radius:20px;
+  background:#f3f5fb;
 }
 
-.color-choice {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: 4px solid white;
-  box-shadow: 0 0 0 2px #ddd;
+.admin-stat strong{
+  font-size:30px;
+  display:block;
 }
 
-.color-choice.active {
-  box-shadow: 0 0 0 3px var(--text);
+.color-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
 
-.bg-choice {
-  min-width: 130px;
-  padding: 18px;
-  border-radius: 16px;
-  color: white;
-  font-weight: 900;
+.color-choice{
+  width:48px;
+  height:48px;
+  border-radius:50%;
+  border:4px solid white;
+  box-shadow:0 2px 8px #aaa;
 }
 
-.bg-default { background: linear-gradient(135deg,#dff7ff,#f7e8ff,#fff3d5); color:#333; }
-.bg-stars-choice { background: linear-gradient(135deg,#17164b,#7b4ca8); }
-.bg-ocean-choice { background: linear-gradient(135deg,#8be9fd,#5390d9); }
-.bg-jungle-choice { background: linear-gradient(135deg,#b8f2c8,#168aad); }
-.bg-sunset-choice { background: linear-gradient(135deg,#ff9a8b,#9b5de5); }
-.bg-space-choice { background: linear-gradient(135deg,#08001f,#3c096c); }
+.background-options{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;
+}
 
-.admin-section {
-  margin: 20px 0;
-  padding: 20px;
-  background: #f7f5fc;
-  border-radius: 20px;
+.bg-choice{
+  min-height:80px;
+  border-radius:15px;
+  color:white;
+  font-weight:bold;
+  text-shadow:0 1px 3px #000;
+  border:3px solid transparent;
 }
 
-.achievement-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+.bg-choice.selected{
+  border-color:var(--primary);
 }
 
-.achievement {
-  padding: 15px;
-  background: white;
-  border-radius: 16px;
-  border: 2px solid #eee;
+table{
+  width:100%;
+  border-collapse:collapse;
 }
 
-.achievement.unlocked {
-  border-color: var(--accent);
-  background: #fff9dc;
+td,th{
+  padding:10px;
+  border-bottom:1px solid #e5e8f0;
+  text-align:left;
 }
 
-footer {
-  text-align: center;
-  padding: 25px;
-  color: var(--muted);
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(20,25,45,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:20px;
 }
+
+.modal.show{display:flex}
 
-@media(max-width: 700px) {
-  .stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
+.modal-content{
+  background:white;
+  border-radius:25px;
+  max-width:850px;
+  width:100%;
+  max-height:90vh;
+  overflow:auto;
+  padding:25px;
+}
 
-  .games,
-  .settings-grid {
-    grid-template-columns: 1fr;
-  }
+.close{
+  float:right;
+  background:#edf0f7;
+  border-radius:50%;
+  width:38px;
+  height:38px;
+  font-weight:bold;
+}
 
-  .memory-board {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
-  }
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#222b3d;
+  color:white;
+  padding:14px 20px;
+  border-radius:15px;
+  z-index:200;
+  display:none;
+}
 
-  .memory-card {
-    font-size: 20px;
-  }
+.toast.show{display:block}
 
-  .screen {
-    padding: 17px;
-  }
+.empty{
+  text-align:center;
+  color:var(--muted);
+  padding:25px;
+}
 
-  .header-buttons {
-    justify-content: flex-end;
-  }
+@media(max-width:700px){
+  .header-top{flex-direction:column;align-items:flex-start}
+  .stats{justify-content:flex-start}
+  .answers{grid-template-columns:1fr}
+  .operation-grid{grid-template-columns:repeat(3,1fr)}
+  .number-grid{grid-template-columns:repeat(5,1fr)}
+  .memory-board{grid-template-columns:repeat(3,1fr)}
+  .profile-box{grid-template-columns:1fr}
+  .question{font-size:42px}
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
 <header>
-  <div class="logo">
-    <div class="logo-icon">🎓</div>
-    <span>Lär & Spela</span>
+  <div class="header-top">
+    <div class="logo">
+      <div class="logo-icon">🧠</div>
+      <div>
+        <h1>Lär & Spela</h1>
+        <p>Spela, lär dig och samla XP!</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <strong id="xpDisplay">0</strong>
+        XP
+      </div>
+      <div class="stat">
+        <strong id="levelDisplay">1</strong>
+        Nivå
+      </div>
+      <div class="stat">
+        <strong id="streakDisplay">0</strong>
+        🔥
+      </div>
+    </div>
   </div>
 
-  <div class="header-buttons">
-    <button class="small-btn" onclick="openCustomization()">🎨 Utseende</button>
-    <button class="small-btn" onclick="openAdmin()">⚙️ Förälder</button>
+  <div class="nav">
+    <button class="active" onclick="showPage('home',this)">🏠 Hem</button>
+    <button onclick="showPage('math',this)">➗ Mattejakten</button>
+    <button onclick="showPage('memory',this)">🧩 Minnesmatch</button>
+    <button onclick="showPage('words',this)">🔤 Ordet är</button>
+    <button onclick="showPage('world',this)">🌍 Världskollen</button>
+    <button onclick="showPage('profile',this)">👤 Profil</button>
+    <button onclick="showPage('settings',this)">🎨 Utseende</button>
+    <button onclick="openParentPanel()">👨‍👩‍👧 Föräldrapanel</button>
   </div>
 </header>
 
-<main>
+<!-- HOME -->
+<section id="home" class="page active">
 
-<!-- START -->
-<section id="homeScreen">
-
-  <div class="hero">
-    <div style="font-size:50px">🚀 🧠 ⭐ 🎮</div>
-    <h1>Lär & Spela!</h1>
-    <p>
-      Spela roliga spel, samla XP och träna hjärnan.
-      Hur många poäng kan du få?
-    </p>
+  <div class="card hero">
+    <h2>Hej! 👋</h2>
+    <p>Vad vill du lära dig idag?</p>
   </div>
 
-  <div class="stats">
-    <div class="stat">
-      <span class="number" id="xpDisplay">0</span>
-      <span>⭐ XP</span>
+  <div class="game-grid">
+
+    <div class="game-card math">
+      <div>
+        <div class="big-icon">➕</div>
+        <h3>Mattejakten</h3>
+        <p>Räkna, samla poäng och klättra i nivåerna.</p>
+      </div>
+      <button class="btn yellow" onclick="showPage('math')">Spela matte</button>
     </div>
 
-    <div class="stat">
-      <span class="number" id="pointsDisplay">0</span>
-      <span>🏆 Poäng</span>
+    <div class="game-card memory">
+      <div>
+        <div class="big-icon">🧩</div>
+        <h3>Minnesmatch</h3>
+        <p>Hitta rätt matteuttryck och svar.</p>
+      </div>
+      <button class="btn" onclick="showPage('memory')">Spela minne</button>
     </div>
 
-    <div class="stat">
-      <span class="number" id="streakDisplay">0</span>
-      <span>🔥 Streak</span>
+    <div class="game-card words">
+      <div>
+        <div class="big-icon">🔤</div>
+        <h3>Ordet är</h3>
+        <p>Testa stavning och svenska ord.</p>
+      </div>
+      <button class="btn" onclick="showPage('words')">Spela ord</button>
     </div>
 
-    <div class="stat">
-      <span class="number" id="gamesDisplay">0</span>
-      <span>🎮 Spelade</span>
-    </div>
-  </div>
-
-  <div class="games">
-
-    <div class="game-card math-card">
-      <div class="game-icon">🧮</div>
-      <h2>Mattejakten</h2>
-      <p>
-        Räkna addition, subtraktion, multiplikation och division.
-        Välj själv vilka tal som ska användas!
-      </p>
-      <button onclick="showMathSetup()">Starta matte</button>
-    </div>
-
-    <div class="game-card memory-card">
-      <div class="game-icon">🧠</div>
-      <h2>Minnesmatch</h2>
-      <p>
-        Hitta paren! Matcha matteuttrycket med rätt svar.
-      </p>
-      <button onclick="startMemory()">Starta minne</button>
-    </div>
-
-    <div class="game-card word-card">
-      <div class="game-icon">🔤</div>
-      <h2>Ordet är...</h2>
-      <p>
-        Läs ordet och välj rätt stavning.
-      </p>
-      <button onclick="startWordGame()">Starta ordspel</button>
-    </div>
-
-    <div class="game-card world-card">
-      <div class="game-icon">🌍</div>
-      <h2>Världskollen</h2>
-      <p>
-        Testa dina kunskaper om världen, djur, natur och roliga fakta.
-      </p>
-      <button onclick="startWorldQuiz()">Starta quiz</button>
+    <div class="game-card world">
+      <div>
+        <div class="big-icon">🌍</div>
+        <h3>Världskollen</h3>
+        <p>Hur mycket vet du om världen?</p>
+      </div>
+      <button class="btn" onclick="showPage('world')">Res runt världen</button>
     </div>
 
   </div>
 
-  <div class="game-card" style="margin-top:20px; --card-color:#ffd166;">
-    <div class="game-icon">🏅</div>
-    <h2>Mina prestationer</h2>
-    <p>Se vilka medaljer du har lyckats låsa upp.</p>
-    <button onclick="openAchievements()">Visa prestationer</button>
+  <div class="card">
+    <div class="section-title">
+      <h2>🏆 Dagens utmaning</h2>
+      <span id="dailyDate"></span>
+    </div>
+
+    <div class="daily">
+      <h3 id="dailyTitle"></h3>
+      <p id="dailyDescription"></p>
+      <div class="progress">
+        <div id="dailyProgress" style="width:0%"></div>
+      </div>
+      <p id="dailyStatus"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🏅 Dina märken</h2>
+    <div class="badges" id="homeBadges"></div>
   </div>
 
 </section>
 
-<!-- MATH SETUP -->
-<section id="mathSetup" class="screen hidden">
+<!-- MATH -->
+<section id="math" class="page">
 
-  <div class="screen-header">
-    <h2>🧮 Mattejakten</h2>
-    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
-  </div>
+  <div class="card">
+    <div class="section-title">
+      <h2>➕ Mattejakten</h2>
+      <button class="btn secondary" onclick="resetMathSettings()">Återställ</button>
+    </div>
 
-  <div class="settings-grid">
+    <p>Välj vilka siffror som får användas. Spelet använder <strong>endast</strong> de siffror du markerar.</p>
 
-    <div class="setting-box">
-      <h3>➕ Räknesätt</h3>
+    <div class="setting-grid">
 
-      <div class="operations">
-        <button class="op-btn active" data-op="+" onclick="selectOperation('+')">+</button>
-        <button class="op-btn" data-op="-" onclick="selectOperation('-')">−</button>
-        <button class="op-btn" data-op="*" onclick="selectOperation('*')">×</button>
-        <button class="op-btn" data-op="/" onclick="selectOperation('/')">÷</button>
-        <button class="op-btn" data-op="all" onclick="selectOperation('all')">Alla</button>
+      <div>
+        <label>Svårighetsgrad</label>
+        <select id="mathDifficulty">
+          <option value="easy">Lätt</option>
+          <option value="medium">Medel</option>
+          <option value="hard">Svår</option>
+          <option value="super">Super</option>
+        </select>
       </div>
-    </div>
 
-    <div class="setting-box">
-      <h3>🎯 Svårighetsgrad</h3>
-
-      <select id="difficulty">
-        <option value="easy">Lätt</option>
-        <option value="medium">Medel</option>
-        <option value="hard">Svår</option>
-        <option value="super">Super</option>
-      </select>
-    </div>
-
-    <div class="setting-box">
-      <h3>🔢 Vilka tal ska användas?</h3>
-      <p style="color:#777;margin-top:0">
-        Välj ett eller flera tal mellan 1 och 13.
-      </p>
-
-      <div class="number-buttons" id="numberButtons"></div>
-    </div>
-
-    <div class="setting-box">
-      <h3>⚙️ Spelinställningar</h3>
-
-      <label>
-        Antal frågor:
-        <select id="questionCount">
+      <div>
+        <label>Antal frågor</label>
+        <select id="mathQuestions">
           <option value="5">5</option>
           <option value="10" selected>10</option>
           <option value="15">15</option>
           <option value="20">20</option>
         </select>
-      </label>
+      </div>
 
-      <br><br>
+      <div>
+        <label>Räknesätt</label>
+        <div class="operation-grid">
+          <button class="operation selected" data-op="all" onclick="selectOperation(this)">Alla</button>
+          <button class="operation" data-op="+" onclick="selectOperation(this)">+</button>
+          <button class="operation" data-op="-" onclick="selectOperation(this)">−</button>
+          <button class="operation" data-op="*" onclick="selectOperation(this)">×</button>
+          <button class="operation" data-op="/" onclick="selectOperation(this)">÷</button>
+        </div>
+      </div>
 
-      <label>
-        ⏱️ Tid per fråga:
-        <select id="timeLimit">
-          <option value="0">Ingen timer</option>
-          <option value="10">10 sekunder</option>
-          <option value="15">15 sekunder</option>
-          <option value="20">20 sekunder</option>
-          <option value="30">30 sekunder</option>
-        </select>
-      </label>
     </div>
 
+    <h3>Vilka siffror får användas?</h3>
+    <div class="number-grid" id="mathNumbers"></div>
+
+    <div class="btn-row">
+      <button class="btn green" onclick="startMath()">🚀 Starta Mattejakten</button>
+    </div>
   </div>
 
-  <div style="text-align:center;margin-top:25px">
-    <button class="primary-btn" style="font-size:20px;padding:16px 30px" onclick="startMath()">
-      🚀 Börja mattejakten!
-    </button>
-  </div>
+  <div class="card" id="mathGame" style="display:none">
 
-</section>
-
-<!-- MATH GAME -->
-<section id="mathGame" class="screen hidden">
-
-  <div class="screen-header">
-    <div>
-      <strong>🧮 Mattejakten</strong>
-      <div id="mathProgressText"></div>
+    <div class="section-title">
+      <h3>Fråga <span id="mathQuestionNumber">1</span></h3>
+      <strong id="mathScore">0 poäng</strong>
     </div>
 
-    <div class="timer" id="mathTimer"></div>
-  </div>
+    <div class="progress">
+      <div id="mathProgress"></div>
+    </div>
 
-  <div class="progress">
-    <div class="progress-bar" id="mathProgress"></div>
-  </div>
-
-  <div class="game-area">
-    <div class="question" id="mathQuestion">?</div>
-
-    <div class="answer-grid" id="mathAnswers"></div>
-
-    <div class="feedback" id="mathFeedback"></div>
+    <div class="question-box">
+      <div class="question" id="mathQuestion"></div>
+      <div class="answers" id="mathAnswers"></div>
+      <div class="feedback" id="mathFeedback"></div>
+    </div>
   </div>
 
 </section>
 
 <!-- MEMORY -->
-<section id="memoryGame" class="screen hidden">
+<section id="memory" class="page">
 
-  <div class="screen-header">
-    <h2>🧠 Minnesmatch</h2>
-    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
-  </div>
+  <div class="card">
+    <div class="section-title">
+      <h2>🧩 Minnesmatch</h2>
+      <span id="memoryPairsText">6 par</span>
+    </div>
 
-  <div class="game-area">
-    <p>Matcha varje matteuttryck med rätt svar.</p>
-    <div id="memoryMoves">Drag: 0</div>
+    <p>Matcha varje matteuttryck med rätt svar. Varje svarstal förekommer bara en gång.</p>
+
+    <div class="btn-row">
+      <button class="btn green" onclick="startMemory()">🎲 Ny omgång</button>
+    </div>
+
     <div class="memory-board" id="memoryBoard"></div>
-    <div class="feedback" id="memoryFeedback"></div>
+
+    <div class="question-box">
+      <div class="feedback" id="memoryFeedback"></div>
+    </div>
   </div>
 
 </section>
 
-<!-- WORD GAME -->
-<section id="wordGame" class="screen hidden">
+<!-- WORDS -->
+<section id="words" class="page">
 
-  <div class="screen-header">
-    <h2>🔤 Ordet är...</h2>
-    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
-  </div>
-
-  <div class="game-area">
-
-    <div id="wordProgress"></div>
-
-    <div class="word-question" id="wordQuestion"></div>
-
-    <div class="word-answer-grid" id="wordAnswers"></div>
-
-    <div class="feedback" id="wordFeedback"></div>
-
-  </div>
-
-</section>
-
-<!-- WORLD QUIZ -->
-<section id="worldGame" class="screen hidden">
-
-  <div class="screen-header">
-    <h2>🌍 Världskollen</h2>
-    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
-  </div>
-
-  <div class="game-area">
-
-    <div id="worldProgress"></div>
-
-    <div class="word-question" id="worldQuestion"></div>
-
-    <div class="word-answer-grid" id="worldAnswers"></div>
-
-    <div class="feedback" id="worldFeedback"></div>
-
-  </div>
-
-</section>
-
-<!-- RESULT -->
-<section id="resultScreen" class="screen hidden">
-
-  <div class="result">
-    <div class="big" id="resultEmoji">🏆</div>
-    <h2 id="resultTitle">Bra jobbat!</h2>
-    <p id="resultText"></p>
-
-    <div class="stats" style="margin-top:25px">
-      <div class="stat">
-        <span class="number" id="resultPoints">0</span>
-        <span>Poäng</span>
-      </div>
-
-      <div class="stat">
-        <span class="number" id="resultXP">0</span>
-        <span>XP</span>
-      </div>
+  <div class="card">
+    <div class="section-title">
+      <h2>🔤 Ordet är</h2>
+      <strong id="wordCountInfo"></strong>
     </div>
 
-    <button class="primary-btn" onclick="goHome()">🏠 Till startsidan</button>
+    <p>Välj det ord som är rättstavat. Frågorna används inte igen förrän frågebanken är slut.</p>
+
+    <div class="question-box">
+      <div class="word-question" id="wordQuestion">
+        Tryck på start för att börja!
+      </div>
+
+      <div class="answers" id="wordAnswers"></div>
+
+      <div class="feedback" id="wordFeedback"></div>
+
+      <button class="btn green" onclick="startWords()">▶️ Starta</button>
+    </div>
   </div>
 
 </section>
 
-</main>
+<!-- WORLD -->
+<section id="world" class="page">
 
-<footer>
-  Lär & Spela 🎓 – träna, spela och ha kul!
-</footer>
-
-</div>
-
-<!-- CUSTOMIZATION MODAL -->
-<div class="modal-bg hidden" id="customizationModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-      <h2>🎨 Anpassa sidan</h2>
-      <button class="close" onclick="closeCustomization()">×</button>
+  <div class="card">
+    <div class="section-title">
+      <h2>🌍 Världskollen</h2>
+      <strong id="worldCountInfo"></strong>
     </div>
+
+    <p>Testa dina kunskaper om länder, djur, natur, rymden, historia och mycket mer.</p>
+
+    <div class="question-box">
+      <div class="word-question" id="worldQuestion">
+        Tryck på start för att börja!
+      </div>
+
+      <div class="answers" id="worldAnswers"></div>
+
+      <div class="feedback" id="worldFeedback"></div>
+
+      <button class="btn green" onclick="startWorld()">🌍 Starta</button>
+    </div>
+  </div>
+
+</section>
+
+<!-- PROFILE -->
+<section id="profile" class="page">
+
+  <div class="card">
+    <h2>👤 Profil</h2>
+
+    <div class="profile-box">
+      <div class="avatar" id="profileAvatar">🧑‍🚀</div>
+
+      <div>
+        <div class="profile-name" id="profileName">Kunskapshjälte</div>
+        <div class="level">Nivå <span id="profileLevel">1</span></div>
+
+        <div class="progress">
+          <div id="levelProgress"></div>
+        </div>
+
+        <p id="levelText"></p>
+
+        <div class="btn-row">
+          <button class="btn secondary" onclick="editProfile()">✏️ Ändra profil</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📊 Statistik</h2>
+
+    <div class="admin-grid">
+      <div class="admin-stat">
+        <strong id="statAnswered">0</strong>
+        Besvarade frågor
+      </div>
+
+      <div class="admin-stat">
+        <strong id="statCorrect">0</strong>
+        Rätt svar
+      </div>
+
+      <div class="admin-stat">
+        <strong id="statGames">0</strong>
+        Spelade omgångar
+      </div>
+
+      <div class="admin-stat">
+        <strong id="statXP">0</strong>
+        Totalt XP
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- SETTINGS -->
+<section id="settings" class="page">
+
+  <div class="card">
+    <h2>🎨 Utseende</h2>
+    <p>Gör Lär & Spela till din egen sida.</p>
 
     <h3>Välj färg</h3>
 
     <div class="color-options">
-
-      <button class="color-choice" style="background:#7c5cff" onclick="setColor('#7c5cff')"></button>
-      <button class="color-choice" style="background:#ff6584" onclick="setColor('#ff6584')"></button>
-      <button class="color-choice" style="background:#00a896" onclick="setColor('#00a896')"></button>
-      <button class="color-choice" style="background:#f77f00" onclick="setColor('#f77f00')"></button>
-      <button class="color-choice" style="background:#118ab2" onclick="setColor('#118ab2')"></button>
-      <button class="color-choice" style="background:#ef476f" onclick="setColor('#ef476f')"></button>
-      <button class="color-choice" style="background:#06d6a0" onclick="setColor('#06d6a0')"></button>
-
+      <button class="color-choice" style="background:#6c63ff" onclick="setTheme('#6c63ff','#8b5cf6')"></button>
+      <button class="color-choice" style="background:#ff5c8a" onclick="setTheme('#ff5c8a','#ff8a5c')"></button>
+      <button class="color-choice" style="background:#10b981" onclick="setTheme('#10b981','#22c55e')"></button>
+      <button class="color-choice" style="background:#0ea5e9" onclick="setTheme('#0ea5e9','#2563eb')"></button>
+      <button class="color-choice" style="background:#f59e0b" onclick="setTheme('#f59e0b','#ef4444')"></button>
+      <button class="color-choice" style="background:#ec4899" onclick="setTheme('#ec4899','#8b5cf6')"></button>
+      <button class="color-choice" style="background:#14b8a6" onclick="setTheme('#14b8a6','#06b6d4')"></button>
     </div>
 
-    <h3 style="margin-top:30px">🖼️ Bakgrund</h3>
+    <h3>Välj bakgrund</h3>
 
-    <div class="bg-options">
+    <div class="background-options">
 
-      <button class="bg-choice bg-default" onclick="setBackground('default')">
-        🌈 Färgglad
+      <button class="bg-choice" style="background:linear-gradient(135deg,#74ebd5,#9face6)" onclick="setBackground('gradient1')">
+        🌈 Regnbåge
       </button>
 
-      <button class="bg-choice bg-stars-choice" onclick="setBackground('stars')">
-        ⭐ Stjärnor
+      <button class="bg-choice" style="background:linear-gradient(135deg,#89f7fe,#66a6ff)" onclick="setBackground('gradient2')">
+        ☁️ Himmel
       </button>
 
-      <button class="bg-choice bg-ocean-choice" onclick="setBackground('ocean')">
-        🌊 Hav
+      <button class="bg-choice" style="background:linear-gradient(135deg,#fbc2eb,#a6c1ee)" onclick="setBackground('gradient3')">
+        🌸 Rosa
       </button>
 
-      <button class="bg-choice bg-jungle-choice" onclick="setBackground('jungle')">
-        🌴 Djungel
+      <button class="bg-choice" style="background:linear-gradient(135deg,#d4fc79,#96e6a1)" onclick="setBackground('gradient4')">
+        🌿 Natur
       </button>
 
-      <button class="bg-choice bg-sunset-choice" onclick="setBackground('sunset')">
-        🌅 Solnedgång
+      <button class="bg-choice" style="background:linear-gradient(135deg,#667eea,#764ba2)" onclick="setBackground('gradient5')">
+        🌌 Rymden
       </button>
 
-      <button class="bg-choice bg-space-choice" onclick="setBackground('space')">
-        🚀 Rymden
-      </button>
-
-    </div>
-
-    <p style="margin-top:25px;color:#777">
-      Alla val sparas automatiskt på den här enheten.
-    </p>
-
-  </div>
-
-</div>
-
-<!-- ADMIN MODAL -->
-<div class="modal-bg hidden" id="adminModal">
-
-  <div class="modal">
-
-    <div class="modal-header">
-      <h2>⚙️ Föräldraläge</h2>
-      <button class="close" onclick="closeAdmin()">×</button>
-    </div>
-
-    <div class="admin-section">
-
-      <h3>📊 Statistik</h3>
-
-      <p><strong>XP:</strong> <span id="adminXP"></span></p>
-      <p><strong>Poäng:</strong> <span id="adminPoints"></span></p>
-      <p><strong>Spelade spel:</strong> <span id="adminGames"></span></p>
-      <p><strong>Rätt svar:</strong> <span id="adminCorrect"></span></p>
-      <p><strong>Fel svar:</strong> <span id="adminWrong"></span></p>
-      <p><strong>Bästa streak:</strong> <span id="adminBestStreak"></span></p>
-
-    </div>
-
-    <div class="admin-section">
-
-      <h3>🧮 Matte – snabbinställningar</h3>
-
-      <p>
-        Standardinställningen använder de valda talen i Mattejakten.
-        Inställningarna sparas automatiskt.
-      </p>
-
-      <button class="secondary-btn" onclick="resetMathSettings()">
-        🔄 Återställ matteinställningar
+      <button class="bg-choice" style="background:linear-gradient(135deg,#ffecd2,#fcb69f)" onclick="setBackground('gradient6')">
+        🍑 Sol
       </button>
 
     </div>
 
-    <div class="admin-section">
+    <h3>Din egen bakgrundsbild</h3>
 
-      <h3>🏆 Prestationer</h3>
+    <p>Välj en bild från datorn/mobilen. Den sparas bara i den här webbläsaren.</p>
 
-      <div class="achievement-grid" id="adminAchievements"></div>
+    <input type="file" id="backgroundUpload" accept="image/*">
 
-    </div>
-
-    <div class="admin-section">
-
-      <h3>⚠️ Nollställ</h3>
-
-      <button class="secondary-btn" onclick="resetProgress()">
-        🗑️ Nollställ all statistik
-      </button>
-
+    <div class="btn-row">
+      <button class="btn" onclick="uploadBackground()">📷 Använd bilden</button>
+      <button class="btn secondary" onclick="removeBackground()">Ta bort bakgrund</button>
     </div>
 
   </div>
 
+</section>
+
 </div>
 
-<!-- ACHIEVEMENTS -->
-<div class="modal-bg hidden" id="achievementModal">
+<!-- PARENT MODAL -->
+<div class="modal" id="parentModal">
+  <div class="modal-content">
 
-  <div class="modal">
+    <button class="close" onclick="closeParentPanel()">×</button>
 
-    <div class="modal-header">
-      <h2>🏅 Mina prestationer</h2>
-      <button class="close" onclick="closeAchievements()">×</button>
+    <h2>👨‍👩‍👧 Föräldrapanel</h2>
+
+    <p>Här kan du följa barnets utveckling och se hur mycket som spelats.</p>
+
+    <div class="admin-grid">
+
+      <div class="admin-stat">
+        <strong id="parentXP">0</strong>
+        XP
+      </div>
+
+      <div class="admin-stat">
+        <strong id="parentLevel">1</strong>
+        Nivå
+      </div>
+
+      <div class="admin-stat">
+        <strong id="parentCorrect">0</strong>
+        Rätt svar
+      </div>
+
+      <div class="admin-stat">
+        <strong id="parentAnswered">0</strong>
+        Frågor
+      </div>
+
+      <div class="admin-stat">
+        <strong id="parentGames">0</strong>
+        Spelomgångar
+      </div>
+
+      <div class="admin-stat">
+        <strong id="parentStreak">0</strong>
+        Dagar i rad
+      </div>
+
     </div>
 
-    <div class="achievement-grid" id="achievementList"></div>
+    <h3>🎮 Spelstatistik</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Spel</th>
+          <th>Spelade</th>
+          <th>Rätt</th>
+        </tr>
+      </thead>
+      <tbody id="gameStatsTable"></tbody>
+    </table>
+
+    <h3>🏅 Märken</h3>
+    <div class="badges" id="parentBadges"></div>
+
+    <div class="btn-row">
+      <button class="btn red" onclick="confirmReset()">⚠️ Nollställ all statistik</button>
+    </div>
 
   </div>
-
 </div>
+
+<!-- PROFILE MODAL -->
+<div class="modal" id="profileModal">
+  <div class="modal-content">
+
+    <button class="close" onclick="closeProfileModal()">×</button>
+
+    <h2>👤 Din profil</h2>
+
+    <label>Namn</label>
+    <input type="text" id="profileNameInput" maxlength="25">
+
+    <label style="margin-top:15px">Avatar</label>
+
+    <div class="btn-row">
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🧑‍🚀')">🧑‍🚀</button>
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🦄')">🦄</button>
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🐯')">🐯</button>
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🦊')">🦊</button>
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🐼')">🐼</button>
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🐸')">🐸</button>
+      <button class="btn secondary avatarChoice" onclick="chooseAvatar('🚀')">🚀</button>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn green" onclick="saveProfile()">Spara</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
 
-/* =========================
+/* =========================================================
    DATA
-========================= */
+========================================================= */
 
-const defaultState = {
-  xp: 0,
-  points: 0,
-  games: 0,
-  correct: 0,
-  wrong: 0,
-  streak: 0,
-  bestStreak: 0,
-  achievements: [],
-  color: "#7c5cff",
-  background: "default",
-  math: {
-    operation: "+",
-    difficulty: "easy",
-    numbers: [1,2,3,4,5,6,7,8,9,10,11,12,13],
-    questions: 10,
-    timer: 0
-  }
-};
-
-let state = JSON.parse(localStorage.getItem("larSpelaState")) || structuredClone(defaultState);
-
-function saveState() {
-  localStorage.setItem("larSpelaState", JSON.stringify(state));
-  updateStats();
-}
-
-function updateStats() {
-  document.getElementById("xpDisplay").textContent = state.xp;
-  document.getElementById("pointsDisplay").textContent = state.points;
-  document.getElementById("streakDisplay").textContent = state.streak;
-  document.getElementById("gamesDisplay").textContent = state.games;
-}
-
-function addXP(amount) {
-  state.xp += amount;
-}
-
-function addCorrect(points = 10) {
-  state.correct++;
-  state.points += points;
-  state.xp += Math.ceil(points / 2);
-  state.streak++;
-
-  if (state.streak > state.bestStreak) {
-    state.bestStreak = state.streak;
-  }
-
-  checkAchievements();
-  saveState();
-}
-
-function addWrong() {
-  state.wrong++;
-  state.streak = 0;
-  saveState();
-}
-
-function gameFinished() {
-  state.games++;
-  checkAchievements();
-  saveState();
-}
-
-function applyAppearance() {
-  document.documentElement.style.setProperty("--primary", state.color);
-
-  document.body.className = "";
-
-  if (state.background !== "default") {
-    document.body.classList.add("bg-" + state.background);
-  }
-}
-
-/* =========================
-   NAVIGATION
-========================= */
-
-const screens = [
-  "homeScreen",
-  "mathSetup",
-  "mathGame",
-  "memoryGame",
-  "wordGame",
-  "worldGame",
-  "resultScreen"
+const WORDS = [
+"abborre","apelsin","apotek","arbete","armband","avokado","bibliotek","blomma",
+"blåbär","bokhylla","broccoli","buss","cykel","citron","drake","dator",
+"elefant","fjäril","fisk","fönster","fotboll","frukost","glass","granne",
+"gunga","gurka","hamburgare","hammare","hjärta","hund","hus","januari",
+"jacka","jordgubbe","kamera","kanin","katt","kikare","klubba","krokodil",
+"kung","kudde","kyckling","köksbord","lampa","lejon","limonad","ljus",
+"mango","matematik","medicin","mjölk","måne","musik","myra","nalle",
+"nyckel","nötter","oktober","ost","papegoja","paraply","pengar","piano",
+"pingvin","pizza","planet","potatis","prinsessa","radio","regn","ryggsäck",
+"sallad","segelbåt","sjukhus","skola","sked","skog","sköldpadda","sommar",
+"spindel","stjärna","stol","strumpa","suddgummi","svala","sverige","svamp",
+"tandborste","telefon","tomat","traktor","träd","tröja","tåg","uggla",
+"vinter","vulkan","väska","våffla","zebra","äpple","äventyr","åska",
+"återvinning","öken","örn","översvämning","bageri","banan","basket",
+"berg","bilar","båt","brandbil","bröd","champinjon","choklad","dans",
+"diamant","dinosaurie","docka","ekorre","eld","familj","fågel","färg",
+"födelsedag","fotograf","frimärke","fyrkant","giraff","gitarr","gräs",
+"grönsak","gurka","höst","igelkott","isberg","isglass","jätte","kanel",
+"kaka","kanelbulle","kattunge","kompis","korsord","kulle","kärlek",
+"lärarinna","magnet","maskros","moln","motorcykel","musse","målarbok",
+"måltid","natt","ostron","pannkaka","penna","regnbåge","robot","ros",
+"semla","solros","spöke","stjärna","socker","tallrik","tiger","tornado",
+"trollslända","universum","val","vattenmelon","vindkraft","vinterjacka"
 ];
 
-function showScreen(id) {
-  screens.forEach(s => {
-    document.getElementById(s).classList.add("hidden");
-  });
-
-  document.getElementById(id).classList.remove("hidden");
-  window.scrollTo({top:0, behavior:"smooth"});
-}
-
-function goHome() {
-  clearMathTimer();
-  showScreen("homeScreen");
-  updateStats();
-}
-
-/* =========================
-   MATH SETUP
-========================= */
-
-let selectedOperation = state.math.operation;
-
-function buildNumberButtons() {
-
-  const container = document.getElementById("numberButtons");
-  container.innerHTML = "";
-
-  for (let i = 1; i <= 13; i++) {
-
-    const btn = document.createElement("button");
-
-    btn.className = "num-btn";
-    btn.textContent = i;
-
-    if (state.math.numbers.includes(i)) {
-      btn.classList.add("active");
-    }
-
-    btn.onclick = () => {
-
-      if (state.math.numbers.includes(i)) {
-
-        if (state.math.numbers.length === 1) return;
-
-        state.math.numbers =
-          state.math.numbers.filter(n => n !== i);
-
-        btn.classList.remove("active");
-
-      } else {
-
-        state.math.numbers.push(i);
-        state.math.numbers.sort((a,b)=>a-b);
-
-        btn.classList.add("active");
-      }
-
-      saveState();
-    };
-
-    container.appendChild(btn);
-  }
-}
-
-function selectOperation(operation) {
-
-  selectedOperation = operation;
-  state.math.operation = operation;
-
-  document.querySelectorAll(".op-btn").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  document.querySelector(`[data-op="${operation}"]`)
-    .classList.add("active");
-
-  saveState();
-}
-
-function showMathSetup() {
-
-  showScreen("mathSetup");
-
-  document.getElementById("difficulty").value =
-    state.math.difficulty;
-
-  document.getElementById("questionCount").value =
-    state.math.questions;
-
-  document.getElementById("timeLimit").value =
-    state.math.timer;
-
-  selectedOperation = state.math.operation;
-
-  document.querySelectorAll(".op-btn").forEach(btn => {
-    btn.classList.toggle(
-      "active",
-      btn.dataset.op === selectedOperation
-    );
-  });
-
-  buildNumberButtons();
-}
-
-document.getElementById("difficulty").addEventListener("change", e => {
-  state.math.difficulty = e.target.value;
-  saveState();
-});
-
-document.getElementById("questionCount").addEventListener("change", e => {
-  state.math.questions = Number(e.target.value);
-  saveState();
-});
-
-document.getElementById("timeLimit").addEventListener("change", e => {
-  state.math.timer = Number(e.target.value);
-  saveState();
-});
-
-/* =========================
-   MATH GAME
-========================= */
-
-let mathQuestionNumber = 0;
-let mathScore = 0;
-let mathCorrect = 0;
-let currentMathAnswer = 0;
-let mathTimerInterval = null;
-let mathTimeLeft = 0;
-
-function randomItem(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
-}
-
-function generateMathQuestion() {
-
-  let operation = selectedOperation;
-
-  if (operation === "all") {
-    operation = randomItem(["+","-","*","/"]);
-  }
-
-  let a = randomItem(state.math.numbers);
-  let b = randomItem(state.math.numbers);
-
-  const difficulty = state.math.difficulty;
-
-  if (difficulty === "medium") {
-    a = Math.max(a, randomItem(state.math.numbers));
-    b = Math.max(b, randomItem(state.math.numbers));
-  }
-
-  if (difficulty === "hard") {
-    a = Math.floor(Math.random() * 30) + 1;
-    b = Math.floor(Math.random() * 20) + 1;
-  }
-
-  if (difficulty === "super") {
-    a = Math.floor(Math.random() * 100) + 1;
-    b = Math.floor(Math.random() * 30) + 1;
-  }
-
-  if (operation === "-" && b > a) {
-    [a,b] = [b,a];
-  }
-
-  if (operation === "/") {
-
-    b = randomItem(state.math.numbers);
-
-    if (b === 0) b = 1;
-
-    const multiplier =
-      difficulty === "easy" ? randomItem(state.math.numbers) :
-      difficulty === "medium" ? Math.floor(Math.random()*10)+1 :
-      difficulty === "hard" ? Math.floor(Math.random()*20)+1 :
-      Math.floor(Math.random()*30)+1;
-
-    a = b * multiplier;
-  }
-
-  let answer;
-
-  if (operation === "+") answer = a + b;
-  if (operation === "-") answer = a - b;
-  if (operation === "*") answer = a * b;
-  if (operation === "/") answer = a / b;
-
-  return {
-    text: `${a} ${operation === "*" ? "×" : operation === "/" ? "÷" : operation} ${b} = ?`,
-    answer
-  };
-}
-
-function startMath() {
-
-  state.math.operation = selectedOperation;
-
-  mathQuestionNumber = 0;
-  mathScore = 0;
-  mathCorrect = 0;
-
-  showScreen("mathGame");
-
-  nextMathQuestion();
-}
-
-function nextMathQuestion() {
-
-  clearMathTimer();
-
-  if (mathQuestionNumber >= state.math.questions) {
-    finishMath();
-    return;
-  }
-
-  mathQuestionNumber++;
-
-  const q = generateMathQuestion();
-
-  currentMathAnswer = q.answer;
-
-  document.getElementById("mathQuestion").textContent = q.text;
-
-  document.getElementById("mathProgressText").textContent =
-    `Fråga ${mathQuestionNumber} av ${state.math.questions}`;
-
-  document.getElementById("mathProgress").style.width =
-    ((mathQuestionNumber - 1) / state.math.questions * 100) + "%";
-
-  document.getElementById("mathFeedback").textContent = "";
-
-  const answers = generateMathAnswers(currentMathAnswer);
-
-  const container = document.getElementById("mathAnswers");
-  container.innerHTML = "";
-
-  answers.forEach(answer => {
-
-    const btn = document.createElement("button");
-
-    btn.className = "answer-btn";
-    btn.textContent = answer;
-
-    btn.onclick = () => answerMath(answer, btn);
-
-    container.appendChild(btn);
-  });
-
-  if (state.math.timer > 0) {
-    mathTimeLeft = state.math.timer;
-    updateTimerDisplay();
-
-    mathTimerInterval = setInterval(() => {
-
-      mathTimeLeft--;
-      updateTimerDisplay();
-
-      if (mathTimeLeft <= 0) {
-        clearMathTimer();
-        timeOutMath();
-      }
-
-    }, 1000);
-
-  } else {
-    document.getElementById("mathTimer").textContent = "";
-  }
-}
-
-function generateMathAnswers(correct) {
-
-  const answers = new Set([correct]);
-
-  let attempts = 0;
-
-  while (answers.size < 4 && attempts < 100) {
-
-    attempts++;
-
-    let variation =
-      Math.floor(Math.random() * Math.max(5, Math.abs(correct) * .35 + 5));
-
-    if (variation === 0) variation = 1;
-
-    let candidate;
-
-    if (Math.random() < .5) {
-      candidate = correct + variation;
-    } else {
-      candidate = correct - variation;
-    }
-
-    if (candidate >= 0) {
-      answers.add(candidate);
-    }
-  }
-
-  return Array.from(answers).sort(() => Math.random() - .5);
-}
-
-function answerMath(answer, button) {
-
-  clearMathTimer();
-
-  document.querySelectorAll(".answer-btn").forEach(b => {
-    b.disabled = true;
-  });
-
-  if (answer === currentMathAnswer) {
-
-    button.style.borderColor = "var(--success)";
-
-    document.getElementById("mathFeedback").innerHTML =
-      '<span class="correct">🎉 Rätt!</span>';
-
-    mathScore += 10;
-    mathCorrect++;
-
-    addCorrect(10);
-
-  } else {
-
-    button.style.borderColor = "var(--danger)";
-
-    document.getElementById("mathFeedback").innerHTML =
-      `<span class="wrong">❌ Rätt svar var ${currentMathAnswer}</span>`;
-
-    addWrong();
-  }
-
-  setTimeout(nextMathQuestion, 850);
-}
-
-function timeOutMath() {
-
-  document.querySelectorAll(".answer-btn").forEach(b => {
-    b.disabled = true;
-  });
-
-  document.getElementById("mathFeedback").innerHTML =
-    `<span class="wrong">⏰ Tiden är slut! Svaret var ${currentMathAnswer}</span>`;
-
-  addWrong();
-
-  setTimeout(nextMathQuestion, 1000);
-}
-
-function updateTimerDisplay() {
-  document.getElementById("mathTimer").textContent =
-    `⏱️ ${mathTimeLeft}s`;
-}
-
-function clearMathTimer() {
-
-  if (mathTimerInterval) {
-    clearInterval(mathTimerInterval);
-    mathTimerInterval = null;
-  }
-}
-
-function finishMath() {
-
-  clearMathTimer();
-
-  gameFinished();
-
-  showResult(
-    mathScore,
-    mathCorrect,
-    state.math.questions,
-    "🧮"
-  );
-}
-
-/* =========================
-   MEMORY GAME
-========================= */
+/*
+  Stor världskunskapsbank.
+  Frågorna blandas och sparas som använda.
+*/
+const WORLD = [
+["Vad är Sveriges huvudstad?","Stockholm","Göteborg","Malmö"],
+["Vad är Norges huvudstad?","Oslo","Bergen","Trondheim"],
+["Vad är Danmarks huvudstad?","Köpenhamn","Aarhus","Odense"],
+["Vad är Finlands huvudstad?","Helsingfors","Åbo","Tammerfors"],
+["Vad är Islands huvudstad?","Reykjavik","Akureyri","Keflavik"],
+["Vad är Frankrikes huvudstad?","Paris","Lyon","Nice"],
+["Vad är Italiens huvudstad?","Rom","Milano","Neapel"],
+["Vad är Spaniens huvudstad?","Madrid","Barcelona","Sevilla"],
+["Vad är Tysklands huvudstad?","Berlin","München","Hamburg"],
+["Vad är Storbritanniens huvudstad?","London","Manchester","Liverpool"],
+["Vad är Portugals huvudstad?","Lissabon","Porto","Braga"],
+["Vad är Greklands huvudstad?","Aten","Thessaloniki","Patras"],
+["Vad är Japans huvudstad?","Tokyo","Osaka","Kyoto"],
+["Vad är Kinas huvudstad?","Peking","Shanghai","Hongkong"],
+["Vad är Australiens huvudstad?","Canberra","Sydney","Melbourne"],
+["Vad är Kanadas huvudstad?","Ottawa","Toronto","Vancouver"],
+["Vad är USA:s huvudstad?","Washington D.C.","New York","Boston"],
+["Vad är Brasiliens huvudstad?","Brasilia","Rio de Janeiro","São Paulo"],
+["Vad är Argentinas huvudstad?","Buenos Aires","Cordoba","Rosario"],
+["Vad är Egyptens huvudstad?","Kairo","Alexandria","Luxor"],
+["Vad är Indiens huvudstad?","New Delhi","Mumbai","Kolkata"],
+["Vad är Mexikos huvudstad?","Mexico City","Cancún","Monterrey"],
+["Vad är Kenyas huvudstad?","Nairobi","Mombasa","Kisumu"],
+["Vad är Sydafrikas administrativa huvudstad?","Pretoria","Kapstaden","Durban"],
+["Vad är Thailands huvudstad?","Bangkok","Phuket","Chiang Mai"],
+["Vad är Sydkoreas huvudstad?","Seoul","Busan","Incheon"],
+["Vad är Nya Zeelands huvudstad?","Wellington","Auckland","Christchurch"],
+["Vad är Irlands huvudstad?","Dublin","Cork","Galway"],
+["Vad är Polens huvudstad?","Warszawa","Kraków","Gdansk"],
+["Vad är Österrikes huvudstad?","Wien","Salzburg","Graz"],
+
+["Vilken planet kallas den röda planeten?","Mars","Venus","Jupiter"],
+["Vilken planet är närmast solen?","Merkurius","Mars","Jorden"],
+["Vilken planet är störst i solsystemet?","Jupiter","Saturnus","Neptunus"],
+["Vilken planet har tydliga ringar?","Saturnus","Mars","Merkurius"],
+["Vad heter vår galax?","Vintergatan","Andromedagalaxen","Triangelgalaxen"],
+["Vad är solen?","En stjärna","En planet","En måne"],
+["Vad heter jordens naturliga satellit?","Månen","Solen","Mars"],
+["Vilken planet kallas ofta jordens systerplanet?","Venus","Jupiter","Neptunus"],
+["Hur många planeter finns i vårt solsystem?","8","7","9"],
+["Vad kallas det när månen täcker solen?","Solförmörkelse","Månförmörkelse","Soluppgång"],
+["Vad kallas vatten i gasform?","Vattenånga","Is","Dagg"],
+["Vad kallas vatten i fast form?","Is","Ånga","Regn"],
+["Vilken gas behöver människor för att andas?","Syre","Helium","Kväve"],
+["Vilken gas andas människor ut?","Koldioxid","Syre","Helium"],
+["Vad använder växter för att göra fotosyntes?","Solljus","Månljus","Ljud"],
+["Vilken del av växten suger upp vatten?","Rötterna","Blommorna","Frukterna"],
+["Vilket organ pumpar runt blodet?","Hjärtat","Lungan","Magsäcken"],
+["Vilket organ använder vi främst för att tänka?","Hjärnan","Levern","Hjärtat"],
+["Hur många ben har en spindel?","8","6","10"],
+["Hur många ben har en insekt?","6","8","4"],
+["Vilket är världens största landdjur?","Afrikansk elefant","Giraff","Noshörning"],
+["Vilket är världens största djur?","Blåval","Elefant","Späckhuggare"],
+["Vilket djur är känt för sin långa hals?","Giraff","Zebra","Tiger"],
+["Vilket djur kan ändra färg och är känt för kamouflage?","Kameleont","Elefant","Pingvin"],
+["Vilket djur är ett däggdjur trots att det kan flyga?","Fladdermus","Örn","Pingvin"],
+["Vilket djur är världens största fågel?","Struts","Örn","Albatross"],
+["Vilket djur lever både i vatten och på land och kan hoppa?","Groda","Haj","Örn"],
+["Vilket djur kallas ofta människans bästa vän?","Hund","Katt","Häst"],
+["Vilket djur brukar spinna när det är nöjt?","Katt","Hund","Ko"],
+["Vilket djur har en snabel?","Elefant","Tapir","Giraff"],
+
+["Vilket hav ligger öster om Sverige?","Östersjön","Atlanten","Medelhavet"],
+["Vilken är världens största ocean?","Stilla havet","Atlanten","Indiska oceanen"],
+["Vilken är världens största kontinent?","Asien","Afrika","Europa"],
+["Vilken kontinent ligger Sverige i?","Europa","Asien","Afrika"],
+["Vilken är världens högsta bergstopp?","Mount Everest","Kilimanjaro","Mont Blanc"],
+["Vilken flod rinner genom Egypten?","Nilen","Amazonfloden","Donau"],
+["Vilken är världens största regnskog?","Amazonas","Taigan","Daintree"],
+["Vilken ö är världens största?","Grönland","Madagaskar","Island"],
+["Vilket land är känt för pyramiderna i Giza?","Egypten","Grekland","Mexiko"],
+["Vilket land förknippas med Eiffeltornet?","Frankrike","Italien","Spanien"],
+["I vilken stad finns Colosseum?","Rom","Paris","Aten"],
+["I vilken stad finns Big Ben?","London","Dublin","Edinburgh"],
+["I vilken stad finns Operahuset med de vita seglen?","Sydney","Melbourne","Perth"],
+["Vilket land har formen av en stövel?","Italien","Portugal","Norge"],
+["Vilket land är känt för midnattssolen och fjordar?","Norge","Belgien","Ungern"],
+["Vilket land ligger söder om Sverige och har Köpenhamn som huvudstad?","Danmark","Polen","Tyskland"],
+["Vilket land ligger direkt väster om Sverige?","Norge","Finland","Estland"],
+["Vilket land ligger direkt öster om Sverige?","Finland","Norge","Danmark"],
+["Vilket land är känt för Taj Mahal?","Indien","Nepal","Pakistan"],
+["Vilket land är känt för Kinesiska muren?","Kina","Japan","Mongoliet"],
+
+["Hur många dagar har en vecka?","7","5","8"],
+["Hur många månader har ett år?","12","10","14"],
+["Hur många dagar har ett vanligt år?","365","364","366"],
+["Hur många dagar har ett skottår?","366","365","367"],
+["Hur många timmar har ett dygn?","24","12","48"],
+["Hur många minuter har en timme?","60","50","100"],
+["Hur många sekunder har en minut?","60","30","100"],
+["Vilken månad kommer efter januari?","Februari","Mars","December"],
+["Vilken månad kommer före december?","November","Oktober","Januari"],
+["Vilken årstid kommer efter sommaren?","Hösten","Vintern","Våren"],
+["Vilken årstid kommer efter vintern?","Våren","Sommaren","Hösten"],
+["Vilken färg får man om man blandar blått och gult?","Grönt","Lila","Orange"],
+["Vilken färg får man om man blandar rött och vitt?","Rosa","Grönt","Brunt"],
+["Vilken form har tre sidor?","Triangel","Cirkel","Kvadrat"],
+["Vilken form har fyra lika långa sidor?","Kvadrat","Triangel","Cirkel"],
+["Hur många sidor har en hexagon?","6","5","8"],
+["Hur många hörn har en triangel?","3","4","5"],
+["Vilket tal kommer efter 99?","100","101","98"],
+["Vilket tal kommer före 50?","49","48","51"],
+["Vilket tal är störst?","100","10","1"],
+
+["Vad heter Sveriges valuta?","Krona","Euro","Dollar"],
+["Vad heter Japans valuta?","Yen","Euro","Won"],
+["Vad heter USA:s valuta?","Dollar","Pund","Yen"],
+["Vad heter Storbritanniens valuta?","Pund","Euro","Dollar"],
+["Vilket språk talas främst i Brasilien?","Portugisiska","Spanska","Franska"],
+["Vilket språk talas främst i Spanien?","Spanska","Italienska","Portugisiska"],
+["Vilket språk talas främst i Frankrike?","Franska","Spanska","Tyska"],
+["Vilket språk talas främst i Tyskland?","Tyska","Nederländska","Franska"],
+["Vilket språk talas främst i Italien?","Italienska","Spanska","Franska"],
+["Vilket språk talas främst i Japan?","Japanska","Kinesiska","Koreanska"],
+
+["Vilken sport spelas med en fotboll?","Fotboll","Tennis","Golf"],
+["Vilken sport använder racket och nät?","Tennis","Simning","Skidåkning"],
+["Vilken sport spelas på is med puck?","Ishockey","Basket","Handboll"],
+["Vilken sport använder en korg?","Basket","Fotboll","Tennis"],
+["Vilken sport går ut på att simma så snabbt som möjligt?","Simning","Ridning","Boxning"],
+["Vilken sport använder klubbor och en liten boll på en bana?","Golf","Basket","Volleyboll"],
+["Hur många spelare har ett fotbollslag på planen från start?","11","10","12"],
+["Vilken färg har vanligtvis en tennisboll?","Gul","Blå","Röd"],
+["Vad kallas det när man gör mål i fotboll?","Mål","Serve","Strike"],
+["Vilken sport förknippas med Tour de France?","Cykling","Löpning","Simning"],
+
+["Vilket instrument har svarta och vita tangenter?","Piano","Trumma","Flöjt"],
+["Vilket instrument har strängar och spelas ofta med plektrum?","Gitarr","Trumpet","Trumma"],
+["Vilket instrument blåser man i och har ofta tre ventiler?","Trumpet","Fiol","Piano"],
+["Vad heter en person som skriver böcker?","Författare","Målare","Kock"],
+["Vad heter en person som målar tavlor?","Konstnär","Pilot","Läkare"],
+["Vad heter en person som arbetar med att undervisa?","Lärare","Bagare","Pilot"],
+["Vad heter en person som flyger ett flygplan?","Pilot","Kapten","Mekaniker"],
+["Vad heter en person som lagar mat professionellt?","Kock","Lärare","Fotograf"],
+["Vad kallas en bok med kartor?","Atlas","Roman","Lexikon"],
+["Vad kallas en berättelse med påhittade händelser?","Fiktion","Fakta","Formel"],
+
+["Vilket material görs glas huvudsakligen av?","Sand","Trä","Bomull"],
+["Vilket material kommer från träd och används till papper?","Trä","Järn","Glas"],
+["Vilken metall är vanlig i många burkar?","Aluminium","Guld","Silver"],
+["Vad använder vi för att mäta temperatur?","Termometer","Linjal","Kompass"],
+["Vad använder vi för att hitta väderstreck?","Kompass","Termometer","Våg"],
+["Vad använder vi för att mäta längd?","Linjal","Kompass","Klocka"],
+["Vad använder vi för att väga saker?","Våg","Linjal","Kompass"],
+["Vilken kraft gör att saker faller mot marken?","Gravitation","Magnetism","Friktion"],
+["Vad händer med vatten när det fryser?","Det blir is","Det blir ånga","Det försvinner"],
+["Vad händer med is när den smälter?","Den blir vatten","Den blir luft","Den blir sand"],
+
+["Vilket år landade människan för första gången på månen?","1969","1959","1979"],
+["Vad hette den första människan på månen?","Neil Armstrong","Albert Einstein","Galileo Galilei"],
+["Vilken civilisation byggde många pyramider i Egypten?","De gamla egyptierna","Romarna","Vikingarna"],
+["Vad kallades sjöfararna från Norden under vikingatiden?","Vikingar","Samurajer","Riddare"],
+["Vilket forntida folk förknippas med Aten och Sparta?","Grekerna","Vikingarna","Inkas"],
+["Vilket rike hade Rom som centrum?","Romarriket","Aztekerriket","Inkariket"],
+["Vilken svensk uppfinnare förknippas med dynamiten?","Alfred Nobel","Carl von Linné","Anders Celsius"],
+["Vad heter priset som skapades av Alfred Nobel?","Nobelpriset","Polarpriset","Augustpriset"],
+["Vem var Carl von Linné?","En svensk naturforskare","En kung","En astronaut"],
+["Vad heter den temperatursskala som använder grader Celsius?","Celsius","Newton","Pascal"],
+
+["Vilken fågel är känd för att inte kunna flyga och leva i Antarktis?","Pingvin","Örn","Svala"],
+["Vilket djur har svartvita ränder?","Zebra","Giraff","Leopard"],
+["Vilket djur har en lång svans och klättrar gärna i träd?","Apa","Val","Pingvin"],
+["Vilket djur är känt för att bygga dammar?","Bäver","Räv","Varg"],
+["Vilket djur säger ofta 'mjau'?","Katt","Hund","Ko"],
+["Vilket djur säger ofta 'voff'?","Hund","Katt","Häst"],
+["Vilket djur kan ge oss ull?","Får","Haj","Örn"],
+["Vilket djur ger mjölk och säger 'mu'?","Ko","Får","Häst"],
+["Vilket djur används ofta som riddjur?","Häst","Haj","Kanin"],
+["Vilket djur har åtta armar?","Bläckfisk","Krabba","Delfin"],
+
+["Vad kallas en ung hund?","Valp","Killing","Kalv"],
+["Vad kallas en ung katt?","Kattunge","Valp","Föl"],
+["Vad kallas en ung häst?","Föl","Kalv","Lamm"],
+["Vad kallas en ung ko?","Kalv","Killing","Valp"],
+["Vad kallas en ung får?","Lamm","Föl","Kalv"],
+["Vad kallas en ung get?","Killing","Lamm","Valp"],
+["Vad kallas en grupp fiskar?","Stim","Flokk","Hjord"],
+["Vad kallas en grupp vargar?","Flokk","Stim","Hjord"],
+["Vad kallas en grupp kor?","Hjord","Stim","Flokk"],
+["Vad kallas en grupp fåglar?","Flokk","Hjord","Stim"],
+
+["Vilken planet är känd för sin stora röda fläck?","Jupiter","Mars","Venus"],
+["Vilken planet ligger längst från solen av de åtta planeterna?","Neptunus","Jorden","Saturnus"],
+["Vilken planet har vi människor på?","Jorden","Mars","Venus"],
+["Vilket ämne består vatten av tillsammans med syre och väte?","Väte och syre","Järn och kol","Guld och silver"],
+["Vad heter processen där växter omvandlar solljus till energi?","Fotosyntes","Förbränning","Smältning"],
+["Vad kallas det när vatten faller från molnen?","Nederbörd","Avdunstning","Fotosyntes"],
+["Vad kallas en virvelvind över hav eller land?","Tornado","Monson","Orkan"],
+["Vad kallas en mycket kraftig tropisk storm?","Orkan","Dagg","Dimma"],
+["Vad kallas vatten som faller som små iskristaller?","Snö","Regn","Dimma"],
+["Vad kallas fruset regn som faller som små iskulor?","Hagel","Dagg","Ånga"],
+
+["Vilket land är känt för tulpaner och väderkvarnar?","Nederländerna","Schweiz","Portugal"],
+["Vilket land är känt för pyramiderna i Giza?","Egypten","Indien","Kina"],
+["Vilket land är känt för Machu Picchu?","Peru","Chile","Brasilien"],
+["Vilket land är känt för inkafolkets rike?","Peru","Norge","Kanada"],
+["Vilket land är känt för statyn Frihetsgudinnan?","USA","Frankrike","Kanada"],
+["Vilket land gav USA Frihetsgudinnan?","Frankrike","Spanien","Italien"],
+["Vilken stad är känd för kanaler och gondoler?","Venedig","Berlin","Oslo"],
+["Vilken stad är känd för Sagrada Família?","Barcelona","Madrid","Rom"],
+["Vilken stad är känd för Akropolis?","Aten","Paris","London"],
+["Vilken stad är känd för kanalen som förbinder Atlanten och Stilla havet?","Panama City","Reykjavik","Kairo"]
+];
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const STORAGE_KEY = "larspela_v3";
+
+const defaultState = {
+  xp:0,
+  correct:0,
+  answered:0,
+  games:0,
+  streak:0,
+  lastPlayedDate:null,
+
+  profile:{
+    name:"Kunskapshjälte",
+    avatar:"🧑‍🚀"
+  },
+
+  gameStats:{
+    math:{games:0,correct:0},
+    memory:{games:0,correct:0},
+    words:{games:0,correct:0},
+    world:{games:0,correct:0}
+  },
+
+  usedWords:[],
+  usedWorld:[],
+
+  daily:{
+    date:null,
+    index:0,
+    progress:0,
+    completed:false
+  },
+
+  theme:{
+    primary:"#6c63ff",
+    primary2:"#8b5cf6",
+    background:null
+  },
+
+  math:{
+    difficulty:"easy",
+    questions:10,
+    operation:"all",
+    numbers:[1,2,3,4,5,6,7,8,9,10,11,12,13]
+  },
+
+  badges:[]
+};
+
+let state = loadState();
+
+let selectedMathOperation = "all";
+let currentMath = null;
+let currentWord = null;
+let currentWorld = null;
 
 let memoryCards = [];
 let memoryFirst = null;
 let memorySecond = null;
-let memoryLock = false;
+let memoryLocked = false;
 let memoryMatched = 0;
-let memoryMoves = 0;
 
-function startMemory() {
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
 
-  showScreen("memoryGame");
+function loadState(){
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(saved){
+      return mergeDeep(defaultState,saved);
+    }
+  }catch(e){}
 
-  memoryFirst = null;
-  memorySecond = null;
-  memoryLock = false;
-  memoryMatched = 0;
-  memoryMoves = 0;
+  return JSON.parse(JSON.stringify(defaultState));
+}
 
-  const pairs = [
-    ["2 + 2", "4"],
-    ["3 × 3", "9"],
-    ["10 − 4", "6"],
-    ["12 ÷ 3", "4"],
-    ["5 + 7", "12"],
-    ["6 × 2", "12"],
-    ["15 − 5", "10"],
-    ["16 ÷ 4", "4"]
+function mergeDeep(base,extra){
+  const result = JSON.parse(JSON.stringify(base));
+
+  for(const key in extra){
+    if(
+      extra[key] &&
+      typeof extra[key] === "object" &&
+      !Array.isArray(extra[key]) &&
+      typeof result[key] === "object"
+    ){
+      result[key] = mergeDeep(result[key],extra[key]);
+    }else{
+      result[key] = extra[key];
+    }
+  }
+
+  return result;
+}
+
+function saveState(){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  updateUI();
+}
+
+function today(){
+  const d = new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+
+/* =========================================================
+   DAILY CHALLENGE
+========================================================= */
+
+const DAILY_CHALLENGES = [
+  {
+    title:"Mattemästaren",
+    description:"Svara rätt på 5 mattefrågor idag.",
+    goal:5
+  },
+  {
+    title:"Ordjägaren",
+    description:"Svara rätt på 5 ordfrågor idag.",
+    goal:5
+  },
+  {
+    title:"Världsresenären",
+    description:"Svara rätt på 5 frågor i Världskollen.",
+    goal:5
+  },
+  {
+    title:"Kunskapsmix",
+    description:"Svara rätt på 10 frågor i valfria spel.",
+    goal:10
+  },
+  {
+    title:"Snabbstartaren",
+    description:"Spela minst 2 olika spel idag.",
+    goal:2
+  },
+  {
+    title:"Minnesmästaren",
+    description:"Klara en Minnesmatch.",
+    goal:1
+  },
+  {
+    title:"XP-jägaren",
+    description:"Samla 50 XP idag.",
+    goal:50
+  }
+];
+
+function hashDate(str){
+  let h=0;
+  for(let i=0;i<str.length;i++){
+    h=((h<<5)-h)+str.charCodeAt(i);
+    h|=0;
+  }
+  return Math.abs(h);
+}
+
+function ensureDaily(){
+  const date=today();
+
+  if(state.daily.date!==date){
+    const index=hashDate(date)%DAILY_CHALLENGES.length;
+
+    state.daily={
+      date,
+      index,
+      progress:0,
+      completed:false
+    };
+
+    saveState();
+  }
+}
+
+function dailyChallenge(){
+  ensureDaily();
+  return DAILY_CHALLENGES[state.daily.index];
+}
+
+function addDailyProgress(type,amount=1){
+  ensureDaily();
+
+  const challenge=dailyChallenge();
+
+  let shouldAdd=0;
+
+  if(type==="math" && challenge.title==="Mattemästaren") shouldAdd=amount;
+  if(type==="words" && challenge.title==="Ordjägaren") shouldAdd=amount;
+  if(type==="world" && challenge.title==="Världsresenären") shouldAdd=amount;
+  if(type==="any" && challenge.title==="Kunskapsmix") shouldAdd=amount;
+  if(type==="memory" && challenge.title==="Minnesmästaren") shouldAdd=amount;
+  if(type==="xp" && challenge.title==="XP-jägaren") shouldAdd=amount;
+
+  if(shouldAdd>0){
+    state.daily.progress+=shouldAdd;
+  }
+
+  if(challenge.title==="Snabbstartaren"){
+    const gamesToday=state.daily.playedGames || [];
+    state.daily.playedGames=gamesToday;
+
+    if(!gamesToday.includes(type)){
+      gamesToday.push(type);
+    }
+
+    state.daily.progress=gamesToday.length;
+  }
+
+  if(state.daily.progress>=challenge.goal){
+    state.daily.progress=challenge.goal;
+
+    if(!state.daily.completed){
+      state.daily.completed=true;
+      state.xp+=50;
+      showToast("🎉 Dagens utmaning klar! +50 XP");
+    }
+  }
+
+  saveState();
+}
+
+/* =========================================================
+   XP / LEVEL / STREAK
+========================================================= */
+
+function getLevel(){
+  return Math.floor(state.xp/100)+1;
+}
+
+function xpIntoLevel(){
+  return state.xp%100;
+}
+
+function addXP(amount){
+  const oldLevel=getLevel();
+
+  state.xp+=amount;
+
+  const newLevel=getLevel();
+
+  if(newLevel>oldLevel){
+    showToast("🎉 Ny nivå! Du är nu nivå "+newLevel+"!");
+  }
+
+  addDailyProgress("xp",amount);
+
+  saveState();
+}
+
+function registerAnswer(game,correct,xp){
+  state.answered++;
+
+  if(correct){
+    state.correct++;
+    state.gameStats[game].correct++;
+    addXP(xp);
+  }
+
+  saveState();
+}
+
+function registerGame(game){
+  state.games++;
+  state.gameStats[game].games++;
+
+  const d=today();
+
+  if(state.lastPlayedDate!==d){
+
+    if(state.lastPlayedDate){
+      const previous=new Date(state.lastPlayedDate);
+      const current=new Date(d);
+
+      const diff=Math.round((current-previous)/86400000);
+
+      if(diff===1){
+        state.streak++;
+      }else{
+        state.streak=1;
+      }
+    }else{
+      state.streak=1;
+    }
+
+    state.lastPlayedDate=d;
+  }
+
+  addDailyProgress(game);
+
+  saveState();
+}
+
+/* =========================================================
+   UI
+========================================================= */
+
+function showPage(id,button=null){
+
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+
+  const page=document.getElementById(id);
+  if(page) page.classList.add("active");
+
+  document.querySelectorAll(".nav button").forEach(b=>b.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }else{
+    const navButtons=document.querySelectorAll(".nav button");
+    navButtons.forEach(b=>{
+      if(b.textContent.toLowerCase().includes(id==="home"?"hem":id)){
+        b.classList.add("active");
+      }
+    });
+  }
+
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function updateUI(){
+
+  ensureDailySilent();
+
+  document.getElementById("xpDisplay").textContent=state.xp;
+  document.getElementById("levelDisplay").textContent=getLevel();
+  document.getElementById("streakDisplay").textContent=state.streak;
+
+  document.getElementById("profileName").textContent=state.profile.name;
+  document.getElementById("profileAvatar").textContent=state.profile.avatar;
+  document.getElementById("profileLevel").textContent=getLevel();
+
+  const progress=xpIntoLevel();
+
+  document.getElementById("levelProgress").style.width=progress+"%";
+
+  document.getElementById("levelText").textContent=
+    progress+" / 100 XP till nästa nivå";
+
+  document.getElementById("statAnswered").textContent=state.answered;
+  document.getElementById("statCorrect").textContent=state.correct;
+  document.getElementById("statGames").textContent=state.games;
+  document.getElementById("statXP").textContent=state.xp;
+
+  updateDailyUI();
+  updateBadges();
+
+  document.getElementById("wordCountInfo").textContent=
+    `${state.usedWords.length} / ${WORDS.length} använda`;
+
+  document.getElementById("worldCountInfo").textContent=
+    `${state.usedWorld.length} / ${WORLD.length} använda`;
+}
+
+function ensureDailySilent(){
+  const date=today();
+
+  if(state.daily.date!==date){
+    state.daily={
+      date,
+      index:hashDate(date)%DAILY_CHALLENGES.length,
+      progress:0,
+      completed:false
+    };
+
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(state));
+  }
+}
+
+function updateDailyUI(){
+
+  const c=dailyChallenge();
+
+  document.getElementById("dailyDate").textContent=
+    new Date().toLocaleDateString("sv-SE");
+
+  document.getElementById("dailyTitle").textContent=c.title;
+  document.getElementById("dailyDescription").textContent=c.description;
+
+  const percent=Math.min(100,(state.daily.progress/c.goal)*100);
+
+  document.getElementById("dailyProgress").style.width=percent+"%";
+
+  document.getElementById("dailyStatus").textContent=
+    state.daily.completed
+      ? "🎉 Klar! Bra jobbat!"
+      : `${state.daily.progress} / ${c.goal}`;
+}
+
+/* =========================================================
+   MATH
+========================================================= */
+
+function createMathNumbers(){
+
+  const container=document.getElementById("mathNumbers");
+  container.innerHTML="";
+
+  for(let i=1;i<=13;i++){
+
+    const button=document.createElement("button");
+
+    button.className="number-btn "+
+      (state.math.numbers.includes(i)?"selected":"");
+
+    button.textContent=i;
+
+    button.onclick=()=>{
+      if(state.math.numbers.includes(i)){
+
+        if(state.math.numbers.length===1){
+          showToast("Du måste ha minst en siffra vald.");
+          return;
+        }
+
+        state.math.numbers=
+          state.math.numbers.filter(n=>n!==i);
+
+      }else{
+        state.math.numbers.push(i);
+        state.math.numbers.sort((a,b)=>a-b);
+      }
+
+      saveState();
+      createMathNumbers();
+    };
+
+    container.appendChild(button);
+  }
+}
+
+function selectOperation(button){
+
+  document.querySelectorAll(".operation")
+    .forEach(b=>b.classList.remove("selected"));
+
+  button.classList.add("selected");
+
+  selectedMathOperation=button.dataset.op;
+  state.math.operation=selectedMathOperation;
+
+  saveState();
+}
+
+function resetMathSettings(){
+
+  state.math={
+    difficulty:"easy",
+    questions:10,
+    operation:"all",
+    numbers:[1,2,3,4,5,6,7,8,9,10,11,12,13]
+  };
+
+  selectedMathOperation="all";
+
+  document.getElementById("mathDifficulty").value="easy";
+  document.getElementById("mathQuestions").value="10";
+
+  document.querySelectorAll(".operation")
+    .forEach(b=>{
+      b.classList.toggle("selected",b.dataset.op==="all");
+    });
+
+  createMathNumbers();
+  saveState();
+}
+
+function mathOperationList(){
+
+  if(selectedMathOperation==="all"){
+    return ["+","-","*","/"];
+  }
+
+  return [selectedMathOperation];
+}
+
+function generateMathQuestion(){
+
+  const nums=[...state.math.numbers];
+
+  const difficulty=document.getElementById("mathDifficulty").value;
+
+  let operations=mathOperationList();
+
+  let op=randomItem(operations);
+
+  let a=randomItem(nums);
+  let b=randomItem(nums);
+
+  /*
+    VIKTIGT:
+    Båda talen tas alltid från listan 1–13 som barnet valt.
+    Därför kan exempelvis 13 × 18 ALDRIG uppstå.
+  */
+
+  if(op==="-"){
+    if(a<b){
+      [a,b]=[b,a];
+    }
+  }
+
+  if(op==="/"){
+    /*
+      För division väljer vi en divisor från listan
+      och konstruerar ett exakt svar som också använder
+      en vald faktor.
+    */
+    const possible=[];
+
+    for(const divisor of nums){
+      for(const quotient of nums){
+        const dividend=divisor*quotient;
+
+        /*
+          Dividend måste också vara <=13 och finnas
+          bland de valda talen för att alla tal i uttrycket
+          ska komma från användarens val.
+        */
+        if(nums.includes(dividend)){
+          possible.push({
+            a:dividend,
+            b:divisor,
+            answer:quotient
+          });
+        }
+      }
+    }
+
+    if(possible.length){
+      const p=randomItem(possible);
+      a=p.a;
+      b=p.b;
+    }else{
+      /*
+        Om inga exakta divisioner finns bland valen,
+        använd multiplikation i stället för att skapa
+        ett olämpligt tal.
+      */
+      op="*";
+      a=randomItem(nums);
+      b=randomItem(nums);
+    }
+  }
+
+  /*
+    Svårighetsgrad påverkar främst vilka operationer som
+    blandas och hur frågorna presenteras, men aldrig
+    vilka siffror barnet har valt.
+  */
+  let answer;
+
+  if(op==="+") answer=a+b;
+  if(op==="-") answer=a-b;
+  if(op==="*") answer=a*b;
+  if(op==="/") answer=a/b;
+
+  return {
+    a,b,op,answer,
+    text:`${a} ${op==="*"?"×":op==="\/"?"÷":op} ${b} = ?`
+  };
+}
+
+function makeMathAnswers(correct){
+
+  const answers=new Set([correct]);
+
+  const attempts=[
+    correct+1,
+    correct-1,
+    correct+2,
+    correct-2,
+    correct+3,
+    correct*2,
+    Math.max(0,correct-3)
   ];
 
-  memoryCards = [];
+  attempts.sort(()=>Math.random()-.5);
 
-  pairs.forEach((pair, index) => {
+  for(const n of attempts){
 
+    if(answers.size>=4) break;
+
+    if(Number.isFinite(n) && n>=0 && !answers.has(n)){
+      answers.add(n);
+    }
+  }
+
+  while(answers.size<4){
+    const n=Math.max(0,correct+Math.floor(Math.random()*13)-6);
+
+    if(!answers.has(n)) answers.add(n);
+  }
+
+  return [...answers].sort(()=>Math.random()-.5);
+}
+
+function startMath(){
+
+  state.math.difficulty=document.getElementById("mathDifficulty").value;
+  state.math.questions=Number(document.getElementById("mathQuestions").value);
+  state.math.operation=selectedMathOperation;
+
+  if(!state.math.numbers.length){
+    showToast("Välj minst en siffra.");
+    return;
+  }
+
+  currentMath={
+    index:0,
+    total:state.math.questions,
+    score:0,
+    correct:0,
+    current:null
+  };
+
+  document.getElementById("mathGame").style.display="block";
+
+  registerGame("math");
+
+  nextMathQuestion();
+}
+
+function nextMathQuestion(){
+
+  if(currentMath.index>=currentMath.total){
+    finishMath();
+    return;
+  }
+
+  currentMath.current=generateMathQuestion();
+
+  document.getElementById("mathQuestionNumber").textContent=
+    currentMath.index+1;
+
+  document.getElementById("mathScore").textContent=
+    currentMath.score+" poäng";
+
+  document.getElementById("mathProgress").style.width=
+    (currentMath.index/currentMath.total*100)+"%";
+
+  document.getElementById("mathQuestion").textContent=
+    currentMath.current.text;
+
+  document.getElementById("mathFeedback").textContent="";
+
+  const container=document.getElementById("mathAnswers");
+  container.innerHTML="";
+
+  makeMathAnswers(currentMath.current.answer)
+    .forEach(value=>{
+
+      const btn=document.createElement("button");
+      btn.className="answer";
+      btn.textContent=value;
+
+      btn.onclick=()=>answerMath(btn,value);
+
+      container.appendChild(btn);
+    });
+}
+
+function answerMath(button,value){
+
+  const buttons=document.querySelectorAll("#mathAnswers .answer");
+
+  buttons.forEach(b=>b.disabled=true);
+
+  const correct=value===currentMath.current.answer;
+
+  if(correct){
+
+    button.classList.add("correct");
+    currentMath.score+=10;
+    currentMath.correct++;
+
+    document.getElementById("mathFeedback").textContent=
+      "🎉 Rätt!";
+
+    registerAnswer("math",true,10);
+
+    addDailyProgress("math",1);
+
+  }else{
+
+    button.classList.add("wrong");
+
+    buttons.forEach(b=>{
+      if(Number(b.textContent)===currentMath.current.answer){
+        b.classList.add("correct");
+      }
+    });
+
+    document.getElementById("mathFeedback").textContent=
+      `Nästan! Rätt svar är ${currentMath.current.answer}.`;
+
+    registerAnswer("math",false,0);
+  }
+
+  currentMath.index++;
+
+  setTimeout(nextMathQuestion,850);
+}
+
+function finishMath(){
+
+  document.getElementById("mathProgress").style.width="100%";
+
+  document.getElementById("mathQuestion").textContent=
+    "🏆 Bra jobbat!";
+
+  document.getElementById("mathAnswers").innerHTML="";
+
+  document.getElementById("mathFeedback").innerHTML=
+    `Du fick <strong>${currentMath.correct}</strong> av ${currentMath.total} rätt!<br>
+     ${currentMath.score} poäng`;
+
+  const button=document.createElement("button");
+  button.className="btn green";
+  button.textContent="Spela igen";
+  button.onclick=startMath;
+
+  document.getElementById("mathAnswers").appendChild(button);
+}
+
+/* =========================================================
+   MEMORY MATCH
+========================================================= */
+
+function startMemory(){
+
+  /*
+    Vi skapar unika svarstal.
+    Samma svar kan alltså ALDRIG förekomma två gånger
+    i samma omgång.
+  */
+
+  const candidates=[];
+
+  const nums=state.math.numbers.length
+    ? state.math.numbers
+    : [1,2,3,4,5,6,7,8,9];
+
+  for(let i=0;i<nums.length;i++){
+    for(let j=0;j<nums.length;j++){
+
+      const a=nums[i];
+      const b=nums[j];
+
+      const options=[
+        {op:"+",answer:a+b},
+        {op:"×",answer:a*b}
+      ];
+
+      options.forEach(x=>{
+        candidates.push({
+          text:`${a} ${x.op} ${b}`,
+          answer:x.answer
+        });
+      });
+    }
+  }
+
+  candidates.sort(()=>Math.random()-.5);
+
+  const chosen=[];
+  const usedAnswers=new Set();
+
+  for(const item of candidates){
+
+    if(usedAnswers.has(item.answer)) continue;
+
+    usedAnswers.add(item.answer);
+    chosen.push(item);
+
+    if(chosen.length>=6) break;
+  }
+
+  /*
+    Om det är få möjliga svar använder vi fler
+    kombinationer tills vi har 6 olika.
+  */
+  let fallback=1;
+
+  while(chosen.length<6){
+
+    if(!usedAnswers.has(fallback)){
+      usedAnswers.add(fallback);
+
+      chosen.push({
+        text:`${fallback} + 0`,
+        answer:fallback
+      });
+    }
+
+    fallback++;
+  }
+
+  memoryCards=[];
+
+  chosen.forEach((item,index)=>{
     memoryCards.push({
-      id: index,
-      pair: index,
-      text: pair[0]
+      id:"q"+index,
+      type:"question",
+      text:item.text,
+      answer:item.answer,
+      matched:false,
+      revealed:false
     });
 
     memoryCards.push({
-      id: index + 100,
-      pair: index,
-      text: pair[1]
+      id:"a"+index,
+      type:"answer",
+      text:String(item.answer),
+      answer:item.answer,
+      matched:false,
+      revealed:false
     });
-
   });
 
-  memoryCards.sort(() => Math.random() - .5);
+  /*
+    Fisher-Yates-liknande blandning.
+    Brickorna hamnar på nya platser varje omgång.
+  */
+  memoryCards.sort(()=>Math.random()-.5);
+
+  memoryFirst=null;
+  memorySecond=null;
+  memoryLocked=false;
+  memoryMatched=0;
+
+  registerGame("memory");
+
+  document.getElementById("memoryFeedback").textContent=
+    "Hitta alla par!";
 
   renderMemory();
 }
 
-function renderMemory() {
+function renderMemory(){
 
-  const board = document.getElementById("memoryBoard");
-  board.innerHTML = "";
+  const board=document.getElementById("memoryBoard");
+  board.innerHTML="";
 
-  memoryCards.forEach((card, index) => {
+  memoryCards.forEach((card,index)=>{
 
-    const btn = document.createElement("button");
+    const el=document.createElement("button");
 
-    btn.className = "memory-card";
+    el.className="memory-card";
 
-    if (
-      card.flipped ||
-      card.matched
-    ) {
-      btn.classList.add(
-        card.matched ? "matched" : "flipped"
-      );
-
-      btn.textContent = card.text;
-
-    } else {
-      btn.textContent = "❓";
+    if(card.revealed || card.matched){
+      el.classList.add("revealed");
+      el.textContent=card.type==="question"
+        ? card.text
+        : card.text;
+    }else{
+      el.textContent="❓";
     }
 
-    btn.onclick = () => flipMemory(index);
+    if(card.matched){
+      el.classList.add("matched");
+    }
 
-    board.appendChild(btn);
+    el.onclick=()=>memoryClick(index);
+
+    board.appendChild(el);
   });
-
-  document.getElementById("memoryMoves").textContent =
-    `Drag: ${memoryMoves}`;
 }
 
-function flipMemory(index) {
+function memoryClick(index){
 
-  if (memoryLock) return;
+  if(memoryLocked) return;
 
-  const card = memoryCards[index];
+  const card=memoryCards[index];
 
-  if (card.flipped || card.matched) return;
+  if(card.matched || card.revealed) return;
 
-  card.flipped = true;
+  card.revealed=true;
 
-  if (memoryFirst === null) {
+  if(!memoryFirst){
+    memoryFirst=index;
+    renderMemory();
+    return;
+  }
 
-    memoryFirst = index;
+  memorySecond=index;
+  memoryLocked=true;
 
-  } else {
+  renderMemory();
 
-    memorySecond = index;
-    memoryMoves++;
+  const first=memoryCards[memoryFirst];
+  const second=memoryCards[memorySecond];
 
-    memoryLock = true;
+  const isMatch=
+    first.answer===second.answer &&
+    first.type!==second.type;
 
-    const first = memoryCards[memoryFirst];
-    const second = memoryCards[memorySecond];
+  setTimeout(()=>{
 
-    if (first.pair === second.pair) {
+    if(isMatch){
 
-      first.matched = true;
-      second.matched = true;
+      first.matched=true;
+      second.matched=true;
 
       memoryMatched++;
 
-      addCorrect(15);
+      state.gameStats.memory.correct++;
+      state.correct++;
 
-      memoryFirst = null;
-      memorySecond = null;
-      memoryLock = false;
+      addXP(10);
+      addDailyProgress("memory",memoryMatched===6?1:0);
 
-      if (memoryMatched === 8) {
+      document.getElementById("memoryFeedback").textContent=
+        "🎉 Rätt par!";
 
-        gameFinished();
+      if(memoryMatched===6){
 
-        setTimeout(() => {
-          showResult(
-            Math.max(20, 150 - memoryMoves * 5),
-            1,
-            1,
-            "🧠"
-          );
-        }, 500);
+        document.getElementById("memoryFeedback").textContent=
+          "🏆 Fantastiskt! Du hittade alla par!";
+
+        addXP(30);
       }
 
-    } else {
+    }else{
 
-      addWrong();
+      first.revealed=false;
+      second.revealed=false;
 
-      setTimeout(() => {
-
-        first.flipped = false;
-        second.flipped = false;
-
-        memoryFirst = null;
-        memorySecond = null;
-        memoryLock = false;
-
-        renderMemory();
-
-      }, 800);
+      document.getElementById("memoryFeedback").textContent=
+        "Försök igen! 💪";
     }
-  }
 
-  renderMemory();
+    memoryFirst=null;
+    memorySecond=null;
+    memoryLocked=false;
+
+    renderMemory();
+    saveState();
+
+  },700);
 }
 
-/* =========================
+/* =========================================================
    WORD GAME
-========================= */
+========================================================= */
 
-const wordQuestions = [
-  {
-    question: "Vilken stavning är rätt?",
-    answers: ["Skola","Shkola","Skoola","Skolaa"],
-    correct: "Skola"
-  },
-  {
-    question: "Vilken stavning är rätt?",
-    answers: ["Elefant","Elefantt","Ellefant","Elephat"],
-    correct: "Elefant"
-  },
-  {
-    question: "Vilken stavning är rätt?",
-    answers: ["Sommar","Sommarr","Sommhar","Somar"],
-    correct: "Sommar"
-  },
-  {
-    question: "Vilken stavning är rätt?",
-    answers: ["Cykel","Sykel","Cykell","Cikel"],
-    correct: "Cykel"
-  },
-  {
-    question: "Vilken stavning är rätt?",
-    answers: ["Bibliotek","Biblioteek","Biblotek","Biblioteck"],
-    correct: "Bibliotek"
-  },
-  {
-    question: "Vilken stavning är rätt?",
-    answers: ["Dinosaurie","Dinousarie","Dinosarie","Dinosauriee"],
-    correct: "Dinosaurie"
-  }
-];
+function makeWrongSpelling(word,index){
 
-let wordIndex = 0;
-let wordScore = 0;
+  const variants=[];
 
-function startWordGame() {
+  /*
+    Vanliga enkla stavningsfel.
+  */
 
-  wordIndex = 0;
-  wordScore = 0;
-
-  showScreen("wordGame");
-
-  nextWordQuestion();
-}
-
-function nextWordQuestion() {
-
-  if (wordIndex >= wordQuestions.length) {
-
-    gameFinished();
-
-    showResult(
-      wordScore,
-      wordScore / 10,
-      wordQuestions.length,
-      "🔤"
-    );
-
-    return;
+  if(word.length>4){
+    variants.push(word.slice(0,-1));
+    variants.push(word.slice(0,2)+word.slice(3,4)+word.slice(2,3)+word.slice(4));
   }
 
-  const q = wordQuestions[wordIndex];
-
-  document.getElementById("wordProgress").textContent =
-    `Fråga ${wordIndex + 1} av ${wordQuestions.length}`;
-
-  document.getElementById("wordQuestion").textContent =
-    q.question;
-
-  document.getElementById("wordFeedback").textContent = "";
-
-  const container = document.getElementById("wordAnswers");
-
-  container.innerHTML = "";
-
-  q.answers
-    .sort(() => Math.random() - .5)
-    .forEach(answer => {
-
-      const btn = document.createElement("button");
-
-      btn.className = "quiz-option";
-      btn.textContent = answer;
-
-      btn.onclick = () => {
-
-        document.querySelectorAll(".quiz-option")
-          .forEach(b => b.disabled = true);
-
-        if (answer === q.correct) {
-
-          btn.style.borderColor = "var(--success)";
-
-          document.getElementById("wordFeedback").innerHTML =
-            '<span class="correct">🎉 Rätt!</span>';
-
-          wordScore += 10;
-          addCorrect(10);
-
-        } else {
-
-          btn.style.borderColor = "var(--danger)";
-
-          document.getElementById("wordFeedback").innerHTML =
-            `<span class="wrong">❌ Rätt svar är ${q.correct}</span>`;
-
-          addWrong();
-        }
-
-        wordIndex++;
-
-        setTimeout(nextWordQuestion, 800);
-      };
-
-      container.appendChild(btn);
-    });
-}
-
-/* =========================
-   WORLD QUIZ
-========================= */
-
-const worldQuestions = [
-  {
-    question: "Vilken är Sveriges huvudstad?",
-    answers: ["Stockholm","Göteborg","Malmö","Uppsala"],
-    correct: "Stockholm"
-  },
-  {
-    question: "Vilket djur kallas ofta för 'djungelns konung'?",
-    answers: ["Lejon","Elefant","Zebra","Pingvin"],
-    correct: "Lejon"
-  },
-  {
-    question: "Hur många ben har en spindel?",
-    answers: ["6","8","10","12"],
-    correct: "8"
-  },
-  {
-    question: "Vilken planet bor vi på?",
-    answers: ["Mars","Jorden","Venus","Jupiter"],
-    correct: "Jorden"
-  },
-  {
-    question: "Vilket är världens största hav?",
-    answers: ["Atlanten","Indiska oceanen","Stilla havet","Östersjön"],
-    correct: "Stilla havet"
-  },
-  {
-    question: "Vilket djur är världens största landdjur?",
-    answers: ["Giraff","Elefant","Noshörning","Flodhäst"],
-    correct: "Elefant"
-  },
-  {
-    question: "Hur många dagar har en vecka?",
-    answers: ["5","6","7","8"],
-    correct: "7"
-  },
-  {
-    question: "Vilken färg får man om man blandar blått och gult?",
-    answers: ["Grönt","Lila","Orange","Rosa"],
-    correct: "Grönt"
-  }
-];
-
-let worldIndex = 0;
-let worldScore = 0;
-
-function startWorldQuiz() {
-
-  worldIndex = 0;
-  worldScore = 0;
-
-  showScreen("worldGame");
-
-  nextWorldQuestion();
-}
-
-function nextWorldQuestion() {
-
-  if (worldIndex >= worldQuestions.length) {
-
-    gameFinished();
-
-    showResult(
-      worldScore,
-      worldScore / 10,
-      worldQuestions.length,
-      "🌍"
-    );
-
-    return;
-  }
-
-  const q = worldQuestions[worldIndex];
-
-  document.getElementById("worldProgress").textContent =
-    `Fråga ${worldIndex + 1} av ${worldQuestions.length}`;
-
-  document.getElementById("worldQuestion").textContent =
-    q.question;
-
-  document.getElementById("worldFeedback").textContent = "";
-
-  const container = document.getElementById("worldAnswers");
-
-  container.innerHTML = "";
-
-  q.answers
-    .sort(() => Math.random() - .5)
-    .forEach(answer => {
-
-      const btn = document.createElement("button");
-
-      btn.className = "quiz-option";
-      btn.textContent = answer;
-
-      btn.onclick = () => {
-
-        document.querySelectorAll("#worldAnswers .quiz-option")
-          .forEach(b => b.disabled = true);
-
-        if (answer === q.correct) {
-
-          btn.style.borderColor = "var(--success)";
-
-          document.getElementById("worldFeedback").innerHTML =
-            '<span class="correct">🎉 Rätt!</span>';
-
-          worldScore += 10;
-          addCorrect(10);
-
-        } else {
-
-          btn.style.borderColor = "var(--danger)";
-
-          document.getElementById("worldFeedback").innerHTML =
-            `<span class="wrong">❌ Rätt svar är ${q.correct}</span>`;
-
-          addWrong();
-        }
-
-        worldIndex++;
-
-        setTimeout(nextWorldQuestion, 800);
-      };
-
-      container.appendChild(btn);
-    });
-}
-
-/* =========================
-   RESULTS
-========================= */
-
-function showResult(points, correct, total, emoji) {
-
-  showScreen("resultScreen");
-
-  document.getElementById("resultEmoji").textContent = emoji;
-
-  const percentage =
-    total > 0 ? Math.round(correct / total * 100) : 100;
-
-  let title = "Bra jobbat!";
-
-  if (percentage >= 90) {
-    title = "Fantastiskt! 🌟";
-  } else if (percentage >= 70) {
-    title = "Superbra! 🎉";
-  } else if (percentage >= 50) {
-    title = "Bra kämpat! 💪";
-  } else {
-    title = "Bra försök! 🚀";
-  }
-
-  document.getElementById("resultTitle").textContent = title;
-
-  document.getElementById("resultText").textContent =
-    `Du fick ${correct} rätt av ${total}. Det blev ${points} poäng!`;
-
-  document.getElementById("resultPoints").textContent = points;
-  document.getElementById("resultXP").textContent =
-    Math.ceil(points / 2);
-
-  createConfetti();
-}
-
-/* =========================
-   ACHIEVEMENTS
-========================= */
-
-const achievements = [
-  {
-    id: "first",
-    emoji: "🎮",
-    name: "Första spelet",
-    description: "Spela ditt första spel.",
-    check: () => state.games >= 1
-  },
-  {
-    id: "ten",
-    emoji: "🏃",
-    name: "Spelräven",
-    description: "Spela 10 spel.",
-    check: () => state.games >= 10
-  },
-  {
-    id: "hundred",
-    emoji: "💯",
-    name: "100 XP",
-    description: "Samla 100 XP.",
-    check: () => state.xp >= 100
-  },
-  {
-    id: "fiveStreak",
-    emoji: "🔥",
-    name: "Het streak",
-    description: "Få 5 rätt i rad.",
-    check: () => state.bestStreak >= 5
-  },
-  {
-    id: "tenStreak",
-    emoji: "🔥🔥",
-    name: "Superstreak",
-    description: "Få 10 rätt i rad.",
-    check: () => state.bestStreak >= 10
-  },
-  {
-    id: "correct50",
-    emoji: "🎯",
-    name: "Fullträff",
-    description: "Svara rätt 50 gånger.",
-    check: () => state.correct >= 50
-  },
-  {
-    id: "xp500",
-    emoji: "👑",
-    name: "XP-mästare",
-    description: "Samla 500 XP.",
-    check: () => state.xp >= 500
-  },
-  {
-    id: "xp1000",
-    emoji: "🏆",
-    name: "Lärmästaren",
-    description: "Samla 1000 XP.",
-    check: () => state.xp >= 1000
-  }
-];
-
-function checkAchievements() {
-
-  achievements.forEach(a => {
-
-    if (
-      a.check() &&
-      !state.achievements.includes(a.id)
-    ) {
-
-      state.achievements.push(a.id);
-
-      state.xp += 25;
-
-      setTimeout(() => {
-        alert(`${a.emoji} Ny prestation!\n\n${a.name}\n${a.description}`);
-      }, 100);
+  const replacements=[
+    ["å","o"],
+    ["ä","e"],
+    ["ö","o"],
+    ["o","å"],
+    ["e","ä"],
+    ["a","å"],
+    ["k","g"],
+    ["g","k"],
+    ["j","i"]
+  ];
+
+  for(const [from,to] of replacements){
+
+    if(word.includes(from)){
+      variants.push(
+        word.replace(from,to)
+      );
     }
+  }
 
-  });
-
-  localStorage.setItem(
-    "larSpelaState",
-    JSON.stringify(state)
+  variants.push(
+    word[0].toUpperCase()+word.slice(1)
   );
+
+  variants.push(
+    word.replace(/([a-zåäö])\1/,"$1")
+  );
+
+  for(const v of variants){
+
+    if(v && v!==word && !variants.includes(v)){
+      return v;
+    }
+  }
+
+  return word+"a";
 }
 
-function openAchievements() {
+function getNextWordQuestion(){
 
-  const container = document.getElementById("achievementList");
+  if(state.usedWords.length>=WORDS.length){
+    state.usedWords=[];
+    showToast("🔄 Alla ord använda! Frågebanken blandas om.");
+  }
 
-  container.innerHTML = "";
+  const available=WORDS.filter(w=>!state.usedWords.includes(w));
 
-  achievements.forEach(a => {
+  const word=randomItem(available);
 
-    const unlocked =
-      state.achievements.includes(a.id);
+  state.usedWords.push(word);
 
-    const div = document.createElement("div");
+  saveState();
 
-    div.className =
-      "achievement" + (unlocked ? " unlocked" : "");
+  const wrong1=makeWrongSpelling(word,1);
+  const wrong2=makeWrongSpelling(word,2);
 
-    div.innerHTML = `
-      <div style="font-size:30px">${unlocked ? a.emoji : "🔒"}</div>
-      <strong>${a.name}</strong>
-      <p>${a.description}</p>
-      <small>${unlocked ? "Upplåst!" : "Inte upplåst ännu"}</small>
-    `;
+  let answers=[
+    {text:word,correct:true},
+    {text:wrong1,correct:false},
+    {text:wrong2===wrong1 ? word+"e":wrong2,correct:false}
+  ];
 
-    container.appendChild(div);
+  answers=uniqueAnswers(answers);
+
+  while(answers.length<3){
+
+    const candidate=word+"x";
+
+    if(!answers.some(a=>a.text===candidate)){
+      answers.push({text:candidate,correct:false});
+    }
+  }
+
+  return {
+    word,
+    answers:answers.sort(()=>Math.random()-.5)
+  };
+}
+
+function uniqueAnswers(arr){
+
+  const out=[];
+  const seen=new Set();
+
+  for(const item of arr){
+
+    if(!seen.has(item.text)){
+      seen.add(item.text);
+      out.push(item);
+    }
+  }
+
+  return out;
+}
+
+function startWords(){
+
+  registerGame("words");
+
+  currentWord={
+    correct:0,
+    total:10,
+    index:0
+  };
+
+  nextWord();
+}
+
+function nextWord(){
+
+  if(currentWord.index>=currentWord.total){
+
+    document.getElementById("wordQuestion").textContent=
+      "🏆 Omgång klar!";
+
+    document.getElementById("wordAnswers").innerHTML="";
+
+    document.getElementById("wordFeedback").innerHTML=
+      `Du fick <strong>${currentWord.correct}</strong> av ${currentWord.total} rätt!`;
+
+    const btn=document.createElement("button");
+    btn.className="btn green";
+    btn.textContent="Spela igen";
+    btn.onclick=startWords;
+
+    document.getElementById("wordAnswers").appendChild(btn);
+
+    return;
+  }
+
+  currentWord.question=getNextWordQuestion();
+
+  document.getElementById("wordQuestion").textContent=
+    "Vilket ord är rättstavat?";
+
+  document.getElementById("wordFeedback").textContent=
+    `Fråga ${currentWord.index+1} av ${currentWord.total}`;
+
+  const container=document.getElementById("wordAnswers");
+  container.innerHTML="";
+
+  currentWord.question.answers.forEach(item=>{
+
+    const btn=document.createElement("button");
+
+    btn.className="answer word-option";
+    btn.textContent=item.text;
+
+    btn.onclick=()=>answerWord(btn,item.correct);
+
+    container.appendChild(btn);
+  });
+}
+
+function answerWord(button,correct){
+
+  document.querySelectorAll("#wordAnswers .answer")
+    .forEach(b=>b.disabled=true);
+
+  if(correct){
+
+    button.classList.add("correct");
+    currentWord.correct++;
+
+    document.getElementById("wordFeedback").textContent=
+      "🎉 Rättstavat!";
+
+    registerAnswer("words",true,10);
+    addDailyProgress("words",1);
+
+  }else{
+
+    button.classList.add("wrong");
+
+    document.getElementById("wordFeedback").textContent=
+      "Inte riktigt!";
+
+    registerAnswer("words",false,0);
+  }
+
+  currentWord.index++;
+
+  setTimeout(nextWord,850);
+}
+
+/* =========================================================
+   WORLD QUIZ
+========================================================= */
+
+function getNextWorldQuestion(){
+
+  if(state.usedWorld.length>=WORLD.length){
+    state.usedWorld=[];
+    showToast("🌍 Alla frågor använda! Frågebanken blandas om.");
+  }
+
+  const available=WORLD.filter((_,i)=>!state.usedWorld.includes(i));
+
+  const originalIndex=
+    WORLD.indexOf(randomItem(available));
+
+  state.usedWorld.push(originalIndex);
+
+  saveState();
+
+  const q=WORLD[originalIndex];
+
+  const answers=[
+    {text:q[1],correct:true},
+    {text:q[2],correct:false},
+    {text:q[3],correct:false}
+  ];
+
+  return {
+    question:q[0],
+    answers:answers.sort(()=>Math.random()-.5)
+  };
+}
+
+function startWorld(){
+
+  registerGame("world");
+
+  currentWorld={
+    correct:0,
+    total:10,
+    index:0
+  };
+
+  nextWorld();
+}
+
+function nextWorld(){
+
+  if(currentWorld.index>=currentWorld.total){
+
+    document.getElementById("worldQuestion").textContent=
+      "🌍 Omgång klar!";
+
+    document.getElementById("worldAnswers").innerHTML="";
+
+    document.getElementById("worldFeedback").innerHTML=
+      `Du fick <strong>${currentWorld.correct}</strong> av ${currentWorld.total} rätt!`;
+
+    const btn=document.createElement("button");
+    btn.className="btn green";
+    btn.textContent="Spela igen";
+    btn.onclick=startWorld;
+
+    document.getElementById("worldAnswers").appendChild(btn);
+
+    return;
+  }
+
+  currentWorld.question=getNextWorldQuestion();
+
+  document.getElementById("worldQuestion").textContent=
+    currentWorld.question.question;
+
+  document.getElementById("worldFeedback").textContent=
+    `Fråga ${currentWorld.index+1} av ${currentWorld.total}`;
+
+  const container=document.getElementById("worldAnswers");
+  container.innerHTML="";
+
+  currentWorld.question.answers.forEach(item=>{
+
+    const btn=document.createElement("button");
+
+    btn.className="answer";
+    btn.textContent=item.text;
+
+    btn.onclick=()=>answerWorld(btn,item.correct);
+
+    container.appendChild(btn);
+  });
+}
+
+function answerWorld(button,correct){
+
+  document.querySelectorAll("#worldAnswers .answer")
+    .forEach(b=>b.disabled=true);
+
+  if(correct){
+
+    button.classList.add("correct");
+    currentWorld.correct++;
+
+    document.getElementById("worldFeedback").textContent=
+      "🎉 Rätt!";
+
+    registerAnswer("world",true,10);
+    addDailyProgress("world",1);
+
+  }else{
+
+    button.classList.add("wrong");
+
+    document.getElementById("worldFeedback").textContent=
+      "Inte riktigt!";
+
+    registerAnswer("world",false,0);
+  }
+
+  currentWorld.index++;
+
+  setTimeout(nextWorld,850);
+}
+
+/* =========================================================
+   BADGES
+========================================================= */
+
+const BADGES=[
+  {
+    id:"first",
+    icon:"🌟",
+    name:"Första steget",
+    condition:s=>s.games>=1
+  },
+  {
+    id:"ten",
+    icon:"🎯",
+    name:"10 rätt",
+    condition:s=>s.correct>=10
+  },
+  {
+    id:"fifty",
+    icon:"🏆",
+    name:"50 rätt",
+    condition:s=>s.correct>=50
+  },
+  {
+    id:"xp100",
+    icon:"⭐",
+    name:"100 XP",
+    condition:s=>s.xp>=100
+  },
+  {
+    id:"xp500",
+    icon:"💎",
+    name:"500 XP",
+    condition:s=>s.xp>=500
+  },
+  {
+    id:"streak3",
+    icon:"🔥",
+    name:"3 dagar i rad",
+    condition:s=>s.streak>=3
+  },
+  {
+    id:"streak7",
+    icon:"🚀",
+    name:"7 dagar i rad",
+    condition:s=>s.streak>=7
+  }
+];
+
+function updateBadges(){
+
+  BADGES.forEach(b=>{
+
+    if(b.condition(state) && !state.badges.includes(b.id)){
+      state.badges.push(b.id);
+      showToast(`${b.icon} Nytt märke: ${b.name}!`);
+    }
   });
 
-  document.getElementById("achievementModal")
-    .classList.remove("hidden");
+  renderBadges();
 }
 
-function closeAchievements() {
-  document.getElementById("achievementModal")
-    .classList.add("hidden");
+function renderBadges(){
+
+  const containers=[
+    document.getElementById("homeBadges"),
+    document.getElementById("parentBadges")
+  ];
+
+  containers.forEach(container=>{
+
+    if(!container) return;
+
+    container.innerHTML="";
+
+    BADGES.forEach(b=>{
+
+      const unlocked=state.badges.includes(b.id);
+
+      const el=document.createElement("div");
+
+      el.className="badge "+(unlocked?"unlocked":"");
+
+      el.innerHTML=
+        `<div style="font-size:30px">${unlocked?b.icon:"🔒"}</div>
+         <div>${b.name}</div>`;
+
+      container.appendChild(el);
+    });
+  });
 }
 
-/* =========================
-   CUSTOMIZATION
-========================= */
+/* =========================================================
+   PROFILE
+========================================================= */
 
-function openCustomization() {
-  document.getElementById("customizationModal")
-    .classList.remove("hidden");
+let chosenAvatar=state.profile.avatar;
+
+function editProfile(){
+
+  document.getElementById("profileNameInput").value=
+    state.profile.name;
+
+  chosenAvatar=state.profile.avatar;
+
+  document.getElementById("profileModal").classList.add("show");
 }
 
-function closeCustomization() {
-  document.getElementById("customizationModal")
-    .classList.add("hidden");
+function chooseAvatar(avatar){
+  chosenAvatar=avatar;
 }
 
-function setColor(color) {
+function saveProfile(){
 
-  state.color = color;
+  const name=document.getElementById("profileNameInput").value.trim();
 
-  document.documentElement
-    .style.setProperty("--primary", color);
+  if(name){
+    state.profile.name=name;
+  }
+
+  state.profile.avatar=chosenAvatar;
 
   saveState();
+
+  closeProfileModal();
+
+  showToast("Profilen sparad! 😊");
 }
 
-function setBackground(bg) {
-
-  state.background = bg;
-
-  applyAppearance();
-  saveState();
+function closeProfileModal(){
+  document.getElementById("profileModal").classList.remove("show");
 }
 
-/* =========================
-   ADMIN
-========================= */
+/* =========================================================
+   PARENT PANEL
+========================================================= */
 
-function openAdmin() {
+function openParentPanel(){
 
-  document.getElementById("adminXP").textContent = state.xp;
-  document.getElementById("adminPoints").textContent = state.points;
-  document.getElementById("adminGames").textContent = state.games;
-  document.getElementById("adminCorrect").textContent = state.correct;
-  document.getElementById("adminWrong").textContent = state.wrong;
-  document.getElementById("adminBestStreak").textContent =
-    state.bestStreak;
+  document.getElementById("parentXP").textContent=state.xp;
+  document.getElementById("parentLevel").textContent=getLevel();
+  document.getElementById("parentCorrect").textContent=state.correct;
+  document.getElementById("parentAnswered").textContent=state.answered;
+  document.getElementById("parentGames").textContent=state.games;
+  document.getElementById("parentStreak").textContent=state.streak;
 
-  const container =
-    document.getElementById("adminAchievements");
+  const tbody=document.getElementById("gameStatsTable");
 
-  container.innerHTML = "";
+  tbody.innerHTML="";
 
-  achievements.forEach(a => {
+  const names={
+    math:"➗ Mattejakten",
+    memory:"🧩 Minnesmatch",
+    words:"🔤 Ordet är",
+    world:"🌍 Världskollen"
+  };
 
-    const unlocked =
-      state.achievements.includes(a.id);
+  Object.keys(state.gameStats).forEach(key=>{
 
-    const div = document.createElement("div");
+    const s=state.gameStats[key];
 
-    div.className =
-      "achievement" + (unlocked ? " unlocked" : "");
+    const tr=document.createElement("tr");
 
-    div.innerHTML = `
-      ${unlocked ? a.emoji : "🔒"}
-      <strong>${a.name}</strong>
-    `;
+    tr.innerHTML=
+      `<td>${names[key]}</td>
+       <td>${s.games}</td>
+       <td>${s.correct}</td>`;
 
-    container.appendChild(div);
+    tbody.appendChild(tr);
   });
 
-  document.getElementById("adminModal")
-    .classList.remove("hidden");
+  renderBadges();
+
+  document.getElementById("parentModal").classList.add("show");
 }
 
-function closeAdmin() {
-  document.getElementById("adminModal")
-    .classList.add("hidden");
+function closeParentPanel(){
+  document.getElementById("parentModal").classList.remove("show");
 }
 
-function resetMathSettings() {
+function confirmReset(){
 
-  state.math = structuredClone(defaultState.math);
+  const yes=confirm(
+    "Vill du verkligen nollställa all statistik, XP, nivå och använda frågor?"
+  );
+
+  if(!yes) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+
+  location.reload();
+}
+
+/* =========================================================
+   THEME / BACKGROUND
+========================================================= */
+
+function setTheme(primary,primary2){
+
+  document.documentElement.style.setProperty("--primary",primary);
+  document.documentElement.style.setProperty("--primary2",primary2);
+
+  state.theme.primary=primary;
+  state.theme.primary2=primary2;
 
   saveState();
 
-  showMathSetup();
+  showToast("🎨 Färgtema ändrat!");
 }
 
-function resetProgress() {
+function setBackground(type){
 
-  const confirmReset =
-    confirm(
-      "Är du säker på att du vill nollställa all statistik?"
-    );
+  const backgrounds={
+    gradient1:"linear-gradient(135deg,#74ebd5,#9face6)",
+    gradient2:"linear-gradient(135deg,#89f7fe,#66a6ff)",
+    gradient3:"linear-gradient(135deg,#fbc2eb,#a6c1ee)",
+    gradient4:"linear-gradient(135deg,#d4fc79,#96e6a1)",
+    gradient5:"linear-gradient(135deg,#667eea,#764ba2)",
+    gradient6:"linear-gradient(135deg,#ffecd2,#fcb69f)"
+  };
 
-  if (!confirmReset) return;
+  document.body.style.backgroundImage=backgrounds[type];
+  document.body.classList.remove("has-bg");
 
-  state.xp = 0;
-  state.points = 0;
-  state.games = 0;
-  state.correct = 0;
-  state.wrong = 0;
-  state.streak = 0;
-  state.bestStreak = 0;
-  state.achievements = [];
+  state.theme.background=backgrounds[type];
 
   saveState();
 
-  openAdmin();
-  updateStats();
+  showToast("🌈 Bakgrund ändrad!");
 }
 
-/* =========================
-   CONFETTI
-========================= */
+function uploadBackground(){
 
-function createConfetti() {
+  const file=document.getElementById("backgroundUpload").files[0];
 
-  const emojis = ["🎉","⭐","✨","🎈","🏆","🧠","🚀"];
+  if(!file){
+    showToast("Välj en bild först.");
+    return;
+  }
 
-  for (let i = 0; i < 30; i++) {
+  const reader=new FileReader();
 
-    const span = document.createElement("span");
+  reader.onload=function(e){
 
-    span.textContent =
-      randomItem(emojis);
+    const data=e.target.result;
 
-    span.style.position = "fixed";
-    span.style.left =
-      Math.random() * 100 + "vw";
+    document.body.style.backgroundImage=`url("${data}")`;
+    document.body.classList.add("has-bg");
 
-    span.style.top = "-30px";
-    span.style.fontSize =
-      (18 + Math.random() * 22) + "px";
+    state.theme.background=data;
 
-    span.style.zIndex = "200";
+    saveState();
 
-    span.style.transition =
-      "transform 2s ease, opacity 2s ease";
+    showToast("📷 Din bakgrund är sparad!");
+  };
 
-    document.body.appendChild(span);
+  reader.readAsDataURL(file);
+}
 
-    setTimeout(() => {
+function removeBackground(){
 
-      span.style.transform =
-        `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*720}deg)`;
+  document.body.style.backgroundImage="";
+  document.body.classList.remove("has-bg");
 
-      span.style.opacity = "0";
+  state.theme.background=null;
 
-    }, 50);
+  saveState();
 
-    setTimeout(() => span.remove(), 2200);
+  showToast("Bakgrunden är borttagen.");
+}
+
+function applyTheme(){
+
+  document.documentElement.style.setProperty(
+    "--primary",
+    state.theme.primary
+  );
+
+  document.documentElement.style.setProperty(
+    "--primary2",
+    state.theme.primary2
+  );
+
+  if(state.theme.background){
+
+    if(
+      state.theme.background.startsWith("linear-gradient")
+    ){
+      document.body.style.backgroundImage=
+        state.theme.background;
+
+      document.body.classList.remove("has-bg");
+
+    }else{
+
+      document.body.style.backgroundImage=
+        `url("${state.theme.background}")`;
+
+      document.body.classList.add("has-bg");
+    }
   }
 }
 
-/* =========================
-   INIT
-========================= */
+/* =========================================================
+   UTILITIES
+========================================================= */
 
-applyAppearance();
-updateStats();
+function randomItem(arr){
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function showToast(text){
+
+  const toast=document.getElementById("toast");
+
+  toast.textContent=text;
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer=setTimeout(()=>{
+    toast.classList.remove("show");
+  },2500);
+}
+
+/* =========================================================
+   MIDNIGHT CHECK
+========================================================= */
+
+function checkMidnight(){
+
+  const current=today();
+
+  if(state.daily.date!==current){
+    ensureDailySilent();
+    updateUI();
+    showToast("🌅 Ny dag – ny dagens utmaning!");
+  }
+}
+
+/* =========================================================
+   INIT
+========================================================= */
+
+function init(){
+
+  ensureDailySilent();
+
+  selectedMathOperation=state.math.operation;
+
+  document.getElementById("mathDifficulty").value=
+    state.math.difficulty;
+
+  document.getElementById("mathQuestions").value=
+    state.math.questions;
+
+  document.querySelectorAll(".operation")
+    .forEach(button=>{
+      button.classList.toggle(
+        "selected",
+        button.dataset.op===selectedMathOperation
+      );
+    });
+
+  createMathNumbers();
+
+  applyTheme();
+  updateUI();
+
+  /*
+    Kontrollera datum med jämna mellanrum.
+    Då nollställs dagens utmaning även om sidan ligger
+    öppen när midnatt passerar.
+  */
+  setInterval(checkMidnight,30000);
+
+  /*
+    Om sidan blir synlig igen efter att ha legat öppen
+    kontrollerar vi också datumet.
+  */
+  document.addEventListener("visibilitychange",()=>{
+    if(!document.hidden){
+      checkMidnight();
+    }
+  });
+}
+
+init();
 
 </script>
 
