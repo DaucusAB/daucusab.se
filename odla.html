@@ -1,49 +1,4281 @@
-<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Min Odlingskalender</title><link rel="stylesheet" href="style.css"></head><body>
-<header class="hero"><div class="hero-inner"><div id="profile" class="profile">ðŸŒ±</div><div><small>MIN ODLINGSKALENDER</small><h1 id="siteName">Min Odlingskalender</h1><p id="subtitle">FrÃ¥n frÃ¶ till skÃ¶rd</p></div><button id="adminBtn" class="primary">âš™ Admin</button></div></header>
-<main><section class="current card"><div><small>NUVARANDE MÃ…NAD</small><h2 id="currentMonth"></h2><p id="currentSummary"></p></div><button id="currentBtn" class="primary">Visa mÃ¥naden</button></section>
-<section><div class="section-title"><div><small>Ã…RSÃ–VERSIKT</small><h2>Ã…rets mÃ¥nader</h2></div></div><div id="months" class="months"></div></section>
-<section id="monthSection"><div class="section-title"><div><small>MÃ…NAD</small><h2 id="monthTitle"></h2><p id="monthMeta"></p></div><button id="resetMonth" class="ghost">â†» NollstÃ¤ll mÃ¥nad</button></div>
-<div class="columns"><article class="card"><div class="cat"><span>ðŸŒ¸</span><div><h3>Blommor</h3><p>SÃ¥dd och odlingsuppgifter</p></div></div><div id="flowers"></div><div id="flowersEmpty" class="empty">Inga blommor denna mÃ¥nad.</div></article><article class="card"><div class="cat"><span>ðŸ¥•</span><div><h3>Ã„tbart</h3><p>SÃ¥dd och odlingsuppgifter</p></div></div><div id="edible"></div><div id="edibleEmpty" class="empty">Inget Ã¤tbart denna mÃ¥nad.</div></article></div>
-<article class="card notes"><small>MÃ…NADENS ANTECKNINGAR</small><h3>Kom ihÃ¥g</h3><textarea id="notes" placeholder="Skriv anteckningar fÃ¶r mÃ¥naden..."></textarea></article></section></main>
-<div id="adminModal" class="overlay" hidden><div class="modal"><div class="modal-head"><div><small>ADMINPANEL</small><h2>InstÃ¤llningar</h2></div><button class="x" data-close="adminModal">Ã—</button></div><nav class="tabs"><button class="tab active" data-tab="look">Utseende</button><button class="tab" data-tab="seeds">FrÃ¶bibliotek</button><button class="tab" data-tab="data">Data</button></nav>
-<div id="look" class="panel active"><div class="form-grid"><label>Sidans namn<input id="nameInput"></label><label>Undertitel<input id="subtitleInput"></label><label>AccentfÃ¤rg<input id="accentInput" type="color"></label><label>BakgrundsfÃ¤rg<input id="bgInput" type="color"></label><label class="full">Profilbild<input id="profileInput" type="file" accept="image/*"></label><label class="full">Egen bakgrundsbild<input id="backgroundInput" type="file" accept="image/*"></label></div><div class="actions"><button id="removeProfile" class="ghost">Ta bort profilbild</button><button id="removeBackground" class="ghost">Ta bort bakgrund</button><button id="saveLook" class="primary">Spara</button></div></div>
-<div id="seeds" class="panel"><div class="seed-top"><div><h3>FrÃ¶bibliotek</h3><p>VÃ¤lj mÃ¥nad fÃ¶r varje frÃ¶. âœ… betyder att det Ã¤r kategoriserat.</p></div><button id="addSeed" class="primary">ï¼‹ LÃ¤gg till frÃ¶</button></div><div class="seed-cols"><div><h3>ðŸ¥• Ã„tbart</h3><div id="adminEdible"></div></div><div><h3>ðŸŒ¸ Blommor</h3><div id="adminFlowers"></div></div></div></div>
-<div id="data" class="panel"><h3>SÃ¤kerhetskopiera</h3><p>Exportera kalendern fÃ¶r att kunna flytta den till en annan enhet.</p><div class="actions"><button id="export" class="primary">â†“ Exportera data</button><label class="upload">â†‘ Importera data<input id="import" type="file" accept=".json" hidden></label><button id="clear" class="danger">Radera all data</button></div></div></div></div>
-<div id="seedModal" class="overlay" hidden><div class="modal small"><div class="modal-head"><div><small>FRÃ–BIBLIOTEK</small><h2>LÃ¤gg till frÃ¶</h2></div><button class="x" data-close="seedModal">Ã—</button></div><form id="seedForm"><label>FrÃ¶namn<input id="seedName" required></label><label>Kategori<select id="seedCategory"><option value="edible">Ã„tbart</option><option value="flowers">Blommor</option></select></label><label>MÃ¥nad<select id="seedMonth"></select></label><button class="primary full" type="submit">LÃ¤gg till</button></form></div></div>
-<script src="script.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Min Odlingskalender</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
-*{box-sizing:border-box}:root{--accent:#5f7f55;--bg:#f4f1e8;--text:#293229;--muted:#6b746b;--border:#29322920;--card:#fffffff0;--shadow:0 18px 50px #29322912}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit;border-radius:12px;border:1px solid var(--border)}button{cursor:pointer}.hero{border-bottom:1px solid var(--border);background:#ffffff60}.hero-inner,main{max-width:1180px;margin:auto}.hero-inner{padding:26px 24px;display:flex;align-items:center;gap:18px}.profile{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;font-size:32px;background:#fff;border:1px solid var(--border);overflow:hidden}.profile img{width:100%;height:100%;object-fit:cover}.hero h1{margin:2px 0;font-size:clamp(28px,5vw,42px);letter-spacing:-.04em}.hero p{margin:0;color:var(--muted)}small{font-size:11px;font-weight:800;letter-spacing:.15em;color:var(--accent)}.hero .primary{margin-left:auto}.primary{background:var(--accent);color:#fff;border:0;padding:12px 17px;font-weight:800}.ghost{background:transparent;padding:9px 13px;color:var(--muted)}main{padding:36px 24px 70px}.card{background:var(--card);border:1px solid var(--border);border-radius:22px;box-shadow:var(--shadow)}.current{padding:30px;display:flex;justify-content:space-between;align-items:center;margin-bottom:48px}.current h2{font-size:44px;margin:3px 0}.current p{margin:0;color:var(--muted)}h2{margin:4px 0 8px;font-size:34px;letter-spacing:-.03em}.section-title{display:flex;justify-content:space-between;align-items:end;margin-bottom:18px}.months{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:55px}.month{padding:19px;text-align:left;min-height:105px;background:var(--card);border:1px solid var(--border);border-radius:18px}.month.active{border:2px solid var(--accent);padding:18px}.month strong{font-size:18px}.month div{margin-top:8px;color:var(--muted);font-size:13px}.columns{display:grid;grid-template-columns:1fr 1fr;gap:20px}.cat{display:flex;gap:14px;align-items:center;padding:23px;border-bottom:1px solid var(--border)}.cat>span{font-size:29px}.cat h3{margin:0 0 3px}.cat p{margin:0;color:var(--muted);font-size:13px}.task{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:14px 20px;border-bottom:1px solid var(--border)}.task:last-child{border-bottom:0}.check{width:21px;height:21px;accent-color:var(--accent)}.task-name{font-weight:750}.task.done .task-name{text-decoration:line-through;opacity:.5}.status{font-size:12px;color:var(--muted)}.task-actions button{background:transparent;padding:8px 11px;color:var(--muted)}.empty{padding:25px;color:var(--muted);font-size:14px}.empty.hide{display:none}.notes{margin-top:20px;padding:24px}.notes textarea{width:100%;min-height:130px;margin-top:12px;padding:12px}.overlay{position:fixed;inset:0;background:#18201888;backdrop-filter:blur(5px);display:grid;place-items:center;padding:20px;z-index:10}.overlay[hidden]{display:none}.modal{background:#fafaf6;width:min(960px,100%);max-height:90vh;overflow:auto;border-radius:24px;box-shadow:0 30px 100px #0004}.modal.small{width:min(470px,100%)}.modal-head{padding:25px;display:flex;justify-content:space-between}.modal-head h2{margin-bottom:0}.x{border:0;background:transparent;font-size:30px}.tabs{display:flex;padding:0 25px;border-bottom:1px solid var(--border);gap:5px}.tab{border:0;background:transparent;border-radius:0;padding:13px;border-bottom:3px solid transparent;font-weight:800;color:var(--muted)}.tab.active{color:var(--accent);border-bottom-color:var(--accent)}.panel{display:none;padding:25px}.panel.active{display:block}.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}label{display:grid;gap:7px;font-size:13px;font-weight:800}label.full{grid-column:1/-1}input,select,textarea{padding:11px 12px;background:#fff;color:var(--text)}input[type=color]{height:43px;padding:4px;width:100%}.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.seed-top{display:flex;justify-content:space-between;align-items:center;gap:15px}.seed-top p{margin:0;color:var(--muted);font-size:13px}.seed-cols{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:20px}.admin-seed{display:grid;grid-template-columns:25px 1fr 145px 30px;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid var(--border)}.admin-seed-name{font-weight:700}.delete{border:0;background:transparent;color:#9c4f48;font-size:18px}.upload{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;border:0;padding:12px 17px;cursor:pointer;border-radius:12px}.danger{background:#9c4f48;color:#fff;border:0;padding:12px 17px;font-weight:800}.full{width:100%}form{padding:0 25px 25px;display:grid;gap:17px}@media(max-width:760px){.hero-inner{flex-wrap:wrap}.hero .primary{margin-left:0}.current{flex-direction:column;align-items:flex-start;gap:18px}.months{grid-template-columns:repeat(2,1fr)}.columns,.seed-cols,.form-grid{grid-template-columns:1fr}label.full{grid-column:auto}.section-title{align-items:flex-start;flex-direction:column}.admin-seed{grid-template-columns:24px 1fr 110px 25px}}
+<body>
 
-const MONTHS=["Januari","Februari","Mars","April","Maj","Juni","Juli","Augusti","September","Oktober","November","December"],KEY="odlingskalender-v1",uid=()=>crypto.randomUUID();
-const defaults={settings:{name:"Min Odlingskalender",subtitle:"Från frö till skörd",accent:"#5f7f55",bg:"#f4f1e8",profile:"",background:""},seeds:["Basilika|edible|2","Chili|edible|1","Gurka|edible|2","Tomat|edible|2","Spenat|edible|7","Blåklint|flowers|2","Rosenskära|flowers|2","Tagetes|flowers|2","Zinnia|flowers|3"].map(x=>{let[a,b,c]=x.split("|");return{id:uid(),name:a,category:b,month:+c,done:false}}),notes:Array(12).fill("")};
-let data=load(),selected=new Date().getMonth();function load(){try{let x=JSON.parse(localStorage.getItem(KEY));return x?{...structuredClone(defaults),...x,settings:{...defaults.settings,...x.settings},notes:Array.isArray(x.notes)&&x.notes.length===12?x.notes:Array(12).fill("")}:structuredClone(defaults)}catch{return structuredClone(defaults)}}function save(){localStorage.setItem(KEY,JSON.stringify(data))}function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}function monthSeeds(m,c){return data.seeds.filter(s=>s.month===m&&s.category===c).sort((a,b)=>a.name.localeCompare(b.name,'sv'))}
-function render(){let s=data.settings;document.documentElement.style.setProperty('--accent',s.accent);document.documentElement.style.setProperty('--bg',s.bg);siteName.textContent=s.name;subtitle.textContent=s.subtitle;profile.innerHTML=s.profile?`<img src="${s.profile}" alt="">`:'🌱';document.body.style.backgroundImage=s.background?`linear-gradient(#f4f1e899,#f4f1e899),url("${s.background}")`:'';renderCurrent();renderMonths();renderMonth();renderAdmin();notes.value=data.notes[selected]||''}
-function renderCurrent(){let m=new Date().getMonth(),a=data.seeds.filter(s=>s.month===m),d=a.filter(s=>s.done).length;currentMonth.textContent=MONTHS[m];currentSummary.textContent=a.length?`${d} av ${a.length} uppgifter klara`:'Inga fröer planerade ännu'}
-function renderMonths(){months.innerHTML=MONTHS.map((m,i)=>{let a=data.seeds.filter(s=>s.month===i),d=a.filter(s=>s.done).length;return`<button class="month ${i===selected?'active':''}" data-m="${i}"><strong>${m}</strong><div>${a.length?`● ${d}/${a.length} klara`:'Inga planerade fröer'}</div></button>`}).join('');document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{selected=+b.dataset.m;render();monthSection.scrollIntoView({behavior:'smooth'})})}
-function renderMonth(){let a=data.seeds.filter(s=>s.month===selected),d=a.filter(s=>s.done).length;monthTitle.textContent=MONTHS[selected];monthMeta.textContent=a.length?`${d} av ${a.length} fröer klara`:'Inga fröer planerade';draw('flowers','flowersEmpty',monthSeeds(selected,'flowers'));draw('edible','edibleEmpty',monthSeeds(selected,'edible'))}
-function draw(t,e,list){document.getElementById(e).classList.toggle('hide',!!list.length);document.getElementById(t).innerHTML=list.map(s=>`<div class="task ${s.done?'done':''}"><input class="check" type="checkbox" data-done="${s.id}" ${s.done?'checked':''}><div><div class="task-name">${esc(s.name)}</div><div class="status">${s.done?'Sådd ✓':'Osådd'}</div></div><div class="task-actions"><button data-move="${s.id}">↪ Flytta</button></div></div>`).join('');document.querySelectorAll('[data-done]').forEach(x=>x.onchange=()=>{data.seeds.find(s=>s.id===x.dataset.done).done=x.checked;save();render()});document.querySelectorAll('[data-move]').forEach(x=>x.onclick=()=>moveSeed(x.dataset.move))}
-function moveSeed(i){let s=data.seeds.find(s=>s.id===i),q=prompt(`Flytta "${s.name}" till månad (1–12 eller namn):`,MONTHS[s.month]);if(q===null)return;let m=MONTHS.findIndex(x=>x.toLowerCase()===q.trim().toLowerCase());if(m<0&&/^\d+$/.test(q.trim()))m=+q-1;if(m<0||m>11)return alert('Ogiltig månad.');s.month=m;s.done=false;save();render()}
-function renderAdmin(){for(let c of ['edible','flowers']){let el=document.getElementById(c==='edible'?'adminEdible':'adminFlowers'),list=data.seeds.filter(s=>s.category===c).sort((a,b)=>a.name.localeCompare(b.name,'sv'));el.innerHTML=list.map(s=>`<div class="admin-seed"><div>${s.month!=null?'✅':''}</div><div class="admin-seed-name">${esc(s.name)}</div><select data-month="${s.id}"><option value="">Ingen månad</option>${MONTHS.map((m,i)=>`<option value="${i}" ${s.month===i?'selected':''}>${m}</option>`).join('')}</select><button class="delete" data-del="${s.id}">×</button></div>`).join('')||'<p>Inga fröer ännu.</p>'}document.querySelectorAll('[data-month]').forEach(x=>x.onchange=()=>{let s=data.seeds.find(s=>s.id===x.dataset.month);s.month=x.value===''?null:+x.value;s.done=false;save();render()});document.querySelectorAll('[data-del]').forEach(x=>x.onclick=()=>{if(confirm('Ta bort fröet?')){data.seeds=data.seeds.filter(s=>s.id!==x.dataset.del);save();render()}})}
-function modal(id,show=true){document.getElementById(id).hidden=!show}function readImg(file,cb){if(!file)return;let r=new FileReader;r.onload=()=>{cb(r.result);save();render()};r.readAsDataURL(file)}
-adminBtn.onclick=()=>{let s=data.settings;nameInput.value=s.name;subtitleInput.value=s.subtitle;accentInput.value=s.accent;bgInput.value=s.bg;modal('adminModal')};document.querySelectorAll('[data-close]').forEach(x=>x.onclick=()=>modal(x.dataset.close,false));document.querySelectorAll('.tab').forEach(x=>x.onclick=()=>{document.querySelectorAll('.tab,.panel').forEach(e=>e.classList.remove('active'));x.classList.add('active');document.getElementById(x.dataset.tab).classList.add('active')});profileInput.onchange=e=>readImg(e.target.files[0],v=>data.settings.profile=v);backgroundInput.onchange=e=>readImg(e.target.files[0],v=>data.settings.background=v);removeProfile.onclick=()=>{data.settings.profile='';save();render()};removeBackground.onclick=()=>{data.settings.background='';save();render()};saveLook.onclick=()=>{data.settings={...data.settings,name:nameInput.value.trim()||'Min Odlingskalender',subtitle:subtitleInput.value.trim()||'Från frö till skörd',accent:accentInput.value,bg:bgInput.value};save();render();modal('adminModal',false)};currentBtn.onclick=()=>{selected=new Date().getMonth();render();monthSection.scrollIntoView({behavior:'smooth'})};resetMonth.onclick=()=>{let a=data.seeds.filter(s=>s.month===selected);if(a.length&&confirm(`Nollställ ${a.length} fröer i ${MONTHS[selected]}?`)){a.forEach(s=>s.done=false);save();render()}};notes.oninput=e=>{data.notes[selected]=e.target.value;save()};addSeed.onclick=()=>{seedMonth.innerHTML='<option value="">Inte kategoriserad ännu</option>'+MONTHS.map((m,i)=>`<option value="${i}">${m}</option>`).join('');seedName.value='';modal('seedModal')};seedForm.onsubmit=e=>{e.preventDefault();data.seeds.push({id:uid(),name:seedName.value.trim(),category:seedCategory.value,month:seedMonth.value===''?null:+seedMonth.value,done:false});save();render();modal('seedModal',false)};export.onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.href=u;a.download='min-odlingskalender.json';a.click();URL.revokeObjectURL(u)};import.onchange=e=>{let r=new FileReader;r.onload=()=>{try{let x=JSON.parse(r.result);if(!x.settings||!Array.isArray(x.seeds))throw 0;data=x;save();render();alert('Data importerad!')}catch{alert('Filen kunde inte importeras.')}};r.readAsText(e.target.files[0]);e.target.value=''};clear.onclick=()=>{if(confirm('Radera all odlingsdata?')){localStorage.removeItem(KEY);data=structuredClone(defaults);render()}};document.querySelectorAll('.overlay').forEach(o=>o.onclick=e=>{if(e.target===o)o.hidden=true});render();
+<header class="topbar">
+    <div class="brand">
+        <div id="profileImage" class="profile-image">🌱</div>
 
-  # Min Odlingskalender
+        <div>
+            <h1 id="siteName">Min Odlingskalender</h1>
+            <p id="siteSubtitle">Din trädgård, månad för månad</p>
+        </div>
+    </div>
 
-En fristående odlingskalender byggd med HTML, CSS och JavaScript.
+    <button id="openAdmin" class="admin-button">
+        ⚙️ Admin
+    </button>
+</header>
+
+
+<main>
+
+    <!-- AKTUELL MÅNAD -->
+
+    <section class="current-month-card">
+
+        <div>
+            <span class="small-label">NU ÄR DET</span>
+
+            <h2 id="currentMonthName">Januari</h2>
+
+            <p id="currentMonthSummary">
+                0 av 0 uppgifter klara
+            </p>
+        </div>
+
+        <button id="goToCurrentMonth" class="primary-button">
+            Visa månad
+        </button>
+
+    </section>
+
+
+    <!-- ÅRSÖVERSIKT -->
+
+    <section class="section">
+
+        <div class="section-heading">
+            <div>
+                <span class="small-label">ÅRSÖVERSIKT</span>
+                <h2>Odlingsåret</h2>
+            </div>
+        </div>
+
+        <div id="monthGrid" class="month-grid"></div>
+
+    </section>
+
+
+    <!-- MÅNAD -->
+
+    <section id="monthSection" class="month-section">
+
+        <div class="month-header">
+
+            <div>
+                <span class="small-label">MÅNAD</span>
+
+                <h2 id="selectedMonthName">
+                    Januari
+                </h2>
+
+                <p id="selectedMonthSummary">
+                    0 av 0 uppgifter klara
+                </p>
+            </div>
+
+            <button id="resetMonth" class="secondary-button">
+                ↻ Nollställ månaden
+            </button>
+
+        </div>
+
+
+        <!-- BLOMMOR -->
+
+        <section class="category-card flowers">
+
+            <div class="category-title">
+                <span class="category-icon">🌸</span>
+
+                <div>
+                    <h3>Blommor</h3>
+                    <p>Blommor och prydnadsväxter</p>
+                </div>
+            </div>
+
+            <div id="flowerTasks" class="task-list"></div>
+
+            <div id="flowerEmpty" class="empty-message">
+                Inga uppgifter för blommor denna månad.
+            </div>
+
+        </section>
+
+
+        <!-- ÄTBART -->
+
+        <section class="category-card edible">
+
+            <div class="category-title">
+                <span class="category-icon">🥕</span>
+
+                <div>
+                    <h3>Ätbart</h3>
+                    <p>Grönsaker, kryddor, frukt och bär</p>
+                </div>
+            </div>
+
+            <div id="edibleTasks" class="task-list"></div>
+
+            <div id="edibleEmpty" class="empty-message">
+                Inga uppgifter för ätbart denna månad.
+            </div>
+
+        </section>
+
+
+        <!-- MÅNADSANTECKNINGAR -->
+
+        <section class="notes-card">
+
+            <h3>📝 Anteckningar för månaden</h3>
+
+            <textarea
+                id="monthNotes"
+                placeholder="Skriv exempelvis vad som fungerat bra, vad som behöver göras eller annat du vill komma ihåg..."
+            ></textarea>
+
+            <button id="saveNotes" class="primary-button">
+                Spara anteckningar
+            </button>
+
+        </section>
+
+    </section>
+
+</main>
+
+
+<!-- ADMIN MODAL -->
+
+<div id="adminModal" class="modal hidden">
+
+    <div class="modal-window">
+
+        <div class="modal-header">
+
+            <div>
+                <span class="small-label">ADMIN</span>
+                <h2>Inställningar</h2>
+            </div>
+
+            <button id="closeAdmin" class="close-button">
+                ×
+            </button>
+
+        </div>
+
+
+        <div class="admin-tabs">
+
+            <button
+                class="admin-tab active"
+                data-tab="appearanceTab">
+                🎨 Utseende
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="seedsTab">
+                🌱 Växtbibliotek
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="tasksTab">
+                📋 Uppgifter
+            </button>
+
+            <button
+                class="admin-tab"
+                data-tab="dataTab">
+                💾 Data
+            </button>
+
+        </div>
+
+
+        <!-- UTSEENDE -->
+
+        <div id="appearanceTab" class="admin-content active">
+
+            <h3>Utseende</h3>
+
+            <label>
+                Namn på sidan
+
+                <input
+                    id="settingSiteName"
+                    type="text"
+                    placeholder="Min Odlingskalender">
+            </label>
+
+
+            <label>
+                Undertitel
+
+                <input
+                    id="settingSubtitle"
+                    type="text"
+                    placeholder="Din trädgård, månad för månad">
+            </label>
+
+
+            <div class="form-row">
+
+                <label>
+                    Accentfärg
+
+                    <input
+                        id="settingAccent"
+                        type="color">
+                </label>
+
+                <label>
+                    Bakgrundsfärg
+
+                    <input
+                        id="settingBackground"
+                        type="color">
+                </label>
+
+            </div>
+
+
+            <label>
+                Profilbild
+
+                <input
+                    id="profileUpload"
+                    type="file"
+                    accept="image/*">
+            </label>
+
+            <button
+                id="removeProfile"
+                class="secondary-button">
+                Ta bort profilbild
+            </button>
+
+
+            <label>
+                Bakgrundsbild
+
+                <input
+                    id="backgroundUpload"
+                    type="file"
+                    accept="image/*">
+            </label>
+
+            <button
+                id="removeBackground"
+                class="secondary-button">
+                Ta bort bakgrundsbild
+            </button>
+
+
+            <button
+                id="saveAppearance"
+                class="primary-button full-width">
+                Spara utseende
+            </button>
+
+        </div>
+
+
+        <!-- VÄXTBIBLIOTEK -->
+
+        <div id="seedsTab" class="admin-content">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <h3>Växtbibliotek</h3>
+                    <p>
+                        Här lägger du in alla växter du vill kunna använda.
+                    </p>
+                </div>
+
+                <button
+                    id="addSeed"
+                    class="primary-button">
+                    + Lägg till växt
+                </button>
+
+            </div>
+
+
+            <div class="seed-columns">
+
+                <div>
+
+                    <h4>🥕 Ätbart</h4>
+
+                    <div
+                        id="adminEdibleSeeds"
+                        class="admin-seed-list">
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <h4>🌸 Blommor</h4>
+
+                    <div
+                        id="adminFlowerSeeds"
+                        class="admin-seed-list">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- UPPGIFTER -->
+
+        <div id="tasksTab" class="admin-content">
+
+            <div class="admin-section-header">
+
+                <div>
+                    <h3>Egna uppgifter</h3>
+
+                    <p>
+                        Lägg till återkommande eller månadsspecifika
+                        odlingsuppgifter.
+                    </p>
+                </div>
+
+                <button
+                    id="addCustomTask"
+                    class="primary-button">
+                    + Lägg till uppgift
+                </button>
+
+            </div>
+
+
+            <div
+                id="customTaskAdminList"
+                class="custom-task-admin-list">
+            </div>
+
+        </div>
+
+
+        <!-- DATA -->
+
+        <div id="dataTab" class="admin-content">
+
+            <h3>Data</h3>
+
+            <p>
+                Spara en säkerhetskopia av hela din odlingskalender
+                eller importera en tidigare säkerhetskopia.
+            </p>
+
+
+            <div class="data-buttons">
+
+                <button
+                    id="exportData"
+                    class="primary-button">
+                    ⬇️ Exportera data
+                </button>
+
+
+                <label class="file-button">
+
+                    ⬆️ Importera data
+
+                    <input
+                        id="importData"
+                        type="file"
+                        accept=".json"
+                        hidden>
+
+                </label>
+
+
+                <button
+                    id="clearData"
+                    class="danger-button">
+                    🗑️ Radera all data
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- LÄGG TILL VÄXT -->
+
+<div id="seedModal" class="modal hidden">
+
+    <div class="small-modal">
+
+        <div class="modal-header">
+
+            <h2>Lägg till växt</h2>
+
+            <button
+                id="closeSeedModal"
+                class="close-button">
+                ×
+            </button>
+
+        </div>
+
+
+        <label>
+            Namn
+
+            <input
+                id="newSeedName"
+                type="text"
+                placeholder="Exempel: Tomat">
+        </label>
+
+
+        <label>
+            Kategori
+
+            <select id="newSeedCategory">
+
+                <option value="edible">
+                    🥕 Ätbart
+                </option>
+
+                <option value="flowers">
+                    🌸 Blommor
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <label>
+            Månad
+
+            <select id="newSeedMonth">
+                <option value="">Ingen månad ännu</option>
+            </select>
+
+        </label>
+
+
+        <button
+            id="saveNewSeed"
+            class="primary-button full-width">
+            Lägg till
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- LÄGG TILL EGEN UPPGIFT -->
+
+<div id="customTaskModal" class="modal hidden">
+
+    <div class="small-modal">
+
+        <div class="modal-header">
+
+            <h2>Ny odlingsuppgift</h2>
+
+            <button
+                id="closeCustomTaskModal"
+                class="close-button">
+                ×
+            </button>
+
+        </div>
+
+
+        <label>
+            Uppgift
+
+            <input
+                id="customTaskName"
+                type="text"
+                placeholder="Exempel: Gödsla tomater">
+        </label>
+
+
+        <label>
+            Kategori
+
+            <select id="customTaskCategory">
+
+                <option value="edible">
+                    🥕 Ätbart
+                </option>
+
+                <option value="flowers">
+                    🌸 Blommor
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <label>
+            Typ
+
+            <select id="customTaskType">
+
+                <option value="other">
+                    📋 Annat
+                </option>
+
+                <option value="fertilize">
+                    💧 Gödsling
+                </option>
+
+                <option value="prune">
+                    ✂️ Beskärning
+                </option>
+
+                <option value="transplant">
+                    🌿 Utplantering
+                </option>
+
+                <option value="repot">
+                    🔄 Omskolning
+                </option>
+
+                <option value="harvest">
+                    🧺 Skörd
+                </option>
+
+            </select>
+
+        </label>
+
+
+        <label>
+            Månad
+
+            <select id="customTaskMonth"></select>
+
+        </label>
+
+
+        <button
+            id="saveCustomTask"
+            class="primary-button full-width">
+            Lägg till uppgift
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- FLYTTA UPPGIFT -->
+
+<div id="moveModal" class="modal hidden">
+
+    <div class="small-modal">
+
+        <div class="modal-header">
+
+            <h2>Flytta uppgift</h2>
+
+            <button
+                id="closeMoveModal"
+                class="close-button">
+                ×
+            </button>
+
+        </div>
+
+
+        <p id="moveTaskText"></p>
+
+
+        <label>
+            Flytta till
+
+            <select id="moveTaskMonth"></select>
+
+        </label>
+
+
+        <button
+            id="confirmMove"
+            class="primary-button full-width">
+            Flytta uppgift
+        </button>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
+
+:root {
+    --accent: #527a55;
+    --accent-dark: #365c3a;
+    --background: #f3f0e8;
+    --card: #ffffff;
+    --text: #26352a;
+    --muted: #718075;
+    --border: #dfe5dc;
+    --shadow: 0 10px 30px rgba(40, 60, 45, 0.08);
+    --radius: 18px;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background-color: var(--background);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    color: var(--text);
+}
+
+
+body.has-background-image {
+    background-color: transparent;
+}
+
+
+body.has-background-image::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    background: rgba(245, 242, 235, 0.82);
+
+    z-index: -1;
+}
+
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+
+button {
+    cursor: pointer;
+}
+
+
+.topbar {
+    width: 100%;
+
+    padding: 18px 5%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(255,255,255,0.92);
+
+    border-bottom: 1px solid var(--border);
+
+    position: sticky;
+    top: 0;
+
+    z-index: 20;
+
+    backdrop-filter: blur(12px);
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.profile-image {
+    width: 54px;
+    height: 54px;
+
+    border-radius: 50%;
+
+    background: #e3ebdf;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 27px;
+
+    overflow: hidden;
+
+    flex-shrink: 0;
+}
+
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+.brand h1 {
+    margin: 0;
+
+    font-size: 1.3rem;
+}
+
+
+.brand p {
+    margin: 3px 0 0;
+
+    color: var(--muted);
+
+    font-size: 0.9rem;
+}
+
+
+.admin-button,
+.primary-button,
+.secondary-button,
+.danger-button,
+.file-button {
+    border: 0;
+
+    border-radius: 12px;
+
+    padding: 11px 16px;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        background 0.15s ease;
+}
+
+
+.admin-button:hover,
+.primary-button:hover,
+.secondary-button:hover,
+.danger-button:hover,
+.file-button:hover {
+    transform: translateY(-1px);
+}
+
+
+.admin-button {
+    background: #edf2ea;
+
+    color: var(--accent-dark);
+
+    font-weight: 700;
+}
+
+
+.primary-button {
+    background: var(--accent);
+
+    color: white;
+
+    font-weight: 700;
+
+    box-shadow: 0 5px 15px rgba(82,122,85,0.2);
+}
+
+
+.primary-button:hover {
+    background: var(--accent-dark);
+}
+
+
+.secondary-button {
+    background: #edf1eb;
+
+    color: var(--accent-dark);
+
+    font-weight: 600;
+}
+
+
+.danger-button {
+    background: #f7dddd;
+
+    color: #8d2d2d;
+
+    font-weight: 700;
+}
+
+
+.full-width {
+    width: 100%;
+}
+
+
+main {
+    width: min(1200px, 90%);
+
+    margin: 0 auto;
+
+    padding: 35px 0 70px;
+}
+
+
+.current-month-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 42px;
+}
+
+
+.small-label {
+    display: block;
+
+    font-size: 0.72rem;
+
+    letter-spacing: 0.12em;
+
+    font-weight: 800;
+
+    color: var(--accent);
+
+    margin-bottom: 5px;
+}
+
+
+.current-month-card h2 {
+    margin: 0;
+
+    font-size: 2.3rem;
+}
+
+
+.current-month-card p {
+    margin: 8px 0 0;
+
+    color: var(--muted);
+}
+
+
+.section {
+    margin-bottom: 45px;
+}
+
+
+.section-heading {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+
+.section-heading h2 {
+    margin: 0;
+
+    font-size: 1.8rem;
+}
+
+
+.month-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+
+.month-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: 15px;
+
+    padding: 19px;
+
+    min-height: 120px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+
+
+.month-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow);
+
+    border-color: var(--accent);
+}
+
+
+.month-card.current {
+    border: 2px solid var(--accent);
+}
+
+
+.month-card h3 {
+    margin: 0 0 8px;
+
+    font-size: 1.05rem;
+}
+
+
+.month-card .count {
+    color: var(--muted);
+
+    font-size: 0.85rem;
+}
+
+
+.progress-bar {
+    height: 7px;
+
+    background: #e8ece6;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+
+    margin-top: 13px;
+}
+
+
+.progress-bar span {
+    display: block;
+
+    height: 100%;
+
+    background: var(--accent);
+
+    border-radius: 20px;
+
+    transition: width 0.3s ease;
+}
+
+
+.month-section {
+    scroll-margin-top: 100px;
+}
+
+
+.month-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+
+.month-header h2 {
+    margin: 0;
+
+    font-size: 2rem;
+}
+
+
+.month-header p {
+    margin: 5px 0 0;
+
+    color: var(--muted);
+}
+
+
+.category-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    margin-bottom: 20px;
+
+    overflow: hidden;
+}
+
+
+.category-title {
+    padding: 20px 22px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.category-icon {
+    font-size: 28px;
+}
+
+
+.category-title h3 {
+    margin: 0;
+
+    font-size: 1.25rem;
+}
+
+
+.category-title p {
+    margin: 3px 0 0;
+
+    color: var(--muted);
+
+    font-size: 0.88rem;
+}
+
+
+.task-list {
+    padding: 7px 18px;
+}
+
+
+.task {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px 4px;
+
+    border-bottom: 1px solid #edf0eb;
+}
+
+
+.task:last-child {
+    border-bottom: 0;
+}
+
+
+.task-checkbox {
+    width: 21px;
+    height: 21px;
+
+    accent-color: var(--accent);
+
+    flex-shrink: 0;
+}
+
+
+.task-main {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.task-name {
+    font-weight: 650;
+
+    word-break: break-word;
+}
+
+
+.task-type {
+    display: inline-block;
+
+    margin-top: 4px;
+
+    font-size: 0.74rem;
+
+    color: var(--muted);
+}
+
+
+.task.done .task-name {
+    text-decoration: line-through;
+
+    color: #8a948b;
+}
+
+
+.task.done {
+    opacity: 0.7;
+}
+
+
+.move-button {
+    border: 0;
+
+    background: #f0f3ee;
+
+    color: var(--accent-dark);
+
+    border-radius: 9px;
+
+    padding: 8px 10px;
+
+    font-size: 0.8rem;
+
+    font-weight: 650;
+
+    flex-shrink: 0;
+}
+
+
+.empty-message {
+    padding: 22px;
+
+    color: var(--muted);
+
+    text-align: center;
+
+    font-size: 0.9rem;
+}
+
+
+.notes-card {
+    background: var(--card);
+
+    border: 1px solid var(--border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+    padding: 22px;
+
+    margin-top: 22px;
+}
+
+
+.notes-card h3 {
+    margin: 0 0 13px;
+}
+
+
+.notes-card textarea {
+    width: 100%;
+
+    min-height: 150px;
+
+    resize: vertical;
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    padding: 13px;
+
+    outline: none;
+
+    background: #fbfcfa;
+
+    color: var(--text);
+
+    margin-bottom: 12px;
+}
+
+
+.notes-card textarea:focus,
+input:focus,
+select:focus {
+    border-color: var(--accent);
+
+    outline: 2px solid rgba(82,122,85,0.1);
+}
+
+
+/* MODAL */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(25,35,27,0.55);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 100;
+}
+
+
+.modal.hidden {
+    display: none;
+}
+
+
+.modal-window {
+    width: min(1050px, 100%);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    background: #fff;
+
+    border-radius: 20px;
+
+    box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+}
+
+
+.small-modal {
+    width: min(500px, 100%);
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    box-shadow: 0 25px 70px rgba(0,0,0,0.2);
+}
+
+
+.modal-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 22px 25px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.small-modal .modal-header {
+    padding: 0 0 18px;
+
+    margin-bottom: 18px;
+}
+
+
+.modal-header h2 {
+    margin: 0;
+}
+
+
+.close-button {
+    width: 36px;
+    height: 36px;
+
+    border: 0;
+
+    border-radius: 50%;
+
+    background: #eef1ed;
+
+    color: var(--text);
+
+    font-size: 24px;
+
+    line-height: 1;
+}
+
+
+/* ADMIN */
+
+.admin-tabs {
+    display: flex;
+
+    gap: 5px;
+
+    padding: 12px 25px;
+
+    border-bottom: 1px solid var(--border);
+
+    overflow-x: auto;
+}
+
+
+.admin-tab {
+    border: 0;
+
+    background: transparent;
+
+    padding: 11px 14px;
+
+    border-radius: 10px;
+
+    color: var(--muted);
+
+    white-space: nowrap;
+
+    font-weight: 650;
+}
+
+
+.admin-tab.active {
+    background: #eaf0e8;
+
+    color: var(--accent-dark);
+}
+
+
+.admin-content {
+    display: none;
+
+    padding: 25px;
+}
+
+
+.admin-content.active {
+    display: block;
+}
+
+
+.admin-content h3 {
+    margin-top: 0;
+}
+
+
+.admin-content label,
+.small-modal label {
+    display: block;
+
+    font-weight: 650;
+
+    margin-bottom: 17px;
+}
+
+
+.admin-content input[type="text"],
+.admin-content input[type="file"],
+.admin-content select,
+.small-modal input,
+.small-modal select {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 7px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    padding: 11px;
+
+    background: #fbfcfa;
+
+    color: var(--text);
+}
+
+
+.form-row {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+
+.form-row input[type="color"] {
+    display: block;
+
+    width: 100%;
+
+    height: 45px;
+
+    margin-top: 7px;
+
+    padding: 3px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 10px;
+
+    background: white;
+}
+
+
+.admin-content .secondary-button {
+    margin-bottom: 15px;
+}
+
+
+.admin-section-header {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    margin-bottom: 20px;
+}
+
+
+.admin-section-header p {
+    color: var(--muted);
+
+    margin-top: 5px;
+}
+
+
+.seed-columns {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 25px;
+}
+
+
+.seed-columns h4 {
+    margin: 0 0 10px;
+}
+
+
+.admin-seed-list {
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    overflow: hidden;
+}
+
+
+.admin-seed {
+    display: grid;
+
+    grid-template-columns: 1fr 155px 35px;
+
+    gap: 8px;
+
+    align-items: center;
+
+    padding: 10px;
+
+    border-bottom: 1px solid #edf0eb;
+
+    background: white;
+}
+
+
+.admin-seed:last-child {
+    border-bottom: 0;
+}
+
+
+.admin-seed-name {
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+.admin-seed select {
+    width: 100%;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    padding: 7px;
+
+    background: #fafcf9;
+}
+
+
+.assigned {
+    color: #318044;
+
+    font-size: 17px;
+
+    text-align: center;
+}
+
+
+.delete-seed {
+    border: 0;
+
+    background: transparent;
+
+    color: #a33b3b;
+
+    font-size: 17px;
+}
+
+
+.custom-task-admin-list {
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    overflow: hidden;
+}
+
+
+.custom-task-admin-item {
+    padding: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    border-bottom: 1px solid #edf0eb;
+}
+
+
+.custom-task-admin-item:last-child {
+    border-bottom: 0;
+}
+
+
+.custom-task-info strong {
+    display: block;
+}
+
+
+.custom-task-info span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 0.8rem;
+
+    margin-top: 3px;
+}
+
+
+.data-buttons {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    margin-top: 20px;
+}
+
+
+.file-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    background: #edf1eb;
+
+    color: var(--accent-dark);
+
+    font-weight: 650;
+}
+
+
+/* TOAST */
+
+.toast {
+    position: fixed;
+
+    left: 50%;
+
+    bottom: 25px;
+
+    transform: translate(-50%, 100px);
+
+    background: #27372b;
+
+    color: white;
+
+    padding: 12px 18px;
+
+    border-radius: 12px;
+
+    box-shadow: var(--shadow);
+
+    opacity: 0;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+
+    z-index: 300;
+
+    pointer-events: none;
+}
+
+
+.toast.show {
+    transform: translate(-50%, 0);
+
+    opacity: 1;
+}
+
+
+/* MOBIL */
+
+@media (max-width: 800px) {
+
+    .topbar {
+        padding: 15px 4%;
+    }
+
+
+    .brand h1 {
+        font-size: 1.05rem;
+    }
+
+
+    .brand p {
+        font-size: 0.78rem;
+    }
+
+
+    .profile-image {
+        width: 45px;
+        height: 45px;
+    }
+
+
+    .admin-button {
+        padding: 9px 11px;
+    }
+
+
+    main {
+        width: 92%;
+        padding-top: 25px;
+    }
+
+
+    .current-month-card {
+        padding: 21px;
+
+        align-items: flex-start;
+
+        gap: 20px;
+
+        flex-direction: column;
+    }
+
+
+    .current-month-card h2 {
+        font-size: 2rem;
+    }
+
+
+    .current-month-card .primary-button {
+        width: 100%;
+    }
+
+
+    .month-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .month-header {
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+
+    .month-header .secondary-button {
+        width: 100%;
+    }
+
+
+    .seed-columns {
+        grid-template-columns: 1fr;
+    }
+
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+
+    .admin-section-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+
+    .admin-section-header .primary-button {
+        width: 100%;
+    }
+
+
+    .admin-seed {
+        grid-template-columns: 1fr 125px 30px;
+    }
+
+
+    .task {
+        align-items: flex-start;
+    }
+
+
+    .move-button {
+        margin-top: 1px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .month-grid {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 9px;
+    }
+
+
+    .month-card {
+        padding: 14px;
+
+        min-height: 105px;
+    }
+
+
+    .month-card h3 {
+        font-size: 0.95rem;
+    }
+
+
+    .month-header h2 {
+        font-size: 1.7rem;
+    }
+
+
+    .category-title {
+        padding: 17px;
+    }
+
+
+    .task-list {
+        padding: 5px 13px;
+    }
+
+
+    .admin-content,
+    .modal-header {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+
+    .admin-tabs {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+
+    .admin-seed {
+        grid-template-columns: 1fr;
+
+        gap: 5px;
+    }
+
+
+    .assigned {
+        display: none;
+    }
+
+
+    .delete-seed {
+        position: absolute;
+
+        right: 20px;
+    }
+}
+
+
+/* =========================================================
+   MIN ODLINGSKALENDER
+   ========================================================= */
+
+const MONTHS = [
+    "Januari",
+    "Februari",
+    "Mars",
+    "April",
+    "Maj",
+    "Juni",
+    "Juli",
+    "Augusti",
+    "September",
+    "Oktober",
+    "November",
+    "December"
+];
+
+
+const TASK_TYPES = {
+    sow: {
+        label: "🌱 Sådd"
+    },
+
+    transplant: {
+        label: "🌿 Utplantering"
+    },
+
+    repot: {
+        label: "🔄 Omskolning"
+    },
+
+    fertilize: {
+        label: "💧 Gödsling"
+    },
+
+    prune: {
+        label: "✂️ Beskärning"
+    },
+
+    harvest: {
+        label: "🧺 Skörd"
+    },
+
+    other: {
+        label: "📋 Annat"
+    }
+};
+
+
+const STORAGE_KEY = "odlingskalender-v2";
+
+
+let data = loadData();
+
+let selectedMonth = new Date().getMonth();
+
+let moveTaskId = null;
+
+let toastTimer = null;
+
+
+/* =========================================================
+   STANDARD DATA
+   ========================================================= */
+
+function createDefaultData() {
+
+    return {
+
+        settings: {
+            siteName: "Min Odlingskalender",
+            subtitle: "Din trädgård, månad för månad",
+            accent: "#527a55",
+            background: "#f3f0e8",
+            profileImage: "",
+            backgroundImage: ""
+        },
+
+
+        seeds: [
+
+            {
+                id: uid(),
+                name: "Basilika",
+                category: "edible",
+                month: 2
+            },
+
+            {
+                id: uid(),
+                name: "Chili",
+                category: "edible",
+                month: 1
+            },
+
+            {
+                id: uid(),
+                name: "Gurka",
+                category: "edible",
+                month: 3
+            },
+
+            {
+                id: uid(),
+                name: "Tomat",
+                category: "edible",
+                month: 1
+            },
+
+            {
+                id: uid(),
+                name: "Spenat",
+                category: "edible",
+                month: 2
+            },
+
+            {
+                id: uid(),
+                name: "Blåklint",
+                category: "flowers",
+                month: 3
+            },
+
+            {
+                id: uid(),
+                name: "Rosenskära",
+                category: "flowers",
+                month: 2
+            },
+
+            {
+                id: uid(),
+                name: "Tagetes",
+                category: "flowers",
+                month: 2
+            },
+
+            {
+                id: uid(),
+                name: "Zinnia",
+                category: "flowers",
+                month: 3
+            }
+
+        ],
+
+
+        tasks: [],
+
+
+        taskStates: {},
+
+
+        notes: {}
+
+    };
+}
+
+
+/* =========================================================
+   STORAGE
+   ========================================================= */
+
+function loadData() {
+
+    try {
+
+        const saved = localStorage.getItem(STORAGE_KEY);
+
+        if (!saved) {
+            return createDefaultData();
+        }
+
+        const parsed = JSON.parse(saved);
+
+        const defaults = createDefaultData();
+
+        return {
+            ...defaults,
+            ...parsed,
+
+            settings: {
+                ...defaults.settings,
+                ...(parsed.settings || {})
+            },
+
+            seeds: Array.isArray(parsed.seeds)
+                ? parsed.seeds
+                : defaults.seeds,
+
+            tasks: Array.isArray(parsed.tasks)
+                ? parsed.tasks
+                : [],
+
+            taskStates: parsed.taskStates || {},
+
+            notes: parsed.notes || {}
+
+        };
+
+    } catch (error) {
+
+        console.error("Kunde inte läsa sparad data:", error);
+
+        return createDefaultData();
+    }
+}
+
+
+function saveData() {
+
+    localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(data)
+    );
+}
+
+
+/* =========================================================
+   ID
+   ========================================================= */
+
+function uid() {
+
+    if (
+        typeof crypto !== "undefined" &&
+        crypto.randomUUID
+    ) {
+        return crypto.randomUUID();
+    }
+
+    return (
+        Date.now().toString(36) +
+        Math.random().toString(36).substring(2)
+    );
+}
+
+
+/* =========================================================
+   INIT
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    populateMonthSelects();
+
+    bindEvents();
+
+    applySettings();
+
+    renderAll();
+
+});
+
+
+/* =========================================================
+   EVENT LISTENERS
+   ========================================================= */
+
+function bindEvents() {
+
+    document
+        .getElementById("openAdmin")
+        .addEventListener("click", openAdmin);
+
+
+    document
+        .getElementById("closeAdmin")
+        .addEventListener("click", closeAdmin);
+
+
+    document
+        .getElementById("goToCurrentMonth")
+        .addEventListener("click", () => {
+
+            selectedMonth = new Date().getMonth();
+
+            renderAll();
+
+            document
+                .getElementById("monthSection")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        });
+
+
+    document
+        .getElementById("resetMonth")
+        .addEventListener("click", resetCurrentMonth);
+
+
+    document
+        .getElementById("saveNotes")
+        .addEventListener("click", saveNotes);
+
+
+    document
+        .getElementById("addSeed")
+        .addEventListener("click", openSeedModal);
+
+
+    document
+        .getElementById("closeSeedModal")
+        .addEventListener("click", closeSeedModal);
+
+
+    document
+        .getElementById("saveNewSeed")
+        .addEventListener("click", saveNewSeed);
+
+
+    document
+        .getElementById("addCustomTask")
+        .addEventListener("click", openCustomTaskModal);
+
+
+    document
+        .getElementById("closeCustomTaskModal")
+        .addEventListener("click", closeCustomTaskModal);
+
+
+    document
+        .getElementById("saveCustomTask")
+        .addEventListener("click", saveCustomTask);
+
+
+    document
+        .getElementById("closeMoveModal")
+        .addEventListener("click", closeMoveModal);
+
+
+    document
+        .getElementById("confirmMove")
+        .addEventListener("click", confirmMove);
+
+
+    document
+        .getElementById("saveAppearance")
+        .addEventListener("click", saveAppearance);
+
+
+    document
+        .getElementById("removeProfile")
+        .addEventListener("click", () => {
+
+            data.settings.profileImage = "";
+
+            saveData();
+
+            applySettings();
+
+            showToast("Profilbild borttagen");
+
+        });
+
+
+    document
+        .getElementById("removeBackground")
+        .addEventListener("click", () => {
+
+            data.settings.backgroundImage = "";
+
+            saveData();
+
+            applySettings();
+
+            showToast("Bakgrundsbild borttagen");
+
+        });
+
+
+    document
+        .getElementById("profileUpload")
+        .addEventListener("change", handleProfileUpload);
+
+
+    document
+        .getElementById("backgroundUpload")
+        .addEventListener("change", handleBackgroundUpload);
+
+
+    document
+        .getElementById("exportData")
+        .addEventListener("click", exportData);
+
+
+    document
+        .getElementById("importData")
+        .addEventListener("change", importData);
+
+
+    document
+        .getElementById("clearData")
+        .addEventListener("click", clearData);
+
+
+    document
+        .querySelectorAll(".admin-tab")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                switchAdminTab(
+                    button.dataset.tab,
+                    button
+                );
+
+            });
+
+        });
+
+
+    document
+        .getElementById("adminModal")
+        .addEventListener("click", event => {
+
+            if (event.target.id === "adminModal") {
+                closeAdmin();
+            }
+
+        });
+
+
+    document
+        .getElementById("seedModal")
+        .addEventListener("click", event => {
+
+            if (event.target.id === "seedModal") {
+                closeSeedModal();
+            }
+
+        });
+
+
+    document
+        .getElementById("customTaskModal")
+        .addEventListener("click", event => {
+
+            if (event.target.id === "customTaskModal") {
+                closeCustomTaskModal();
+            }
+
+        });
+
+
+    document
+        .getElementById("moveModal")
+        .addEventListener("click", event => {
+
+            if (event.target.id === "moveModal") {
+                closeMoveModal();
+            }
+
+        });
+
+
+    document.addEventListener("keydown", event => {
+
+        if (event.key === "Escape") {
+
+            closeAdmin();
+            closeSeedModal();
+            closeCustomTaskModal();
+            closeMoveModal();
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   MONTH SELECTS
+   ========================================================= */
+
+function populateMonthSelects() {
+
+    const selects = [
+        document.getElementById("newSeedMonth"),
+        document.getElementById("customTaskMonth"),
+        document.getElementById("moveTaskMonth")
+    ];
+
+
+    selects.forEach(select => {
+
+        if (!select) return;
+
+        select.innerHTML = "";
+
+        if (select.id === "newSeedMonth") {
+
+            const noMonth = document.createElement("option");
+
+            noMonth.value = "";
+
+            noMonth.textContent = "Ingen månad ännu";
+
+            select.appendChild(noMonth);
+        }
+
+
+        MONTHS.forEach((month, index) => {
+
+            const option = document.createElement("option");
+
+            option.value = index;
+
+            option.textContent = month;
+
+            select.appendChild(option);
+
+        });
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER ALL
+   ========================================================= */
+
+function renderAll() {
+
+    applySettings();
+
+    renderCurrentMonth();
+
+    renderMonthGrid();
+
+    renderSelectedMonth();
+
+    renderAdminSeeds();
+
+    renderCustomTaskAdmin();
+
+    loadAppearanceForm();
+
+}
+
+
+/* =========================================================
+   CURRENT MONTH
+   ========================================================= */
+
+function renderCurrentMonth() {
+
+    const current = new Date().getMonth();
+
+    const stats = getMonthStats(current);
+
+    document
+        .getElementById("currentMonthName")
+        .textContent = MONTHS[current];
+
+
+    document
+        .getElementById("currentMonthSummary")
+        .textContent =
+        `${stats.done} av ${stats.total} uppgifter klara`;
+
+}
+
+
+/* =========================================================
+   MONTH GRID
+   ========================================================= */
+
+function renderMonthGrid() {
+
+    const grid =
+        document.getElementById("monthGrid");
+
+    grid.innerHTML = "";
+
+
+    MONTHS.forEach((month, index) => {
+
+        const stats = getMonthStats(index);
+
+        const card =
+            document.createElement("div");
+
+        card.className = "month-card";
+
+
+        if (index === new Date().getMonth()) {
+            card.classList.add("current");
+        }
+
+
+        const percentage =
+            stats.total === 0
+                ? 0
+                : Math.round(
+                    stats.done / stats.total * 100
+                );
+
+
+        card.innerHTML = `
+
+            <h3>${escapeHtml(month)}</h3>
+
+            <div class="count">
+                ${stats.done} av ${stats.total} klara
+            </div>
+
+            <div class="progress-bar">
+                <span style="width:${percentage}%"></span>
+            </div>
+
+        `;
+
+
+        card.addEventListener("click", () => {
+
+            selectedMonth = index;
+
+            renderSelectedMonth();
+
+            document
+                .getElementById("monthSection")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        });
+
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+/* =========================================================
+   MONTH TASKS
+   ========================================================= */
+
+function renderSelectedMonth() {
+
+    document
+        .getElementById("selectedMonthName")
+        .textContent = MONTHS[selectedMonth];
+
+
+    const stats =
+        getMonthStats(selectedMonth);
+
+
+    document
+        .getElementById("selectedMonthSummary")
+        .textContent =
+        `${stats.done} av ${stats.total} uppgifter klara`;
+
+
+    renderCategory(
+        "flowers",
+        "flowerTasks",
+        "flowerEmpty"
+    );
+
+
+    renderCategory(
+        "edible",
+        "edibleTasks",
+        "edibleEmpty"
+    );
+
+
+    document
+        .getElementById("monthNotes")
+        .value =
+        data.notes[selectedMonth] || "";
+
+}
+
+
+function renderCategory(
+    category,
+    listId,
+    emptyId
+) {
+
+    const list =
+        document.getElementById(listId);
+
+    const empty =
+        document.getElementById(emptyId);
+
+
+    list.innerHTML = "";
+
+
+    const tasks =
+        getTasksForMonth(selectedMonth)
+            .filter(task => task.category === category);
+
+
+    if (tasks.length === 0) {
+
+        empty.style.display = "block";
+
+        return;
+
+    }
+
+
+    empty.style.display = "none";
+
+
+    tasks
+        .sort((a, b) =>
+            a.name.localeCompare(
+                b.name,
+                "sv"
+            )
+        )
+        .forEach(task => {
+
+            list.appendChild(
+                createTaskElement(task)
+            );
+
+        });
+
+}
+
+
+/* =========================================================
+   GET TASKS FOR MONTH
+   ========================================================= */
+
+function getTasksForMonth(month) {
+
+    const result = [];
+
+
+    /*
+       Alla växter som har fått en månad
+       blir automatiskt en sådd-uppgift.
+    */
+
+    data.seeds
+        .filter(seed => seed.month === month)
+        .forEach(seed => {
+
+            result.push({
+
+                id: `seed-${seed.id}`,
+
+                seedId: seed.id,
+
+                name: seed.name,
+
+                category: seed.category,
+
+                type: "sow",
+
+                month: seed.month,
+
+                source: "seed"
+
+            });
+
+        });
+
+
+    /*
+       Egna uppgifter
+    */
+
+    data.tasks
+        .filter(task => task.month === month)
+        .forEach(task => {
+
+            result.push({
+
+                ...task,
+
+                source: "custom"
+
+            });
+
+        });
+
+
+    return result;
+}
+
+
+/* =========================================================
+   TASK ELEMENT
+   ========================================================= */
+
+function createTaskElement(task) {
+
+    const element =
+        document.createElement("div");
+
+
+    const done =
+        getTaskState(task) === true;
+
+
+    element.className = "task";
+
+
+    if (done) {
+        element.classList.add("done");
+    }
+
+
+    const checkbox =
+        document.createElement("input");
+
+    checkbox.type = "checkbox";
+
+    checkbox.className = "task-checkbox";
+
+    checkbox.checked = done;
+
+
+    checkbox.addEventListener(
+        "change",
+        () => {
+
+            setTaskState(
+                task,
+                checkbox.checked
+            );
+
+            renderAll();
+
+        }
+    );
+
+
+    const main =
+        document.createElement("div");
+
+    main.className = "task-main";
+
+
+    const name =
+        document.createElement("div");
+
+    name.className = "task-name";
+
+    name.textContent = task.name;
+
+
+    const type =
+        document.createElement("span");
+
+    type.className = "task-type";
+
+    type.textContent =
+        TASK_TYPES[task.type]?.label ||
+        TASK_TYPES.other.label;
+
+
+    main.appendChild(name);
+
+    main.appendChild(type);
+
+
+    const move =
+        document.createElement("button");
+
+    move.className = "move-button";
+
+    move.textContent = "↪ Flytta";
+
+
+    move.addEventListener(
+        "click",
+        () => openMoveModal(task)
+    );
+
+
+    element.appendChild(checkbox);
+
+    element.appendChild(main);
+
+    element.appendChild(move);
+
+
+    return element;
+}
+
+
+/* =========================================================
+   TASK STATE
+   ========================================================= */
+
+function getTaskState(task) {
+
+    const key = getTaskStateKey(task);
+
+    return data.taskStates[key] === true;
+}
+
+
+function setTaskState(task, value) {
+
+    const key = getTaskStateKey(task);
+
+    data.taskStates[key] = value;
+
+    saveData();
+}
+
+
+function getTaskStateKey(task) {
+
+    if (task.source === "seed") {
+
+        return `seed:${task.seedId}:${task.month}`;
+
+    }
+
+
+    return `task:${task.id}:${task.month}`;
+}
+
+
+/* =========================================================
+   MONTH STATS
+   ========================================================= */
+
+function getMonthStats(month) {
+
+    const tasks =
+        getTasksForMonth(month);
+
+
+    let done = 0;
+
+
+    tasks.forEach(task => {
+
+        if (getTaskState(task)) {
+            done++;
+        }
+
+    });
+
+
+    return {
+
+        total: tasks.length,
+
+        done
+
+    };
+}
+
+
+/* =========================================================
+   RESET MONTH
+   ========================================================= */
+
+function resetCurrentMonth() {
+
+    const tasks =
+        getTasksForMonth(selectedMonth);
+
+
+    if (tasks.length === 0) {
+
+        showToast("Det finns inga uppgifter att nollställa.");
+
+        return;
+
+    }
+
+
+    const answer =
+        confirm(
+            `Vill du markera alla ${tasks.length} uppgifter i ${MONTHS[selectedMonth]} som ej klara?`
+        );
+
+
+    if (!answer) return;
+
+
+    tasks.forEach(task => {
+
+        const key =
+            getTaskStateKey(task);
+
+        data.taskStates[key] = false;
+
+    });
+
+
+    saveData();
+
+    renderAll();
+
+    showToast(
+        `${MONTHS[selectedMonth]} är nollställd.`
+    );
+
+}
+
+
+/* =========================================================
+   NOTES
+   ========================================================= */
+
+function saveNotes() {
+
+    const value =
+        document
+            .getElementById("monthNotes")
+            .value;
+
+
+    data.notes[selectedMonth] = value;
+
+    saveData();
+
+    showToast("Anteckningarna är sparade.");
+
+}
+
+
+/* =========================================================
+   ADMIN
+   ========================================================= */
+
+function openAdmin() {
+
+    document
+        .getElementById("adminModal")
+        .classList.remove("hidden");
+
+
+    renderAdminSeeds();
+
+    renderCustomTaskAdmin();
+
+}
+
+
+function closeAdmin() {
+
+    document
+        .getElementById("adminModal")
+        .classList.add("hidden");
+
+}
+
+
+function switchAdminTab(
+    tabId,
+    button
+) {
+
+    document
+        .querySelectorAll(".admin-tab")
+        .forEach(tab =>
+            tab.classList.remove("active")
+        );
+
+
+    document
+        .querySelectorAll(".admin-content")
+        .forEach(content =>
+            content.classList.remove("active")
+        );
+
+
+    button.classList.add("active");
+
+
+    document
+        .getElementById(tabId)
+        .classList.add("active");
+
+}
+
+
+/* =========================================================
+   APPEARANCE
+   ========================================================= */
+
+function loadAppearanceForm() {
+
+    document
+        .getElementById("settingSiteName")
+        .value =
+        data.settings.siteName;
+
+
+    document
+        .getElementById("settingSubtitle")
+        .value =
+        data.settings.subtitle;
+
+
+    document
+        .getElementById("settingAccent")
+        .value =
+        data.settings.accent;
+
+
+    document
+        .getElementById("settingBackground")
+        .value =
+        data.settings.background;
+
+}
+
+
+function saveAppearance() {
+
+    data.settings.siteName =
+        document
+            .getElementById("settingSiteName")
+            .value.trim() ||
+        "Min Odlingskalender";
+
+
+    data.settings.subtitle =
+        document
+            .getElementById("settingSubtitle")
+            .value.trim() ||
+        "Din trädgård, månad för månad";
+
+
+    data.settings.accent =
+        document
+            .getElementById("settingAccent")
+            .value;
+
+
+    data.settings.background =
+        document
+            .getElementById("settingBackground")
+            .value;
+
+
+    saveData();
+
+    applySettings();
+
+    showToast("Utseendet är sparat.");
+
+}
+
+
+function applySettings() {
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--accent",
+            data.settings.accent
+        );
+
+
+    document
+        .documentElement
+        .style
+        .setProperty(
+            "--background",
+            data.settings.background
+        );
+
+
+    document
+        .getElementById("siteName")
+        .textContent =
+        data.settings.siteName;
+
+
+    document
+        .getElementById("siteSubtitle")
+        .textContent =
+        data.settings.subtitle;
+
+
+    const profile =
+        document
+            .getElementById("profileImage");
+
+
+    if (data.settings.profileImage) {
+
+        profile.innerHTML =
+            `<img src="${data.settings.profileImage}" alt="Profilbild">`;
+
+    } else {
+
+        profile.innerHTML = "🌱";
+
+    }
+
+
+    if (data.settings.backgroundImage) {
+
+        document.body.style.backgroundImage =
+            `url("${data.settings.backgroundImage}")`;
+
+        document.body.classList.add(
+            "has-background-image"
+        );
+
+    } else {
+
+        document.body.style.backgroundImage = "";
+
+        document.body.classList.remove(
+            "has-background-image"
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   IMAGE UPLOAD
+   ========================================================= */
+
+function handleProfileUpload(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    readFileAsDataURL(
+        file,
+        result => {
+
+            data.settings.profileImage = result;
+
+            saveData();
+
+            applySettings();
+
+            showToast("Profilbild uppladdad.");
+
+        }
+    );
+
+}
+
+
+function handleBackgroundUpload(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    readFileAsDataURL(
+        file,
+        result => {
+
+            data.settings.backgroundImage =
+                result;
+
+            saveData();
+
+            applySettings();
+
+            showToast("Bakgrundsbild uppladdad.");
+
+        }
+    );
+
+}
+
+
+function readFileAsDataURL(
+    file,
+    callback
+) {
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = () =>
+        callback(reader.result);
+
+
+    reader.readAsDataURL(file);
+
+}
+
+
+/* =========================================================
+   SEED MODAL
+   ========================================================= */
+
+function openSeedModal() {
+
+    document
+        .getElementById("newSeedName")
+        .value = "";
+
+
+    document
+        .getElementById("newSeedCategory")
+        .value = "edible";
+
+
+    document
+        .getElementById("newSeedMonth")
+        .value = "";
+
+
+    document
+        .getElementById("seedModal")
+        .classList.remove("hidden");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("newSeedName")
+            .focus();
+
+    }, 50);
+
+}
+
+
+function closeSeedModal() {
+
+    document
+        .getElementById("seedModal")
+        .classList.add("hidden");
+
+}
+
+
+function saveNewSeed() {
+
+    const name =
+        document
+            .getElementById("newSeedName")
+            .value
+            .trim();
+
+
+    const category =
+        document
+            .getElementById("newSeedCategory")
+            .value;
+
+
+    const monthValue =
+        document
+            .getElementById("newSeedMonth")
+            .value;
+
+
+    if (!name) {
+
+        alert("Skriv ett namn på växten.");
+
+        return;
+
+    }
+
+
+    const exists =
+        data.seeds.some(
+            seed =>
+                seed.name.toLowerCase() ===
+                name.toLowerCase()
+        );
+
+
+    if (exists) {
+
+        alert("Den växten finns redan i biblioteket.");
+
+        return;
+
+    }
+
+
+    data.seeds.push({
+
+        id: uid(),
+
+        name,
+
+        category,
+
+        month:
+            monthValue === ""
+                ? null
+                : Number(monthValue)
+
+    });
+
+
+    saveData();
+
+    closeSeedModal();
+
+    renderAll();
+
+    showToast(
+        `${name} har lagts till.`
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN SEED LIST
+   ========================================================= */
+
+function renderAdminSeeds() {
+
+    renderAdminSeedCategory(
+        "edible",
+        "adminEdibleSeeds"
+    );
+
+
+    renderAdminSeedCategory(
+        "flowers",
+        "adminFlowerSeeds"
+    );
+
+}
+
+
+function renderAdminSeedCategory(
+    category,
+    containerId
+) {
+
+    const container =
+        document.getElementById(containerId);
+
+
+    container.innerHTML = "";
+
+
+    const seeds =
+        data.seeds
+            .filter(seed =>
+                seed.category === category
+            )
+            .sort((a, b) =>
+                a.name.localeCompare(
+                    b.name,
+                    "sv"
+                )
+            );
+
+
+    if (seeds.length === 0) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className = "empty-message";
+
+        empty.textContent =
+            "Inga växter ännu.";
+
+        container.appendChild(empty);
+
+        return;
+
+    }
+
+
+    seeds.forEach(seed => {
+
+        const row =
+            document.createElement("div");
+
+        row.className = "admin-seed";
+
+
+        const name =
+            document.createElement("div");
+
+        name.className = "admin-seed-name";
+
+        name.textContent = seed.name;
+
+
+        const select =
+            document.createElement("select");
+
+
+        const noMonth =
+            document.createElement("option");
+
+        noMonth.value = "";
+
+        noMonth.textContent =
+            "Ingen månad";
+
+        select.appendChild(noMonth);
+
+
+        MONTHS.forEach((month, index) => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = index;
+
+            option.textContent = month;
+
+            if (seed.month === index) {
+                option.selected = true;
+            }
+
+            select.appendChild(option);
+
+        });
+
+
+        select.addEventListener(
+            "change",
+            () => {
+
+                const oldMonth =
+                    seed.month;
+
+
+                seed.month =
+                    select.value === ""
+                        ? null
+                        : Number(select.value);
+
+
+                /*
+                   Om växten flyttas från en månad
+                   behåller vi den gamla statusen
+                   separat.
+                */
+
+                if (
+                    oldMonth !== seed.month
+                ) {
+
+                    showToast(
+                        `${seed.name} är nu planerad till ${
+                            seed.month === null
+                                ? "ingen månad"
+                                : MONTHS[seed.month]
+                        }.`
+                    );
+
+                }
+
+
+                saveData();
+
+                renderAll();
+
+            }
+        );
+
+
+        const assigned =
+            document.createElement("div");
+
+        assigned.className = "assigned";
+
+        assigned.textContent =
+            seed.month !== null
+                ? "✓"
+                : "";
+
+
+        const deleteButton =
+            document.createElement("button");
+
+        deleteButton.className =
+            "delete-seed";
+
+        deleteButton.textContent = "🗑️";
+
+        deleteButton.title =
+            "Ta bort växt";
+
+
+        deleteButton.addEventListener(
+            "click",
+            () => deleteSeed(seed.id)
+        );
+
+
+        row.appendChild(name);
+
+        row.appendChild(select);
+
+        row.appendChild(assigned);
+
+        row.appendChild(deleteButton);
+
+
+        container.appendChild(row);
+
+    });
+
+}
+
+
+/* =========================================================
+   DELETE SEED
+   ========================================================= */
+
+function deleteSeed(seedId) {
+
+    const seed =
+        data.seeds.find(
+            item => item.id === seedId
+        );
+
+
+    if (!seed) return;
+
+
+    const answer =
+        confirm(
+            `Vill du verkligen ta bort "${seed.name}" från växtbiblioteket?`
+        );
+
+
+    if (!answer) return;
+
+
+    data.seeds =
+        data.seeds.filter(
+            item => item.id !== seedId
+        );
+
+
+    saveData();
+
+    renderAll();
+
+    showToast(
+        `${seed.name} har tagits bort.`
+    );
+
+}
+
+
+/* =========================================================
+   CUSTOM TASK MODAL
+   ========================================================= */
+
+function openCustomTaskModal() {
+
+    document
+        .getElementById("customTaskName")
+        .value = "";
+
+
+    document
+        .getElementById("customTaskCategory")
+        .value = "edible";
+
+
+    document
+        .getElementById("customTaskType")
+        .value = "other";
+
+
+    document
+        .getElementById("customTaskMonth")
+        .value = selectedMonth;
+
+
+    document
+        .getElementById("customTaskModal")
+        .classList.remove("hidden");
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById("customTaskName")
+            .focus();
+
+    }, 50);
+
+}
+
+
+function closeCustomTaskModal() {
+
+    document
+        .getElementById("customTaskModal")
+        .classList.add("hidden");
+
+}
+
+
+function saveCustomTask() {
+
+    const name =
+        document
+            .getElementById("customTaskName")
+            .value
+            .trim();
+
+
+    const category =
+        document
+            .getElementById("customTaskCategory")
+            .value;
+
+
+    const type =
+        document
+            .getElementById("customTaskType")
+            .value;
+
+
+    const month =
+        Number(
+            document
+                .getElementById("customTaskMonth")
+                .value
+        );
+
+
+    if (!name) {
+
+        alert("Skriv vad som ska göras.");
+
+        return;
+
+    }
+
+
+    data.tasks.push({
+
+        id: uid(),
+
+        name,
+
+        category,
+
+        type,
+
+        month
+
+    });
+
+
+    saveData();
+
+    closeCustomTaskModal();
+
+    renderAll();
+
+    showToast(
+        "Ny odlingsuppgift skapad."
+    );
+
+}
+
+
+/* =========================================================
+   ADMIN CUSTOM TASKS
+   ========================================================= */
+
+function renderCustomTaskAdmin() {
+
+    const container =
+        document
+            .getElementById("customTaskAdminList");
+
+
+    container.innerHTML = "";
+
+
+    if (data.tasks.length === 0) {
+
+        const empty =
+            document.createElement("div");
+
+        empty.className = "empty-message";
+
+        empty.textContent =
+            "Du har inga egna uppgifter ännu.";
+
+        container.appendChild(empty);
+
+        return;
+
+    }
+
+
+    data.tasks
+        .sort((a, b) =>
+            a.name.localeCompare(
+                b.name,
+                "sv"
+            )
+        )
+        .forEach(task => {
+
+            const row =
+                document.createElement("div");
+
+            row.className =
+                "custom-task-admin-item";
+
+
+            const info =
+                document.createElement("div");
+
+            info.className =
+                "custom-task-info";
+
+
+            const title =
+                document.createElement("strong");
+
+            title.textContent =
+                task.name;
+
+
+            const details =
+                document.createElement("span");
+
+            details.textContent =
+                `${TASK_TYPES[task.type]?.label || "📋 Annat"} • ${task.category === "flowers" ? "🌸 Blommor" : "🥕 Ätbart"} • ${MONTHS[task.month]}`;
+
+
+            info.appendChild(title);
+
+            info.appendChild(details);
+
+
+            const deleteButton =
+                document.createElement("button");
+
+            deleteButton.className =
+                "danger-button";
+
+            deleteButton.textContent =
+                "Ta bort";
+
+
+            deleteButton.addEventListener(
+                "click",
+                () => deleteCustomTask(task.id)
+            );
+
+
+            row.appendChild(info);
+
+            row.appendChild(deleteButton);
+
+
+            container.appendChild(row);
+
+        });
+
+}
+
+
+/* =========================================================
+   DELETE CUSTOM TASK
+   ========================================================= */
+
+function deleteCustomTask(taskId) {
+
+    const task =
+        data.tasks.find(
+            item => item.id === taskId
+        );
+
+
+    if (!task) return;
+
+
+    if (
+        !confirm(
+            `Vill du ta bort "${task.name}"?`
+        )
+    ) {
+        return;
+    }
+
+
+    data.tasks =
+        data.tasks.filter(
+            item => item.id !== taskId
+        );
+
+
+    /*
+       Ta även bort gamla statusdata
+       för uppgiften.
+    */
+
+    Object.keys(data.taskStates)
+        .forEach(key => {
+
+            if (
+                key.startsWith(
+                    `task:${taskId}:`
+                )
+            ) {
+
+                delete data.taskStates[key];
+
+            }
+
+        });
+
+
+    saveData();
+
+    renderAll();
+
+    showToast("Uppgiften är borttagen.");
+
+}
+
+
+/* =========================================================
+   MOVE TASK
+   ========================================================= */
+
+function openMoveModal(task) {
+
+    moveTaskId = task;
+
+
+    document
+        .getElementById("moveTaskText")
+        .textContent =
+        `"${task.name}" är just nu planerad till ${MONTHS[task.month]}.`;
+
+
+    document
+        .getElementById("moveTaskMonth")
+        .value = task.month;
+
+
+    document
+        .getElementById("moveModal")
+        .classList.remove("hidden");
+
+}
+
+
+function closeMoveModal() {
+
+    document
+        .getElementById("moveModal")
+        .classList.add("hidden");
+
+
+    moveTaskId = null;
+
+}
+
+
+function confirmMove() {
+
+    if (!moveTaskId) return;
+
+
+    const newMonth =
+        Number(
+            document
+                .getElementById("moveTaskMonth")
+                .value
+        );
+
+
+    const task =
+        moveTaskId;
+
+
+    if (task.source === "seed") {
+
+        const seed =
+            data.seeds.find(
+                item =>
+                    item.id === task.seedId
+            );
+
+
+        if (!seed) {
+
+            closeMoveModal();
+
+            return;
+
+        }
+
+
+        seed.month = newMonth;
+
+
+        /*
+           Den nya månaden börjar som ej klar.
+        */
+
+        data.taskStates[
+            `seed:${seed.id}:${newMonth}`
+        ] = false;
+
+
+        saveData();
+
+        closeMoveModal();
+
+        renderAll();
+
+        showToast(
+            `${seed.name} flyttades till ${MONTHS[newMonth]}.`
+        );
+
+        return;
+
+    }
+
+
+    const customTask =
+        data.tasks.find(
+            item => item.id === task.id
+        );
+
+
+    if (!customTask) {
+
+        closeMoveModal();
+
+        return;
+
+    }
+
+
+    customTask.month = newMonth;
+
+
+    data.taskStates[
+        `task:${customTask.id}:${newMonth}`
+    ] = false;
+
+
+    saveData();
+
+    closeMoveModal();
+
+    renderAll();
+
+    showToast(
+        `${customTask.name} flyttades till ${MONTHS[newMonth]}.`
+    );
+
+}
+
+
+/* =========================================================
+   EXPORT
+   ========================================================= */
+
+function exportData() {
+
+    const exportObject = {
+
+        ...data,
+
+        exportedAt:
+            new Date().toISOString(),
+
+        version: 2
+
+    };
+
+
+    const json =
+        JSON.stringify(
+            exportObject,
+            null,
+            2
+        );
+
+
+    const blob =
+        new Blob(
+            [json],
+            {
+                type: "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(blob);
+
+
+    const link =
+        document.createElement("a");
+
+
+    link.href = url;
+
+    link.download =
+        "min-odlingskalender.json";
+
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+
+    URL.revokeObjectURL(url);
+
+
+    showToast(
+        "Data exporterad."
+    );
+
+}
+
+
+/* =========================================================
+   IMPORT
+   ========================================================= */
+
+function importData(event) {
+
+    const file =
+        event.target.files[0];
+
+
+    if (!file) return;
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = () => {
+
+        try {
+
+            const imported =
+                JSON.parse(reader.result);
+
+
+            if (
+                !imported ||
+                !Array.isArray(imported.seeds)
+            ) {
+
+                throw new Error(
+                    "Ogiltig fil"
+                );
+
+            }
+
+
+            const defaults =
+                createDefaultData();
+
+
+            data = {
+
+                ...defaults,
+
+                ...imported,
+
+                settings: {
+
+                    ...defaults.settings,
+
+                    ...(imported.settings || {})
+
+                },
+
+                seeds:
+                    imported.seeds,
+
+                tasks:
+                    Array.isArray(imported.tasks)
+                        ? imported.tasks
+                        : [],
+
+                taskStates:
+                    imported.taskStates || {},
+
+                notes:
+                    imported.notes || {}
+
+            };
+
+
+            saveData();
+
+            renderAll();
+
+
+            showToast(
+                "Data importerad."
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert(
+                "Kunde inte importera filen. Kontrollera att det är en odlingskalender-export."
+            );
+
+        }
+
+
+        event.target.value = "";
+
+    };
+
+
+    reader.readAsText(file);
+
+}
+
+
+/* =========================================================
+   CLEAR DATA
+   ========================================================= */
+
+function clearData() {
+
+    const answer =
+        confirm(
+            "Detta raderar hela odlingskalendern och återställer exempeldata. Vill du fortsätta?"
+        );
+
+
+    if (!answer) return;
+
+
+    data =
+        createDefaultData();
+
+
+    saveData();
+
+    applySettings();
+
+    renderAll();
+
+    showToast(
+        "All data har återställts."
+    );
+
+}
+
+
+/* =========================================================
+   TOAST
+   ========================================================= */
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById("toast");
+
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+
+    clearTimeout(toastTimer);
+
+
+    toastTimer =
+        setTimeout(() => {
+
+            toast.classList.remove("show");
+
+        }, 2500);
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+          # 🌱 Min Odlingskalender
+
+En enkel personlig odlingskalender som körs helt i webbläsaren.
 
 ## Funktioner
-- Nuvarande månad automatiskt
-- Årsöversikt med 12 klickbara månader
-- Blommor och ätbart i två kolumner
-- Obegränsat fröbibliotek
-- Markera fröer som sådda
-- Flytta fröer till valfri månad
-- Nollställ en hel månad
-- Månadens anteckningar
-- Adminpanel för namn, profilbild, färger och bakgrund
+
+- Årsöversikt
+- Automatisk aktuell månad
+- Blommor och ätbart
+- Sådd
+- Utplantering
+- Omskolning
+- Gödsling
+- Beskärning
+- Skörd
+- Egna odlingsuppgifter
+- Markera uppgifter som klara
+- Flytta uppgifter mellan månader
+- Nollställ månad
+- Anteckningar per månad
+- Växtbibliotek
+- Alfabetisk sortering
+- Egna färger
+- Profilbild
+- Bakgrundsbild
 - Export/import av data
-- Lokal lagring i webbläsaren
+- Mobilanpassad
+- Fungerar med GitHub Pages
 
-## GitHub Pages
-Lägg filerna i ett repository och aktivera GitHub Pages under Settings → Pages.
+## Installation
 
+1. Skapa ett nytt repository på GitHub.
+
+2. Lägg in:
+
+   - index.html
+   - style.css
+   - script.js
+   - README.md
+
+3. Gå till:
+
+   Settings → Pages
+
+4. Under "Build and deployment":
+
+   Source: Deploy from a branch
+
+5. Välj:
+
+   Branch: main
+
+   Folder: / (root)
+
+6. Spara.
+
+Efter en liten stund får du en GitHub Pages-adress till din odlingskalender.
+
+## Data
+
+All information sparas lokalt i webbläsaren med localStorage.
+
+Det betyder att ingen databas behövs.
+
+Använd därför "Exportera data" i adminpanelen med jämna mellanrum om du vill ha en säkerhetskopia.
+
+## Viktigt
+
+Om du rensar webbläsarens webbplatsdata kan den lokalt sparade odlingsinformationen försvinna.
+
+Använd exportfunktionen för säkerhetskopiering.
