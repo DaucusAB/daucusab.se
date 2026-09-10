@@ -1,1 +1,2275 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lär & Spela 🎮</title>
 
+<style>
+:root {
+  --primary: #7c5cff;
+  --secondary: #ff6584;
+  --accent: #ffd166;
+  --success: #38c172;
+  --danger: #ef476f;
+  --text: #25243a;
+  --muted: #6d6a83;
+  --card: rgba(255,255,255,.94);
+  --shadow: 0 15px 40px rgba(50,40,100,.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,255,255,.7) 0 40px, transparent 41px),
+    radial-gradient(circle at 90% 20%, rgba(255,255,255,.5) 0 55px, transparent 56px),
+    linear-gradient(135deg, #dff7ff, #f7e8ff 45%, #fff3d5);
+  background-size: auto;
+  transition: .3s ease;
+}
+
+body.bg-stars {
+  background:
+    radial-gradient(circle at 20% 20%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 30%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 40% 70%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 85% 80%, #fff 0 2px, transparent 3px),
+    linear-gradient(135deg, #17164b, #49328b, #7b4ca8);
+  color: white;
+}
+
+body.bg-ocean {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,.5), transparent 25%),
+    linear-gradient(135deg, #8be9fd, #48bfe3, #5390d9);
+}
+
+body.bg-jungle {
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255,255,255,.45), transparent 25%),
+    linear-gradient(135deg, #b8f2c8, #52b788, #168aad);
+}
+
+body.bg-sunset {
+  background:
+    radial-gradient(circle at 70% 20%, #fff3b0 0 60px, transparent 61px),
+    linear-gradient(135deg, #ff9a8b, #ff6a88, #9b5de5);
+}
+
+body.bg-space {
+  background:
+    radial-gradient(circle at 20% 30%, #fff 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 20%, #fff 0 1px, transparent 2px),
+    radial-gradient(circle at 60% 75%, #fff 0 2px, transparent 3px),
+    linear-gradient(135deg, #08001f, #1d0757, #3c096c);
+  color: white;
+}
+
+.container {
+  width: min(1150px, 94%);
+  margin: auto;
+}
+
+header {
+  padding: 25px 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  font-weight: 900;
+}
+
+.logo-icon {
+  width: 55px;
+  height: 55px;
+  background: white;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  box-shadow: var(--shadow);
+}
+
+.header-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 800;
+  transition: transform .15s, box-shadow .15s, opacity .15s;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.small-btn {
+  padding: 10px 14px;
+  border-radius: 13px;
+  background: rgba(255,255,255,.9);
+  color: var(--text);
+}
+
+main {
+  padding-bottom: 50px;
+}
+
+.hero {
+  text-align: center;
+  padding: 25px 10px 35px;
+}
+
+.hero h1 {
+  font-size: clamp(38px, 7vw, 70px);
+  margin: 10px 0;
+  line-height: 1;
+}
+
+.hero p {
+  font-size: 20px;
+  color: var(--muted);
+  max-width: 700px;
+  margin: 15px auto;
+}
+
+body.bg-stars .hero p,
+body.bg-space .hero p {
+  color: rgba(255,255,255,.8);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stat {
+  background: var(--card);
+  padding: 17px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.stat .number {
+  display: block;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--primary);
+}
+
+.stat span:last-child {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.games {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.game-card {
+  background: var(--card);
+  border-radius: 28px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card::after {
+  content: "";
+  position: absolute;
+  width: 130px;
+  height: 130px;
+  right: -50px;
+  top: -50px;
+  border-radius: 50%;
+  background: var(--card-color, #ddd);
+  opacity: .5;
+}
+
+.game-icon {
+  font-size: 55px;
+  position: relative;
+  z-index: 1;
+}
+
+.game-card h2 {
+  margin: 8px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.game-card p {
+  color: var(--muted);
+  position: relative;
+  z-index: 1;
+}
+
+.game-card button {
+  background: var(--primary);
+  color: white;
+  padding: 13px 20px;
+  border-radius: 15px;
+  font-size: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.math-card { --card-color: #c8b6ff; }
+.memory-card { --card-color: #a0e7e5; }
+.word-card { --card-color: #ffd6a5; }
+.world-card { --card-color: #b9fbc0; }
+
+.hidden {
+  display: none !important;
+}
+
+.screen {
+  background: var(--card);
+  border-radius: 30px;
+  padding: 25px;
+  box-shadow: var(--shadow);
+}
+
+.screen-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.back-btn {
+  background: #eeeafc;
+  padding: 10px 16px;
+  border-radius: 13px;
+  color: var(--text);
+}
+
+.game-area {
+  text-align: center;
+  padding: 10px;
+}
+
+.game-area h2 {
+  font-size: 34px;
+}
+
+.question {
+  font-size: clamp(40px, 9vw, 75px);
+  font-weight: 900;
+  margin: 30px 0;
+  color: var(--primary);
+}
+
+.answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(120px, 250px));
+  justify-content: center;
+  gap: 15px;
+}
+
+.answer-btn {
+  background: white;
+  border: 4px solid #eee;
+  border-radius: 20px;
+  padding: 20px;
+  font-size: 28px;
+  color: var(--text);
+}
+
+.answer-btn:hover {
+  border-color: var(--primary);
+  background: #f8f6ff;
+}
+
+.feedback {
+  min-height: 45px;
+  font-size: 22px;
+  font-weight: 900;
+  margin: 15px;
+}
+
+.correct {
+  color: var(--success);
+}
+
+.wrong {
+  color: var(--danger);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.primary-btn {
+  background: var(--primary);
+  color: white;
+  padding: 13px 20px;
+  border-radius: 15px;
+}
+
+.secondary-btn {
+  background: #eeeafc;
+  color: var(--text);
+  padding: 13px 20px;
+  border-radius: 15px;
+}
+
+select,
+input[type="number"],
+input[type="text"] {
+  border: 2px solid #e4e0f0;
+  border-radius: 12px;
+  padding: 11px 13px;
+  font: inherit;
+  background: white;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.setting-box {
+  background: #f7f5fc;
+  padding: 18px;
+  border-radius: 18px;
+}
+
+.setting-box h3 {
+  margin-top: 0;
+}
+
+.operations {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.op-btn {
+  padding: 11px 16px;
+  border-radius: 12px;
+  background: white;
+  border: 2px solid #ddd;
+}
+
+.op-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.number-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.num-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: white;
+  border: 2px solid #ddd;
+}
+
+.num-btn.active {
+  background: var(--secondary);
+  color: white;
+  border-color: var(--secondary);
+}
+
+.timer {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--danger);
+}
+
+.progress {
+  height: 12px;
+  background: #eee;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--primary);
+  width: 0%;
+  transition: width .3s;
+}
+
+.result {
+  text-align: center;
+  padding: 30px;
+}
+
+.result .big {
+  font-size: 70px;
+}
+
+.result h2 {
+  font-size: 38px;
+}
+
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  max-width: 650px;
+  margin: 25px auto;
+}
+
+.memory-card {
+  aspect-ratio: 1;
+  border-radius: 18px;
+  background: var(--primary);
+  color: white;
+  font-size: 28px;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+}
+
+.memory-card.flipped,
+.memory-card.matched {
+  background: white;
+  color: var(--text);
+  border: 3px solid var(--primary);
+}
+
+.word-question {
+  font-size: 32px;
+  font-weight: 900;
+  margin: 30px;
+}
+
+.word-answer-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 300px));
+  justify-content: center;
+  gap: 15px;
+}
+
+.quiz-option {
+  padding: 18px;
+  border-radius: 17px;
+  background: white;
+  border: 3px solid #eee;
+  font-size: 19px;
+}
+
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  background: rgba(20,15,45,.55);
+  display: grid;
+  place-items: center;
+  padding: 15px;
+  z-index: 100;
+}
+
+.modal {
+  background: white;
+  color: var(--text);
+  width: min(800px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 28px;
+  padding: 25px;
+  box-shadow: 0 30px 80px rgba(0,0,0,.3);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close {
+  background: #eee;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.color-options,
+.bg-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.color-choice {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 4px solid white;
+  box-shadow: 0 0 0 2px #ddd;
+}
+
+.color-choice.active {
+  box-shadow: 0 0 0 3px var(--text);
+}
+
+.bg-choice {
+  min-width: 130px;
+  padding: 18px;
+  border-radius: 16px;
+  color: white;
+  font-weight: 900;
+}
+
+.bg-default { background: linear-gradient(135deg,#dff7ff,#f7e8ff,#fff3d5); color:#333; }
+.bg-stars-choice { background: linear-gradient(135deg,#17164b,#7b4ca8); }
+.bg-ocean-choice { background: linear-gradient(135deg,#8be9fd,#5390d9); }
+.bg-jungle-choice { background: linear-gradient(135deg,#b8f2c8,#168aad); }
+.bg-sunset-choice { background: linear-gradient(135deg,#ff9a8b,#9b5de5); }
+.bg-space-choice { background: linear-gradient(135deg,#08001f,#3c096c); }
+
+.admin-section {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f7f5fc;
+  border-radius: 20px;
+}
+
+.achievement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.achievement {
+  padding: 15px;
+  background: white;
+  border-radius: 16px;
+  border: 2px solid #eee;
+}
+
+.achievement.unlocked {
+  border-color: var(--accent);
+  background: #fff9dc;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+}
+
+@media(max-width: 700px) {
+  .stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .games,
+  .settings-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-board {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+  }
+
+  .memory-card {
+    font-size: 20px;
+  }
+
+  .screen {
+    padding: 17px;
+  }
+
+  .header-buttons {
+    justify-content: flex-end;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+  <div class="logo">
+    <div class="logo-icon">🎓</div>
+    <span>Lär & Spela</span>
+  </div>
+
+  <div class="header-buttons">
+    <button class="small-btn" onclick="openCustomization()">🎨 Utseende</button>
+    <button class="small-btn" onclick="openAdmin()">⚙️ Förälder</button>
+  </div>
+</header>
+
+<main>
+
+<!-- START -->
+<section id="homeScreen">
+
+  <div class="hero">
+    <div style="font-size:50px">🚀 🧠 ⭐ 🎮</div>
+    <h1>Lär & Spela!</h1>
+    <p>
+      Spela roliga spel, samla XP och träna hjärnan.
+      Hur många poäng kan du få?
+    </p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <span class="number" id="xpDisplay">0</span>
+      <span>⭐ XP</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" id="pointsDisplay">0</span>
+      <span>🏆 Poäng</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" id="streakDisplay">0</span>
+      <span>🔥 Streak</span>
+    </div>
+
+    <div class="stat">
+      <span class="number" id="gamesDisplay">0</span>
+      <span>🎮 Spelade</span>
+    </div>
+  </div>
+
+  <div class="games">
+
+    <div class="game-card math-card">
+      <div class="game-icon">🧮</div>
+      <h2>Mattejakten</h2>
+      <p>
+        Räkna addition, subtraktion, multiplikation och division.
+        Välj själv vilka tal som ska användas!
+      </p>
+      <button onclick="showMathSetup()">Starta matte</button>
+    </div>
+
+    <div class="game-card memory-card">
+      <div class="game-icon">🧠</div>
+      <h2>Minnesmatch</h2>
+      <p>
+        Hitta paren! Matcha matteuttrycket med rätt svar.
+      </p>
+      <button onclick="startMemory()">Starta minne</button>
+    </div>
+
+    <div class="game-card word-card">
+      <div class="game-icon">🔤</div>
+      <h2>Ordet är...</h2>
+      <p>
+        Läs ordet och välj rätt stavning.
+      </p>
+      <button onclick="startWordGame()">Starta ordspel</button>
+    </div>
+
+    <div class="game-card world-card">
+      <div class="game-icon">🌍</div>
+      <h2>Världskollen</h2>
+      <p>
+        Testa dina kunskaper om världen, djur, natur och roliga fakta.
+      </p>
+      <button onclick="startWorldQuiz()">Starta quiz</button>
+    </div>
+
+  </div>
+
+  <div class="game-card" style="margin-top:20px; --card-color:#ffd166;">
+    <div class="game-icon">🏅</div>
+    <h2>Mina prestationer</h2>
+    <p>Se vilka medaljer du har lyckats låsa upp.</p>
+    <button onclick="openAchievements()">Visa prestationer</button>
+  </div>
+
+</section>
+
+<!-- MATH SETUP -->
+<section id="mathSetup" class="screen hidden">
+
+  <div class="screen-header">
+    <h2>🧮 Mattejakten</h2>
+    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
+  </div>
+
+  <div class="settings-grid">
+
+    <div class="setting-box">
+      <h3>➕ Räknesätt</h3>
+
+      <div class="operations">
+        <button class="op-btn active" data-op="+" onclick="selectOperation('+')">+</button>
+        <button class="op-btn" data-op="-" onclick="selectOperation('-')">−</button>
+        <button class="op-btn" data-op="*" onclick="selectOperation('*')">×</button>
+        <button class="op-btn" data-op="/" onclick="selectOperation('/')">÷</button>
+        <button class="op-btn" data-op="all" onclick="selectOperation('all')">Alla</button>
+      </div>
+    </div>
+
+    <div class="setting-box">
+      <h3>🎯 Svårighetsgrad</h3>
+
+      <select id="difficulty">
+        <option value="easy">Lätt</option>
+        <option value="medium">Medel</option>
+        <option value="hard">Svår</option>
+        <option value="super">Super</option>
+      </select>
+    </div>
+
+    <div class="setting-box">
+      <h3>🔢 Vilka tal ska användas?</h3>
+      <p style="color:#777;margin-top:0">
+        Välj ett eller flera tal mellan 1 och 13.
+      </p>
+
+      <div class="number-buttons" id="numberButtons"></div>
+    </div>
+
+    <div class="setting-box">
+      <h3>⚙️ Spelinställningar</h3>
+
+      <label>
+        Antal frågor:
+        <select id="questionCount">
+          <option value="5">5</option>
+          <option value="10" selected>10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+        </select>
+      </label>
+
+      <br><br>
+
+      <label>
+        ⏱️ Tid per fråga:
+        <select id="timeLimit">
+          <option value="0">Ingen timer</option>
+          <option value="10">10 sekunder</option>
+          <option value="15">15 sekunder</option>
+          <option value="20">20 sekunder</option>
+          <option value="30">30 sekunder</option>
+        </select>
+      </label>
+    </div>
+
+  </div>
+
+  <div style="text-align:center;margin-top:25px">
+    <button class="primary-btn" style="font-size:20px;padding:16px 30px" onclick="startMath()">
+      🚀 Börja mattejakten!
+    </button>
+  </div>
+
+</section>
+
+<!-- MATH GAME -->
+<section id="mathGame" class="screen hidden">
+
+  <div class="screen-header">
+    <div>
+      <strong>🧮 Mattejakten</strong>
+      <div id="mathProgressText"></div>
+    </div>
+
+    <div class="timer" id="mathTimer"></div>
+  </div>
+
+  <div class="progress">
+    <div class="progress-bar" id="mathProgress"></div>
+  </div>
+
+  <div class="game-area">
+    <div class="question" id="mathQuestion">?</div>
+
+    <div class="answer-grid" id="mathAnswers"></div>
+
+    <div class="feedback" id="mathFeedback"></div>
+  </div>
+
+</section>
+
+<!-- MEMORY -->
+<section id="memoryGame" class="screen hidden">
+
+  <div class="screen-header">
+    <h2>🧠 Minnesmatch</h2>
+    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
+  </div>
+
+  <div class="game-area">
+    <p>Matcha varje matteuttryck med rätt svar.</p>
+    <div id="memoryMoves">Drag: 0</div>
+    <div class="memory-board" id="memoryBoard"></div>
+    <div class="feedback" id="memoryFeedback"></div>
+  </div>
+
+</section>
+
+<!-- WORD GAME -->
+<section id="wordGame" class="screen hidden">
+
+  <div class="screen-header">
+    <h2>🔤 Ordet är...</h2>
+    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
+  </div>
+
+  <div class="game-area">
+
+    <div id="wordProgress"></div>
+
+    <div class="word-question" id="wordQuestion"></div>
+
+    <div class="word-answer-grid" id="wordAnswers"></div>
+
+    <div class="feedback" id="wordFeedback"></div>
+
+  </div>
+
+</section>
+
+<!-- WORLD QUIZ -->
+<section id="worldGame" class="screen hidden">
+
+  <div class="screen-header">
+    <h2>🌍 Världskollen</h2>
+    <button class="back-btn" onclick="goHome()">← Tillbaka</button>
+  </div>
+
+  <div class="game-area">
+
+    <div id="worldProgress"></div>
+
+    <div class="word-question" id="worldQuestion"></div>
+
+    <div class="word-answer-grid" id="worldAnswers"></div>
+
+    <div class="feedback" id="worldFeedback"></div>
+
+  </div>
+
+</section>
+
+<!-- RESULT -->
+<section id="resultScreen" class="screen hidden">
+
+  <div class="result">
+    <div class="big" id="resultEmoji">🏆</div>
+    <h2 id="resultTitle">Bra jobbat!</h2>
+    <p id="resultText"></p>
+
+    <div class="stats" style="margin-top:25px">
+      <div class="stat">
+        <span class="number" id="resultPoints">0</span>
+        <span>Poäng</span>
+      </div>
+
+      <div class="stat">
+        <span class="number" id="resultXP">0</span>
+        <span>XP</span>
+      </div>
+    </div>
+
+    <button class="primary-btn" onclick="goHome()">🏠 Till startsidan</button>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  Lär & Spela 🎓 – träna, spela och ha kul!
+</footer>
+
+</div>
+
+<!-- CUSTOMIZATION MODAL -->
+<div class="modal-bg hidden" id="customizationModal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <h2>🎨 Anpassa sidan</h2>
+      <button class="close" onclick="closeCustomization()">×</button>
+    </div>
+
+    <h3>Välj färg</h3>
+
+    <div class="color-options">
+
+      <button class="color-choice" style="background:#7c5cff" onclick="setColor('#7c5cff')"></button>
+      <button class="color-choice" style="background:#ff6584" onclick="setColor('#ff6584')"></button>
+      <button class="color-choice" style="background:#00a896" onclick="setColor('#00a896')"></button>
+      <button class="color-choice" style="background:#f77f00" onclick="setColor('#f77f00')"></button>
+      <button class="color-choice" style="background:#118ab2" onclick="setColor('#118ab2')"></button>
+      <button class="color-choice" style="background:#ef476f" onclick="setColor('#ef476f')"></button>
+      <button class="color-choice" style="background:#06d6a0" onclick="setColor('#06d6a0')"></button>
+
+    </div>
+
+    <h3 style="margin-top:30px">🖼️ Bakgrund</h3>
+
+    <div class="bg-options">
+
+      <button class="bg-choice bg-default" onclick="setBackground('default')">
+        🌈 Färgglad
+      </button>
+
+      <button class="bg-choice bg-stars-choice" onclick="setBackground('stars')">
+        ⭐ Stjärnor
+      </button>
+
+      <button class="bg-choice bg-ocean-choice" onclick="setBackground('ocean')">
+        🌊 Hav
+      </button>
+
+      <button class="bg-choice bg-jungle-choice" onclick="setBackground('jungle')">
+        🌴 Djungel
+      </button>
+
+      <button class="bg-choice bg-sunset-choice" onclick="setBackground('sunset')">
+        🌅 Solnedgång
+      </button>
+
+      <button class="bg-choice bg-space-choice" onclick="setBackground('space')">
+        🚀 Rymden
+      </button>
+
+    </div>
+
+    <p style="margin-top:25px;color:#777">
+      Alla val sparas automatiskt på den här enheten.
+    </p>
+
+  </div>
+
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-bg hidden" id="adminModal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <h2>⚙️ Föräldraläge</h2>
+      <button class="close" onclick="closeAdmin()">×</button>
+    </div>
+
+    <div class="admin-section">
+
+      <h3>📊 Statistik</h3>
+
+      <p><strong>XP:</strong> <span id="adminXP"></span></p>
+      <p><strong>Poäng:</strong> <span id="adminPoints"></span></p>
+      <p><strong>Spelade spel:</strong> <span id="adminGames"></span></p>
+      <p><strong>Rätt svar:</strong> <span id="adminCorrect"></span></p>
+      <p><strong>Fel svar:</strong> <span id="adminWrong"></span></p>
+      <p><strong>Bästa streak:</strong> <span id="adminBestStreak"></span></p>
+
+    </div>
+
+    <div class="admin-section">
+
+      <h3>🧮 Matte – snabbinställningar</h3>
+
+      <p>
+        Standardinställningen använder de valda talen i Mattejakten.
+        Inställningarna sparas automatiskt.
+      </p>
+
+      <button class="secondary-btn" onclick="resetMathSettings()">
+        🔄 Återställ matteinställningar
+      </button>
+
+    </div>
+
+    <div class="admin-section">
+
+      <h3>🏆 Prestationer</h3>
+
+      <div class="achievement-grid" id="adminAchievements"></div>
+
+    </div>
+
+    <div class="admin-section">
+
+      <h3>⚠️ Nollställ</h3>
+
+      <button class="secondary-btn" onclick="resetProgress()">
+        🗑️ Nollställ all statistik
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ACHIEVEMENTS -->
+<div class="modal-bg hidden" id="achievementModal">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <h2>🏅 Mina prestationer</h2>
+      <button class="close" onclick="closeAchievements()">×</button>
+    </div>
+
+    <div class="achievement-grid" id="achievementList"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const defaultState = {
+  xp: 0,
+  points: 0,
+  games: 0,
+  correct: 0,
+  wrong: 0,
+  streak: 0,
+  bestStreak: 0,
+  achievements: [],
+  color: "#7c5cff",
+  background: "default",
+  math: {
+    operation: "+",
+    difficulty: "easy",
+    numbers: [1,2,3,4,5,6,7,8,9,10,11,12,13],
+    questions: 10,
+    timer: 0
+  }
+};
+
+let state = JSON.parse(localStorage.getItem("larSpelaState")) || structuredClone(defaultState);
+
+function saveState() {
+  localStorage.setItem("larSpelaState", JSON.stringify(state));
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById("xpDisplay").textContent = state.xp;
+  document.getElementById("pointsDisplay").textContent = state.points;
+  document.getElementById("streakDisplay").textContent = state.streak;
+  document.getElementById("gamesDisplay").textContent = state.games;
+}
+
+function addXP(amount) {
+  state.xp += amount;
+}
+
+function addCorrect(points = 10) {
+  state.correct++;
+  state.points += points;
+  state.xp += Math.ceil(points / 2);
+  state.streak++;
+
+  if (state.streak > state.bestStreak) {
+    state.bestStreak = state.streak;
+  }
+
+  checkAchievements();
+  saveState();
+}
+
+function addWrong() {
+  state.wrong++;
+  state.streak = 0;
+  saveState();
+}
+
+function gameFinished() {
+  state.games++;
+  checkAchievements();
+  saveState();
+}
+
+function applyAppearance() {
+  document.documentElement.style.setProperty("--primary", state.color);
+
+  document.body.className = "";
+
+  if (state.background !== "default") {
+    document.body.classList.add("bg-" + state.background);
+  }
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+const screens = [
+  "homeScreen",
+  "mathSetup",
+  "mathGame",
+  "memoryGame",
+  "wordGame",
+  "worldGame",
+  "resultScreen"
+];
+
+function showScreen(id) {
+  screens.forEach(s => {
+    document.getElementById(s).classList.add("hidden");
+  });
+
+  document.getElementById(id).classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function goHome() {
+  clearMathTimer();
+  showScreen("homeScreen");
+  updateStats();
+}
+
+/* =========================
+   MATH SETUP
+========================= */
+
+let selectedOperation = state.math.operation;
+
+function buildNumberButtons() {
+
+  const container = document.getElementById("numberButtons");
+  container.innerHTML = "";
+
+  for (let i = 1; i <= 13; i++) {
+
+    const btn = document.createElement("button");
+
+    btn.className = "num-btn";
+    btn.textContent = i;
+
+    if (state.math.numbers.includes(i)) {
+      btn.classList.add("active");
+    }
+
+    btn.onclick = () => {
+
+      if (state.math.numbers.includes(i)) {
+
+        if (state.math.numbers.length === 1) return;
+
+        state.math.numbers =
+          state.math.numbers.filter(n => n !== i);
+
+        btn.classList.remove("active");
+
+      } else {
+
+        state.math.numbers.push(i);
+        state.math.numbers.sort((a,b)=>a-b);
+
+        btn.classList.add("active");
+      }
+
+      saveState();
+    };
+
+    container.appendChild(btn);
+  }
+}
+
+function selectOperation(operation) {
+
+  selectedOperation = operation;
+  state.math.operation = operation;
+
+  document.querySelectorAll(".op-btn").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  document.querySelector(`[data-op="${operation}"]`)
+    .classList.add("active");
+
+  saveState();
+}
+
+function showMathSetup() {
+
+  showScreen("mathSetup");
+
+  document.getElementById("difficulty").value =
+    state.math.difficulty;
+
+  document.getElementById("questionCount").value =
+    state.math.questions;
+
+  document.getElementById("timeLimit").value =
+    state.math.timer;
+
+  selectedOperation = state.math.operation;
+
+  document.querySelectorAll(".op-btn").forEach(btn => {
+    btn.classList.toggle(
+      "active",
+      btn.dataset.op === selectedOperation
+    );
+  });
+
+  buildNumberButtons();
+}
+
+document.getElementById("difficulty").addEventListener("change", e => {
+  state.math.difficulty = e.target.value;
+  saveState();
+});
+
+document.getElementById("questionCount").addEventListener("change", e => {
+  state.math.questions = Number(e.target.value);
+  saveState();
+});
+
+document.getElementById("timeLimit").addEventListener("change", e => {
+  state.math.timer = Number(e.target.value);
+  saveState();
+});
+
+/* =========================
+   MATH GAME
+========================= */
+
+let mathQuestionNumber = 0;
+let mathScore = 0;
+let mathCorrect = 0;
+let currentMathAnswer = 0;
+let mathTimerInterval = null;
+let mathTimeLeft = 0;
+
+function randomItem(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateMathQuestion() {
+
+  let operation = selectedOperation;
+
+  if (operation === "all") {
+    operation = randomItem(["+","-","*","/"]);
+  }
+
+  let a = randomItem(state.math.numbers);
+  let b = randomItem(state.math.numbers);
+
+  const difficulty = state.math.difficulty;
+
+  if (difficulty === "medium") {
+    a = Math.max(a, randomItem(state.math.numbers));
+    b = Math.max(b, randomItem(state.math.numbers));
+  }
+
+  if (difficulty === "hard") {
+    a = Math.floor(Math.random() * 30) + 1;
+    b = Math.floor(Math.random() * 20) + 1;
+  }
+
+  if (difficulty === "super") {
+    a = Math.floor(Math.random() * 100) + 1;
+    b = Math.floor(Math.random() * 30) + 1;
+  }
+
+  if (operation === "-" && b > a) {
+    [a,b] = [b,a];
+  }
+
+  if (operation === "/") {
+
+    b = randomItem(state.math.numbers);
+
+    if (b === 0) b = 1;
+
+    const multiplier =
+      difficulty === "easy" ? randomItem(state.math.numbers) :
+      difficulty === "medium" ? Math.floor(Math.random()*10)+1 :
+      difficulty === "hard" ? Math.floor(Math.random()*20)+1 :
+      Math.floor(Math.random()*30)+1;
+
+    a = b * multiplier;
+  }
+
+  let answer;
+
+  if (operation === "+") answer = a + b;
+  if (operation === "-") answer = a - b;
+  if (operation === "*") answer = a * b;
+  if (operation === "/") answer = a / b;
+
+  return {
+    text: `${a} ${operation === "*" ? "×" : operation === "/" ? "÷" : operation} ${b} = ?`,
+    answer
+  };
+}
+
+function startMath() {
+
+  state.math.operation = selectedOperation;
+
+  mathQuestionNumber = 0;
+  mathScore = 0;
+  mathCorrect = 0;
+
+  showScreen("mathGame");
+
+  nextMathQuestion();
+}
+
+function nextMathQuestion() {
+
+  clearMathTimer();
+
+  if (mathQuestionNumber >= state.math.questions) {
+    finishMath();
+    return;
+  }
+
+  mathQuestionNumber++;
+
+  const q = generateMathQuestion();
+
+  currentMathAnswer = q.answer;
+
+  document.getElementById("mathQuestion").textContent = q.text;
+
+  document.getElementById("mathProgressText").textContent =
+    `Fråga ${mathQuestionNumber} av ${state.math.questions}`;
+
+  document.getElementById("mathProgress").style.width =
+    ((mathQuestionNumber - 1) / state.math.questions * 100) + "%";
+
+  document.getElementById("mathFeedback").textContent = "";
+
+  const answers = generateMathAnswers(currentMathAnswer);
+
+  const container = document.getElementById("mathAnswers");
+  container.innerHTML = "";
+
+  answers.forEach(answer => {
+
+    const btn = document.createElement("button");
+
+    btn.className = "answer-btn";
+    btn.textContent = answer;
+
+    btn.onclick = () => answerMath(answer, btn);
+
+    container.appendChild(btn);
+  });
+
+  if (state.math.timer > 0) {
+    mathTimeLeft = state.math.timer;
+    updateTimerDisplay();
+
+    mathTimerInterval = setInterval(() => {
+
+      mathTimeLeft--;
+      updateTimerDisplay();
+
+      if (mathTimeLeft <= 0) {
+        clearMathTimer();
+        timeOutMath();
+      }
+
+    }, 1000);
+
+  } else {
+    document.getElementById("mathTimer").textContent = "";
+  }
+}
+
+function generateMathAnswers(correct) {
+
+  const answers = new Set([correct]);
+
+  let attempts = 0;
+
+  while (answers.size < 4 && attempts < 100) {
+
+    attempts++;
+
+    let variation =
+      Math.floor(Math.random() * Math.max(5, Math.abs(correct) * .35 + 5));
+
+    if (variation === 0) variation = 1;
+
+    let candidate;
+
+    if (Math.random() < .5) {
+      candidate = correct + variation;
+    } else {
+      candidate = correct - variation;
+    }
+
+    if (candidate >= 0) {
+      answers.add(candidate);
+    }
+  }
+
+  return Array.from(answers).sort(() => Math.random() - .5);
+}
+
+function answerMath(answer, button) {
+
+  clearMathTimer();
+
+  document.querySelectorAll(".answer-btn").forEach(b => {
+    b.disabled = true;
+  });
+
+  if (answer === currentMathAnswer) {
+
+    button.style.borderColor = "var(--success)";
+
+    document.getElementById("mathFeedback").innerHTML =
+      '<span class="correct">🎉 Rätt!</span>';
+
+    mathScore += 10;
+    mathCorrect++;
+
+    addCorrect(10);
+
+  } else {
+
+    button.style.borderColor = "var(--danger)";
+
+    document.getElementById("mathFeedback").innerHTML =
+      `<span class="wrong">❌ Rätt svar var ${currentMathAnswer}</span>`;
+
+    addWrong();
+  }
+
+  setTimeout(nextMathQuestion, 850);
+}
+
+function timeOutMath() {
+
+  document.querySelectorAll(".answer-btn").forEach(b => {
+    b.disabled = true;
+  });
+
+  document.getElementById("mathFeedback").innerHTML =
+    `<span class="wrong">⏰ Tiden är slut! Svaret var ${currentMathAnswer}</span>`;
+
+  addWrong();
+
+  setTimeout(nextMathQuestion, 1000);
+}
+
+function updateTimerDisplay() {
+  document.getElementById("mathTimer").textContent =
+    `⏱️ ${mathTimeLeft}s`;
+}
+
+function clearMathTimer() {
+
+  if (mathTimerInterval) {
+    clearInterval(mathTimerInterval);
+    mathTimerInterval = null;
+  }
+}
+
+function finishMath() {
+
+  clearMathTimer();
+
+  gameFinished();
+
+  showResult(
+    mathScore,
+    mathCorrect,
+    state.math.questions,
+    "🧮"
+  );
+}
+
+/* =========================
+   MEMORY GAME
+========================= */
+
+let memoryCards = [];
+let memoryFirst = null;
+let memorySecond = null;
+let memoryLock = false;
+let memoryMatched = 0;
+let memoryMoves = 0;
+
+function startMemory() {
+
+  showScreen("memoryGame");
+
+  memoryFirst = null;
+  memorySecond = null;
+  memoryLock = false;
+  memoryMatched = 0;
+  memoryMoves = 0;
+
+  const pairs = [
+    ["2 + 2", "4"],
+    ["3 × 3", "9"],
+    ["10 − 4", "6"],
+    ["12 ÷ 3", "4"],
+    ["5 + 7", "12"],
+    ["6 × 2", "12"],
+    ["15 − 5", "10"],
+    ["16 ÷ 4", "4"]
+  ];
+
+  memoryCards = [];
+
+  pairs.forEach((pair, index) => {
+
+    memoryCards.push({
+      id: index,
+      pair: index,
+      text: pair[0]
+    });
+
+    memoryCards.push({
+      id: index + 100,
+      pair: index,
+      text: pair[1]
+    });
+
+  });
+
+  memoryCards.sort(() => Math.random() - .5);
+
+  renderMemory();
+}
+
+function renderMemory() {
+
+  const board = document.getElementById("memoryBoard");
+  board.innerHTML = "";
+
+  memoryCards.forEach((card, index) => {
+
+    const btn = document.createElement("button");
+
+    btn.className = "memory-card";
+
+    if (
+      card.flipped ||
+      card.matched
+    ) {
+      btn.classList.add(
+        card.matched ? "matched" : "flipped"
+      );
+
+      btn.textContent = card.text;
+
+    } else {
+      btn.textContent = "❓";
+    }
+
+    btn.onclick = () => flipMemory(index);
+
+    board.appendChild(btn);
+  });
+
+  document.getElementById("memoryMoves").textContent =
+    `Drag: ${memoryMoves}`;
+}
+
+function flipMemory(index) {
+
+  if (memoryLock) return;
+
+  const card = memoryCards[index];
+
+  if (card.flipped || card.matched) return;
+
+  card.flipped = true;
+
+  if (memoryFirst === null) {
+
+    memoryFirst = index;
+
+  } else {
+
+    memorySecond = index;
+    memoryMoves++;
+
+    memoryLock = true;
+
+    const first = memoryCards[memoryFirst];
+    const second = memoryCards[memorySecond];
+
+    if (first.pair === second.pair) {
+
+      first.matched = true;
+      second.matched = true;
+
+      memoryMatched++;
+
+      addCorrect(15);
+
+      memoryFirst = null;
+      memorySecond = null;
+      memoryLock = false;
+
+      if (memoryMatched === 8) {
+
+        gameFinished();
+
+        setTimeout(() => {
+          showResult(
+            Math.max(20, 150 - memoryMoves * 5),
+            1,
+            1,
+            "🧠"
+          );
+        }, 500);
+      }
+
+    } else {
+
+      addWrong();
+
+      setTimeout(() => {
+
+        first.flipped = false;
+        second.flipped = false;
+
+        memoryFirst = null;
+        memorySecond = null;
+        memoryLock = false;
+
+        renderMemory();
+
+      }, 800);
+    }
+  }
+
+  renderMemory();
+}
+
+/* =========================
+   WORD GAME
+========================= */
+
+const wordQuestions = [
+  {
+    question: "Vilken stavning är rätt?",
+    answers: ["Skola","Shkola","Skoola","Skolaa"],
+    correct: "Skola"
+  },
+  {
+    question: "Vilken stavning är rätt?",
+    answers: ["Elefant","Elefantt","Ellefant","Elephat"],
+    correct: "Elefant"
+  },
+  {
+    question: "Vilken stavning är rätt?",
+    answers: ["Sommar","Sommarr","Sommhar","Somar"],
+    correct: "Sommar"
+  },
+  {
+    question: "Vilken stavning är rätt?",
+    answers: ["Cykel","Sykel","Cykell","Cikel"],
+    correct: "Cykel"
+  },
+  {
+    question: "Vilken stavning är rätt?",
+    answers: ["Bibliotek","Biblioteek","Biblotek","Biblioteck"],
+    correct: "Bibliotek"
+  },
+  {
+    question: "Vilken stavning är rätt?",
+    answers: ["Dinosaurie","Dinousarie","Dinosarie","Dinosauriee"],
+    correct: "Dinosaurie"
+  }
+];
+
+let wordIndex = 0;
+let wordScore = 0;
+
+function startWordGame() {
+
+  wordIndex = 0;
+  wordScore = 0;
+
+  showScreen("wordGame");
+
+  nextWordQuestion();
+}
+
+function nextWordQuestion() {
+
+  if (wordIndex >= wordQuestions.length) {
+
+    gameFinished();
+
+    showResult(
+      wordScore,
+      wordScore / 10,
+      wordQuestions.length,
+      "🔤"
+    );
+
+    return;
+  }
+
+  const q = wordQuestions[wordIndex];
+
+  document.getElementById("wordProgress").textContent =
+    `Fråga ${wordIndex + 1} av ${wordQuestions.length}`;
+
+  document.getElementById("wordQuestion").textContent =
+    q.question;
+
+  document.getElementById("wordFeedback").textContent = "";
+
+  const container = document.getElementById("wordAnswers");
+
+  container.innerHTML = "";
+
+  q.answers
+    .sort(() => Math.random() - .5)
+    .forEach(answer => {
+
+      const btn = document.createElement("button");
+
+      btn.className = "quiz-option";
+      btn.textContent = answer;
+
+      btn.onclick = () => {
+
+        document.querySelectorAll(".quiz-option")
+          .forEach(b => b.disabled = true);
+
+        if (answer === q.correct) {
+
+          btn.style.borderColor = "var(--success)";
+
+          document.getElementById("wordFeedback").innerHTML =
+            '<span class="correct">🎉 Rätt!</span>';
+
+          wordScore += 10;
+          addCorrect(10);
+
+        } else {
+
+          btn.style.borderColor = "var(--danger)";
+
+          document.getElementById("wordFeedback").innerHTML =
+            `<span class="wrong">❌ Rätt svar är ${q.correct}</span>`;
+
+          addWrong();
+        }
+
+        wordIndex++;
+
+        setTimeout(nextWordQuestion, 800);
+      };
+
+      container.appendChild(btn);
+    });
+}
+
+/* =========================
+   WORLD QUIZ
+========================= */
+
+const worldQuestions = [
+  {
+    question: "Vilken är Sveriges huvudstad?",
+    answers: ["Stockholm","Göteborg","Malmö","Uppsala"],
+    correct: "Stockholm"
+  },
+  {
+    question: "Vilket djur kallas ofta för 'djungelns konung'?",
+    answers: ["Lejon","Elefant","Zebra","Pingvin"],
+    correct: "Lejon"
+  },
+  {
+    question: "Hur många ben har en spindel?",
+    answers: ["6","8","10","12"],
+    correct: "8"
+  },
+  {
+    question: "Vilken planet bor vi på?",
+    answers: ["Mars","Jorden","Venus","Jupiter"],
+    correct: "Jorden"
+  },
+  {
+    question: "Vilket är världens största hav?",
+    answers: ["Atlanten","Indiska oceanen","Stilla havet","Östersjön"],
+    correct: "Stilla havet"
+  },
+  {
+    question: "Vilket djur är världens största landdjur?",
+    answers: ["Giraff","Elefant","Noshörning","Flodhäst"],
+    correct: "Elefant"
+  },
+  {
+    question: "Hur många dagar har en vecka?",
+    answers: ["5","6","7","8"],
+    correct: "7"
+  },
+  {
+    question: "Vilken färg får man om man blandar blått och gult?",
+    answers: ["Grönt","Lila","Orange","Rosa"],
+    correct: "Grönt"
+  }
+];
+
+let worldIndex = 0;
+let worldScore = 0;
+
+function startWorldQuiz() {
+
+  worldIndex = 0;
+  worldScore = 0;
+
+  showScreen("worldGame");
+
+  nextWorldQuestion();
+}
+
+function nextWorldQuestion() {
+
+  if (worldIndex >= worldQuestions.length) {
+
+    gameFinished();
+
+    showResult(
+      worldScore,
+      worldScore / 10,
+      worldQuestions.length,
+      "🌍"
+    );
+
+    return;
+  }
+
+  const q = worldQuestions[worldIndex];
+
+  document.getElementById("worldProgress").textContent =
+    `Fråga ${worldIndex + 1} av ${worldQuestions.length}`;
+
+  document.getElementById("worldQuestion").textContent =
+    q.question;
+
+  document.getElementById("worldFeedback").textContent = "";
+
+  const container = document.getElementById("worldAnswers");
+
+  container.innerHTML = "";
+
+  q.answers
+    .sort(() => Math.random() - .5)
+    .forEach(answer => {
+
+      const btn = document.createElement("button");
+
+      btn.className = "quiz-option";
+      btn.textContent = answer;
+
+      btn.onclick = () => {
+
+        document.querySelectorAll("#worldAnswers .quiz-option")
+          .forEach(b => b.disabled = true);
+
+        if (answer === q.correct) {
+
+          btn.style.borderColor = "var(--success)";
+
+          document.getElementById("worldFeedback").innerHTML =
+            '<span class="correct">🎉 Rätt!</span>';
+
+          worldScore += 10;
+          addCorrect(10);
+
+        } else {
+
+          btn.style.borderColor = "var(--danger)";
+
+          document.getElementById("worldFeedback").innerHTML =
+            `<span class="wrong">❌ Rätt svar är ${q.correct}</span>`;
+
+          addWrong();
+        }
+
+        worldIndex++;
+
+        setTimeout(nextWorldQuestion, 800);
+      };
+
+      container.appendChild(btn);
+    });
+}
+
+/* =========================
+   RESULTS
+========================= */
+
+function showResult(points, correct, total, emoji) {
+
+  showScreen("resultScreen");
+
+  document.getElementById("resultEmoji").textContent = emoji;
+
+  const percentage =
+    total > 0 ? Math.round(correct / total * 100) : 100;
+
+  let title = "Bra jobbat!";
+
+  if (percentage >= 90) {
+    title = "Fantastiskt! 🌟";
+  } else if (percentage >= 70) {
+    title = "Superbra! 🎉";
+  } else if (percentage >= 50) {
+    title = "Bra kämpat! 💪";
+  } else {
+    title = "Bra försök! 🚀";
+  }
+
+  document.getElementById("resultTitle").textContent = title;
+
+  document.getElementById("resultText").textContent =
+    `Du fick ${correct} rätt av ${total}. Det blev ${points} poäng!`;
+
+  document.getElementById("resultPoints").textContent = points;
+  document.getElementById("resultXP").textContent =
+    Math.ceil(points / 2);
+
+  createConfetti();
+}
+
+/* =========================
+   ACHIEVEMENTS
+========================= */
+
+const achievements = [
+  {
+    id: "first",
+    emoji: "🎮",
+    name: "Första spelet",
+    description: "Spela ditt första spel.",
+    check: () => state.games >= 1
+  },
+  {
+    id: "ten",
+    emoji: "🏃",
+    name: "Spelräven",
+    description: "Spela 10 spel.",
+    check: () => state.games >= 10
+  },
+  {
+    id: "hundred",
+    emoji: "💯",
+    name: "100 XP",
+    description: "Samla 100 XP.",
+    check: () => state.xp >= 100
+  },
+  {
+    id: "fiveStreak",
+    emoji: "🔥",
+    name: "Het streak",
+    description: "Få 5 rätt i rad.",
+    check: () => state.bestStreak >= 5
+  },
+  {
+    id: "tenStreak",
+    emoji: "🔥🔥",
+    name: "Superstreak",
+    description: "Få 10 rätt i rad.",
+    check: () => state.bestStreak >= 10
+  },
+  {
+    id: "correct50",
+    emoji: "🎯",
+    name: "Fullträff",
+    description: "Svara rätt 50 gånger.",
+    check: () => state.correct >= 50
+  },
+  {
+    id: "xp500",
+    emoji: "👑",
+    name: "XP-mästare",
+    description: "Samla 500 XP.",
+    check: () => state.xp >= 500
+  },
+  {
+    id: "xp1000",
+    emoji: "🏆",
+    name: "Lärmästaren",
+    description: "Samla 1000 XP.",
+    check: () => state.xp >= 1000
+  }
+];
+
+function checkAchievements() {
+
+  achievements.forEach(a => {
+
+    if (
+      a.check() &&
+      !state.achievements.includes(a.id)
+    ) {
+
+      state.achievements.push(a.id);
+
+      state.xp += 25;
+
+      setTimeout(() => {
+        alert(`${a.emoji} Ny prestation!\n\n${a.name}\n${a.description}`);
+      }, 100);
+    }
+
+  });
+
+  localStorage.setItem(
+    "larSpelaState",
+    JSON.stringify(state)
+  );
+}
+
+function openAchievements() {
+
+  const container = document.getElementById("achievementList");
+
+  container.innerHTML = "";
+
+  achievements.forEach(a => {
+
+    const unlocked =
+      state.achievements.includes(a.id);
+
+    const div = document.createElement("div");
+
+    div.className =
+      "achievement" + (unlocked ? " unlocked" : "");
+
+    div.innerHTML = `
+      <div style="font-size:30px">${unlocked ? a.emoji : "🔒"}</div>
+      <strong>${a.name}</strong>
+      <p>${a.description}</p>
+      <small>${unlocked ? "Upplåst!" : "Inte upplåst ännu"}</small>
+    `;
+
+    container.appendChild(div);
+  });
+
+  document.getElementById("achievementModal")
+    .classList.remove("hidden");
+}
+
+function closeAchievements() {
+  document.getElementById("achievementModal")
+    .classList.add("hidden");
+}
+
+/* =========================
+   CUSTOMIZATION
+========================= */
+
+function openCustomization() {
+  document.getElementById("customizationModal")
+    .classList.remove("hidden");
+}
+
+function closeCustomization() {
+  document.getElementById("customizationModal")
+    .classList.add("hidden");
+}
+
+function setColor(color) {
+
+  state.color = color;
+
+  document.documentElement
+    .style.setProperty("--primary", color);
+
+  saveState();
+}
+
+function setBackground(bg) {
+
+  state.background = bg;
+
+  applyAppearance();
+  saveState();
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+function openAdmin() {
+
+  document.getElementById("adminXP").textContent = state.xp;
+  document.getElementById("adminPoints").textContent = state.points;
+  document.getElementById("adminGames").textContent = state.games;
+  document.getElementById("adminCorrect").textContent = state.correct;
+  document.getElementById("adminWrong").textContent = state.wrong;
+  document.getElementById("adminBestStreak").textContent =
+    state.bestStreak;
+
+  const container =
+    document.getElementById("adminAchievements");
+
+  container.innerHTML = "";
+
+  achievements.forEach(a => {
+
+    const unlocked =
+      state.achievements.includes(a.id);
+
+    const div = document.createElement("div");
+
+    div.className =
+      "achievement" + (unlocked ? " unlocked" : "");
+
+    div.innerHTML = `
+      ${unlocked ? a.emoji : "🔒"}
+      <strong>${a.name}</strong>
+    `;
+
+    container.appendChild(div);
+  });
+
+  document.getElementById("adminModal")
+    .classList.remove("hidden");
+}
+
+function closeAdmin() {
+  document.getElementById("adminModal")
+    .classList.add("hidden");
+}
+
+function resetMathSettings() {
+
+  state.math = structuredClone(defaultState.math);
+
+  saveState();
+
+  showMathSetup();
+}
+
+function resetProgress() {
+
+  const confirmReset =
+    confirm(
+      "Är du säker på att du vill nollställa all statistik?"
+    );
+
+  if (!confirmReset) return;
+
+  state.xp = 0;
+  state.points = 0;
+  state.games = 0;
+  state.correct = 0;
+  state.wrong = 0;
+  state.streak = 0;
+  state.bestStreak = 0;
+  state.achievements = [];
+
+  saveState();
+
+  openAdmin();
+  updateStats();
+}
+
+/* =========================
+   CONFETTI
+========================= */
+
+function createConfetti() {
+
+  const emojis = ["🎉","⭐","✨","🎈","🏆","🧠","🚀"];
+
+  for (let i = 0; i < 30; i++) {
+
+    const span = document.createElement("span");
+
+    span.textContent =
+      randomItem(emojis);
+
+    span.style.position = "fixed";
+    span.style.left =
+      Math.random() * 100 + "vw";
+
+    span.style.top = "-30px";
+    span.style.fontSize =
+      (18 + Math.random() * 22) + "px";
+
+    span.style.zIndex = "200";
+
+    span.style.transition =
+      "transform 2s ease, opacity 2s ease";
+
+    document.body.appendChild(span);
+
+    setTimeout(() => {
+
+      span.style.transform =
+        `translateY(${window.innerHeight + 100}px) rotate(${Math.random()*720}deg)`;
+
+      span.style.opacity = "0";
+
+    }, 50);
+
+    setTimeout(() => span.remove(), 2200);
+  }
+}
+
+/* =========================
+   INIT
+========================= */
+
+applyAppearance();
+updateStats();
+
+</script>
+
+</body>
+</html>
